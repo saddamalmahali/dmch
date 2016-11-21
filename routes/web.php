@@ -11,8 +11,13 @@
 |
 */
 
-Route::get('/', 'HomeController@test_template');
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+//module master
+Route::get('/barang', 'MasterController@page_barang');
+Route::post('/get_data_barang', 'MasterController@getDataBarang');
+Route::post('barang/tambah', 'MasterController@addDataBarang');

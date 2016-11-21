@@ -1,20 +1,55 @@
+$(function(){
+	$.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    }
+	});
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
+	$(document).ready(function(){
+		$('#form_barang').on('submit', function(e){
+			e.preventDefault();
+			$.ajax({
+				url : 'barang/tambah',
+				type : 'post',
+				data : $(this).serialize(),
 
-require('./bootstrap');
+				success : function(data){
+					console.log(data);
+					showMessageSuccess(data);
+					initTable();
+				}
+			})
+		});
+		initData();
+	});
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the body of the page. From here, you may begin adding components to
- * the application, or feel free to tweak this setup for your needs.
- */
+	// Barang API
+	var initData = function(){
+		initTable();
+	}
 
-Vue.component('example', require('./components/Example.vue'));
+	var initTable = function(){
+		$.ajax({
+			url : 'get_data_barang',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$("div#barangContainerTable").html(data);
+			}
+		});	
+	}
 
-const app = new Vue({
-    el: '#app'
+	var showMessageSuccess = function(data){
+		setTimeout(function() {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 4000
+            };
+            toastr.success('Berhasil!', data.message);
+
+        }, 1300);
+
+	}
 });
