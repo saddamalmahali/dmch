@@ -52,10 +52,35 @@ class MasterController extends Controller
     	return view()->make('master.barang.dialog')->render();
     }
 
-    public function hapus_barang($id){
+    public function hapus_barang($id)
+    {
     	$barang = Barang::find($id);
     	$barang->delete();
     	return redirect('barang');
+    }
+
+    public function update_barang($id)
+    {
+    	$barang = Barang::find($id);
+    	return view()->make('master.barang.update', ['barang'=>$barang])->render();
+    }
+
+    public function post_update_barang(Request $request)
+    {
+    	if($request->ajax()){
+    		$barang = Barang::find($request->input('id'));
+    		$barang->nama = $request->input('barang');
+    		$barang->jenis = $request->input('jenis');
+    		$barang->keterangan = $request->input('keterangan');
+    		$barang->id_toko = 1;
+    		$barang->save();
+
+    		$data = [
+    			'message'=>'Berhasil Update Barang'
+    		];
+
+    		return json_encode($data);
+    	}
     }
 
 }

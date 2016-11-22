@@ -23,3 +23,5 @@ Route::post('/get_data_barang', 'MasterController@getDataBarang');
 Route::post('barang/tambah', 'MasterController@addDataBarang');
 Route::get('barang/tambah_dialog', 'MasterController@tambahDialog');
 Route::get('barang/hapus/{id}', 'MasterController@hapus_barang');
+Route::get('barang/update/{id}', 'MasterController@update_barang');
+Route::post('barang/update', 'MasterController@post_update_barang');

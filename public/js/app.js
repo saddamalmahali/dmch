@@ -10,6 +10,21 @@ $(function(){
 		initData();
 	});
 
+	$(document).on('submit', 'form#form_update_barang', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'barang/update',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTable();
+				$('#modalBarang').modal('hide');
+			},
+		});
+	});
+
 	$(document).on('submit', 'form#form_barang', function(e){
 		e.preventDefault();
 		$.ajax({
@@ -51,6 +66,10 @@ $(function(){
         e.preventDefault();
     });
 
+    $('body').on('hidden.bs.modal', '#modalBarang', function () {
+		$(this).removeData('bs.modal');
+	});
+
     // $('#tambah_barang_btn').on('click', function(evt){
     // 	evt.preventDefault();
     // 	var btn = $(this);
@@ -68,6 +87,8 @@ $(function(){
     // 	});
     // 	modal.modal('show');
     // })
+    // 
+    
 
 	var initData = function(){
 		initTable();
@@ -99,7 +120,7 @@ $(function(){
                 showMethod: 'slideDown',
                 timeOut: 4000
             };
-            toastr.success('Berhasil!', data.message);
+            toastr.success(data.message, 'Berhasil!');
 
         }, 1300);
 

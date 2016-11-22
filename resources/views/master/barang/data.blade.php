@@ -20,7 +20,7 @@
 				<td>{{$barang->nama}}</td>
 				<td align="center">{{$barang->jenis}}</td>
 				<td>{{$barang->keterangan}}</td>
-				<td align="center"><a class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a> | <a class="btn btn-danger btn-sm" href="{{url('barang/hapus')."/".$barang->id}}"><i class="fa fa-trash"></i></a></td>
+				<td align="center"><a class="btn btn-primary btn-sm" href="{{url('barang/update')."/".$barang->id}}" data-toggle="modal" data-target="#modalBarang"><i class="fa fa-pencil"></i></a> | <a class="btn btn-danger btn-sm" href="{{url('barang/hapus')."/".$barang->id}}"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<?php $i++; ?>
 			@empty
