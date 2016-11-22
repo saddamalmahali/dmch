@@ -21,3 +21,5 @@ Route::get('/home', 'HomeController@index');
 Route::get('/barang', 'MasterController@page_barang');
 Route::post('/get_data_barang', 'MasterController@getDataBarang');
 Route::post('barang/tambah', 'MasterController@addDataBarang');
+Route::get('barang/tambah_dialog', 'MasterController@tambahDialog');
+Route::get('barang/hapus/{id}', 'MasterController@hapus_barang');

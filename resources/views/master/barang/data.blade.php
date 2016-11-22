@@ -1,5 +1,8 @@
+<div class="row">
+	
+</div>
 <div class="table-responsive">
-	<table class="table table-bordered">
+	<table class="table table-bordered" style="padding: 0; margin: 0;">
 		<thead>
 			<tr>
 				<th style="text-align: center;">No</th>
@@ -13,11 +16,11 @@
 			<?php $i =0; ?>
 			@forelse($data as $barang)
 			<tr>
-				<td>{{$i+1}}</td>
+				<td align="center">{{$i+1}}</td>
 				<td>{{$barang->nama}}</td>
-				<td>{{$barang->jenis}}</td>
+				<td align="center">{{$barang->jenis}}</td>
 				<td>{{$barang->keterangan}}</td>
-				<td align="center"><a class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a> | <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></td>
+				<td align="center"><a class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a> | <a class="btn btn-danger btn-sm" href="{{url('barang/hapus')."/".$barang->id}}"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<?php $i++; ?>
 			@empty
@@ -27,4 +30,6 @@
 			@endforelse
 		</tbody>
 	</table>	
+
+	<div style="padding-top: 0; margin-top: 0;text-align: center;">{{ $data->links() }}</div>
 </div>

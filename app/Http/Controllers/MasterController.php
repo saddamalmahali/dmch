@@ -47,4 +47,15 @@ class MasterController extends Controller
     	}
     }
 
+    public function tambahDialog()
+    {
+    	return view()->make('master.barang.dialog')->render();
+    }
+
+    public function hapus_barang($id){
+    	$barang = Barang::find($id);
+    	$barang->delete();
+    	return redirect('barang');
+    }
+
 }
