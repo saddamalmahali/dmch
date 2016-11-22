@@ -1,25 +1,27 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="row" style="padding-bottom: 20px;">
-	<div class="col-md-12" >
-		<div align="center">
-			<h2>DATA BARANG</h2>
+<div class="col-md-8">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>DATA BARANG</h5>
+			<div class="ibox-tools">
+				<a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                
+                <a id="tambah_barang_btn" href="{{url('barang/tambah_dialog')}}" data-toggle="modal" data-target="#modalBarang" title="Tambah Barang"><i class="fa fa-plus"></i></a>
+
+			</div>
+			
 		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="pull-right" style="padding-right: 14px; padding-bottom: 10px;">
-			<a id="tambah_barang_btn" class="btn btn-primary btn-sm" href="{{url('barang/tambah_dialog')}}" data-toggle="modal" data-target="#modalBarang" title="Tambah Barang"><i class="fa fa-plus"></i> &nbsp; Tambah Barang</a>
+		<div class="ibox-content">
+			
+			<div id="barangContainerTable">
+					
+			</div>
+
 		</div>
-	</div>
-</div>
-<div class="col-md-12">
-	
-	
-	<div id="barangContainerTable">
-		
 	</div>
 </div>
 

@@ -26,6 +26,7 @@
                 
                 <ul class="nav nav-second-level collapse">
                     <li class="{{url()->full() == url('barang') ? 'active' : ''}}"><a href="{{url('barang')}}">Barang</a></li>
+                    <li class="{{url()->full() == url('index_karyawan') ? 'active' : ''}}"><a href="{{url('index_karyawan')}}">Karyawan</a></li>
                     
                 </ul>
             </li>

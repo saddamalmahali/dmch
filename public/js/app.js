@@ -8,6 +8,7 @@ $(function(){
 	$(document).ready(function(){
 		
 		initData();
+		initTabelKaryawan();
 	});
 
 	$(document).on('submit', 'form#form_update_barang', function(e){
@@ -66,7 +67,7 @@ $(function(){
         e.preventDefault();
     });
 
-    $('body').on('hidden.bs.modal', '#modalBarang', function () {
+    $('body').on('hidden.bs.modal', '.modal', function () {
 		$(this).removeData('bs.modal');
 	});
 
@@ -125,4 +126,51 @@ $(function(){
         }, 1300);
 
 	}
+
+	// Karyawan API
+	 
+	$(document).on('submit', 'form#form_karyawan', function(e){
+		e.preventDefault();
+		console.log('form karyawan aksi');
+		$.ajax({
+			url : 'karyawan/tambah_karyawan',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelKaryawan();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
+
+	$(document).on('submit', 'form#form_update_karyawan', function(e){
+		e.preventDefault();
+		console.log('form karyawan aksi');
+		$.ajax({
+			url : 'karyawan/update_karyawan',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelKaryawan();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
+
+	var initTabelKaryawan = function(){
+		$.ajax({
+			url : 'karyawan/get_data_karyawan',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$("div#karyawanTableContainer").html(data);
+			}
+		});
+	};
 });

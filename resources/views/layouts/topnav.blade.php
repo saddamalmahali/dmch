@@ -23,9 +23,12 @@
     </nav>
     </div>
     
-    <div class="row border-bottom white-bg dashboard-header">
-        @yield('content')
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            @yield('content')
+        </div>    
     </div>
+    
 
     <div class="row">
         <div class="col-lg-12">
