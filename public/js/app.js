@@ -1,4 +1,10 @@
 $(function(){
+
+	var elementBarang = $('div#barangContainerTable');
+	var elementKaryawan = $('div#karyawanTableContainer');
+	var elementSatuan = $('div#satuanContainerTable');
+
+
 	$.ajaxSetup({
 	    headers: {
 	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -7,8 +13,16 @@ $(function(){
 
 	$(document).ready(function(){
 		
-		initData();
-		initTabelKaryawan();
+		if(elementBarang.length){
+			initData();
+		}else if(elementKaryawan.length){
+			initTabelKaryawan();
+		}else if(elementSatuan.length){
+			initTableSatuan();
+		}
+		
+		
+		
 	});
 
 	$(document).on('submit', 'form#form_update_barang', function(e){
@@ -173,4 +187,49 @@ $(function(){
 			}
 		});
 	};
+
+
+	//Menu Satuan
+	var initTableSatuan = function(){
+		$.ajax({
+			url : 'satuan/get_data_satuan',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$("div#satuanContainerTable").html(data);
+			} 
+		});
+	}
+
+	$(document).on('submit', 'form#form_satuan', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'satuan/tambah_satuan',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTableSatuan();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
+
+	$(document).on('submit', 'form#form_satuan_update', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'satuan/update_satuan',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTableSatuan();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
 });

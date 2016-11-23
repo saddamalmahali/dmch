@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-//module master
+//menu master
 Route::get('/barang', 'MasterController@page_barang');
 Route::post('/get_data_barang', 'MasterController@getDataBarang');
 Route::post('barang/tambah', 'MasterController@addDataBarang');
@@ -26,7 +26,7 @@ Route::get('barang/hapus/{id}', 'MasterController@hapus_barang');
 Route::get('barang/update/{id}', 'MasterController@update_barang');
 Route::post('barang/update', 'MasterController@post_update_barang');
 
-//module karyawan
+//menu karyawan
 Route::get('/index_karyawan', 'MasterController@index_karyawan');
 Route::get('/karyawan/tambah', 'MasterController@tambah_karyawan');
 Route::post('/karyawan/tambah_karyawan', 'MasterController@karyawan_add');
@@ -34,3 +34,12 @@ Route::post('/karyawan/get_data_karyawan', 'MasterController@get_data');
 Route::get('/karyawan/update_form/{id}', 'MasterController@update_karyawan_form');
 Route::get('/karyawan/hapus/{id}', 'MasterController@hapus_karyawan');
 Route::post('/karyawan/update_karyawan', 'MasterController@karyawan_update');
+
+//menu satuan
+Route::get('/index_satuan', 'MasterController@index_satuan');
+Route::post('/satuan/get_data_satuan', 'MasterController@get_list_satuan');
+Route::get('/satuan/tambah', 'MasterController@tambah_satuan_dialog');
+Route::get('/satuan/update_dialog/{id}', 'MasterController@update_satuan_dialog');
+Route::post('/satuan/tambah_satuan', 'MasterController@tambah_satuan');
+Route::post('/satuan/update_satuan', 'MasterController@update_satuan');
+Route::get('/satuan/delete/{id}', 'MasterController@delete_satuan');

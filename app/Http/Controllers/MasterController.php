@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Barang;
 use App\Karyawan;
+use App\Satuan;
 class MasterController extends Controller
 {
 
@@ -145,7 +146,7 @@ class MasterController extends Controller
 
             if($karyawan->save()){
                 $data = [
-                    'message'=> 'Berhasil Menambahkan Karyawan!'
+                    'message'=> 'Berhasil Update Data Karyawan!'
                 ];
 
                 return json_encode($data);
@@ -158,6 +159,76 @@ class MasterController extends Controller
         $karyawan = Karyawan::find($id);
         if($karyawan->delete()){
             return redirect('karyawan');
+        }
+    }
+
+    /* ------------- MENU SATUAN --------------- */
+    public function index_satuan()
+    {
+        return view('master.satuan.index');
+    }
+
+    public function get_list_satuan(){
+        $data = new Satuan();
+        $data = $data->paginate('9');
+
+        return response()->json(view()->make('master.satuan.data', ['data'=>$data])->render());
+    }
+
+    public function tambah_satuan_dialog()
+    {
+        return view('master.satuan.tambah');
+    }
+
+    public function tambah_satuan( Request $request)
+    {
+        if($request->ajax()){
+            $satuan = new Satuan();
+            $satuan->nama = $request->input('nama');
+            $satuan->alias = $request->input('alias');
+            $satuan->keterangan = $request->input('keterangan');
+
+            if($satuan->save()){
+                $data = [
+                    'message'=> 'Berhasil Menambahkan Satuan!'
+                ];
+
+                return json_encode($data);
+            }
+
+        }
+    }
+
+    public function update_satuan_dialog($id){
+        $satuan = Satuan::find($id);
+
+        return view()->make('master.satuan.update', ['satuan'=>$satuan])->render();
+    }
+
+    public function update_satuan(Request $request)
+    {
+        if($request->ajax()){
+            $satuan = Satuan::find($request->input('id'));
+            $satuan->nama = $request->input('nama');
+            $satuan->alias = $request->input('alias');
+            $satuan->keterangan = $request->input('keterangan');
+
+            if($satuan->save()){
+                $data = [
+                    'message'=> 'Berhasil Update Data Satuan!'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function delete_satuan($id)
+    {
+        $satuan = Satuan::find($id);
+
+        if($satuan->delete()){
+            return redirect('index_satuan');
         }
     }
 
