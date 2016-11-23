@@ -62,7 +62,7 @@ $(function(){
 	$(document).on('click', '.pagination a', function (e) {
     	var page = $(this).attr('href').split('page=')[1];
     	var url = $(this).attr('href').split('page=')[0];
-    	var obj = $("div#barangContainerTable");
+    	var obj = $("div#tableContainer");
         getPosts(url, page, obj);
         e.preventDefault();
     });
@@ -108,7 +108,7 @@ $(function(){
 			type : 'post',
 			dataType : 'json',
 			success : function(data){
-				$("div#barangContainerTable").html(data);
+				$("div#tableContainer").html(data);
 			}
 		});	
 	}
@@ -169,7 +169,7 @@ $(function(){
 			type : 'post',
 			dataType : 'json',
 			success : function(data){
-				$("div#karyawanTableContainer").html(data);
+				$("div#tableContainer").html(data);
 			}
 		});
 	};

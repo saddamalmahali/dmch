@@ -17,7 +17,7 @@
 		</div>
 		<div class="ibox-content">
 			
-			<div id="barangContainerTable">
+			<div id="tableContainer">
 					
 			</div>
 

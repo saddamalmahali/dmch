@@ -119,7 +119,7 @@ class MasterController extends Controller
     public function get_data(Request $request)
     {
         $karyawan = new Karyawan();
-        $karyawan = $karyawan->paginate('9');
+        $karyawan = $karyawan->paginate('3');
 
         if($request->ajax()){
             return response()->json(view()->make('master.karyawan.data',['data'=>$karyawan])->render());

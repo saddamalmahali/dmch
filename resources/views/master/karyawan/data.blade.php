@@ -27,4 +27,5 @@
 			@endforelse
 		</tbody>
 	</table>
+	<div style="padding-top: 0; margin-top: 0;text-align: center;">{{ $data->links() }}</div>
 </div>
