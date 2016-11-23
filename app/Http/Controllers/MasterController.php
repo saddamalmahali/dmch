@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Barang;
 use App\Karyawan;
 use App\Satuan;
+use App\KonversiSatuan;
 class MasterController extends Controller
 {
 
@@ -229,6 +230,87 @@ class MasterController extends Controller
 
         if($satuan->delete()){
             return redirect('index_satuan');
+        }
+    }
+
+    //konversi satuan
+    public function index_konversi()
+    {
+        return view('master.satuan.index_konversi');
+    }
+
+    public function data_konversi()
+    {
+        $data = new KonversiSatuan();
+        $data = $data->paginate('9');
+
+        return response()->json(view()->make('master.satuan.data_konversi', ['data'=>$data])->render());
+    }
+
+    public function tambah_konversi_dialog()
+    {
+        $satuan = Satuan::all();
+
+        return view()->make('master.satuan.tambah_konversi', ['data_satuan'=>$satuan])->render();
+    }
+
+    public function tambah_konversi(Request $request)
+    {
+        if($request->ajax())
+        {
+            $konversi = new KonversiSatuan();
+            $konversi->id_satuan = $request->input('id_satuan');
+            $konversi->nilai_satuan = $request->input('nilai_satuan');
+            $konversi->id_konversi = $request->input('id_konversi');
+            $konversi->nilai_konversi = $request->input('nilai_konversi');
+
+            if($konversi->save())
+            {
+                $data = [
+                    'message'=> 'Berhasil Tambah Data Konversi!'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function update_konversi_dialog($id)
+    {
+        $konversi = KonversiSatuan::find($id);
+        $satuan = Satuan::all();
+
+        return view()->make('master.satuan.update_konversi', ['data_satuan'=>$satuan, 'konversi'=>$konversi])->render();
+    }
+
+    public function update_konversi(Request $request)
+    {
+        if($request->ajax())
+        {
+            $konversi = KonversiSatuan::find($request->input('id'));
+            $konversi->id_satuan = $request->input('id_satuan');
+            $konversi->nilai_satuan = $request->input('nilai_satuan');
+            $konversi->id_konversi = $request->input('id_konversi');
+            $konversi->nilai_konversi = $request->input('nilai_konversi');
+
+            if($konversi->save())
+            {
+                $data = [
+                    'message'=> 'Berhasil Update Data Konversi!'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function hapus_konversi($id)
+    {
+        $konversi = KonversiSatuan::find($id);
+
+        if($konversi->delete())
+        {
+            return redirect('index_konversi');
         }
     }
 

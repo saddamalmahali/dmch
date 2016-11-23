@@ -3,6 +3,7 @@ $(function(){
 	var elementBarang = $('div#barangContainerTable');
 	var elementKaryawan = $('div#karyawanTableContainer');
 	var elementSatuan = $('div#satuanContainerTable');
+	var elementKonversi = $('div#konversiContainerTable');
 
 
 	$.ajaxSetup({
@@ -19,6 +20,8 @@ $(function(){
 			initTabelKaryawan();
 		}else if(elementSatuan.length){
 			initTableSatuan();
+		}else if(elementKonversi.length){
+			initTabelKonversi();
 		}
 		
 		
@@ -227,6 +230,50 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTableSatuan();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
+
+	//menu konversi
+	var initTabelKonversi = function(){
+		$.ajax({
+			url : 'konversi/get_data_konversi',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$("div#konversiContainerTable").html(data);
+			} 
+		});
+	};
+
+	$(document).on('submit', 'form#form_konversi', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'konversi/tambah',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelKonversi();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
+
+	$(document).on('submit', 'form#form_update_konversi', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'konversi/update_konversi',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelKonversi();
 				
 				$('.modal').modal('hide');
 			},

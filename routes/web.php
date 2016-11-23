@@ -17,7 +17,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-//menu master
+/* Modul Master */
+
+//menu barang
 Route::get('/barang', 'MasterController@page_barang');
 Route::post('/get_data_barang', 'MasterController@getDataBarang');
 Route::post('barang/tambah', 'MasterController@addDataBarang');
@@ -43,3 +45,13 @@ Route::get('/satuan/update_dialog/{id}', 'MasterController@update_satuan_dialog'
 Route::post('/satuan/tambah_satuan', 'MasterController@tambah_satuan');
 Route::post('/satuan/update_satuan', 'MasterController@update_satuan');
 Route::get('/satuan/delete/{id}', 'MasterController@delete_satuan');
+
+//menu konversi
+
+Route::get('/index_konversi', 'MasterController@index_konversi');
+Route::post('konversi/get_data_konversi', 'MasterController@data_konversi');
+Route::get('konversi/tambah_dialog', 'MasterController@tambah_konversi_dialog');
+Route::get('konversi/update/{id}', 'MasterController@update_konversi_dialog');
+Route::post('konversi/tambah', 'MasterController@tambah_konversi');
+Route::post('konversi/update_konversi', 'MasterController@update_konversi');
+Route::get('konversi/hapus/{id}', 'MasterController@hapus_konversi');
