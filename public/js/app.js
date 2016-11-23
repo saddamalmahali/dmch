@@ -46,7 +46,7 @@ $(function(){
         $.ajax({
             url : url,
             type : 'post',
-            data : {page : page, akun:$('#akunselect').val()},
+            data : {page : page},
             dataType: 'json',
         }).done(function (data) {
             obj.html(data);
@@ -108,7 +108,7 @@ $(function(){
 			type : 'post',
 			dataType : 'json',
 			success : function(data){
-				$("div#tableContainer").html(data);
+				$("div#barangContainerTable").html(data);
 			}
 		});	
 	}
@@ -169,7 +169,7 @@ $(function(){
 			type : 'post',
 			dataType : 'json',
 			success : function(data){
-				$("div#tableContainer").html(data);
+				$("div#karyawanTableContainer").html(data);
 			}
 		});
 	};

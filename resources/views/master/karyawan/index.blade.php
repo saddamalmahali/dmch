@@ -19,7 +19,9 @@
 			</div>
 			<div class="ibox-content">
 
-				<div id="tableContainer"></div>
+				<div id="tableContainer">
+					<div id="karyawanTableContainer"></div>
+				</div>
 			</div>
 		</div>
 	</div>
