@@ -4,7 +4,7 @@ $(function(){
 	var elementKaryawan = $('div#karyawanTableContainer');
 	var elementSatuan = $('div#satuanContainerTable');
 	var elementKonversi = $('div#konversiContainerTable');
-
+	var elementHargaBahan = $('div#daftarHargaContainerTable');
 
 	$.ajaxSetup({
 	    headers: {
@@ -22,9 +22,37 @@ $(function(){
 			initTableSatuan();
 		}else if(elementKonversi.length){
 			initTabelKonversi();
+		}else if(elementHargaBahan.length){
+			initTabelDaftarHarga();
 		}
 		
-		
+		$('input#id_bahan_input').autocomplete({
+			source : function(request, response){
+				$.ajax({
+					url : 'dapur/list_bahan',
+					method : 'post',
+					datatype : 'jsonp',
+					data : {term : request.term},
+					success : function(data){
+						var parsed = JSON.parse(data);
+		                var newArray = new Array(parsed.length);
+		                var i = 0;
+
+		                parsed.forEach(function (entry) {
+		                    var newObject = {
+		                    	id : entry.id,
+		                        label: entry.id+' | '+entry.nama
+		                    };
+		                    newArray[i] = newObject;
+		                    i++;
+		                });
+
+		                response(newArray);
+					}
+
+				});
+			},
+		});
 		
 	});
 
@@ -279,4 +307,19 @@ $(function(){
 			},
 		});
 	});
+
+	/* MODUL DAPUR & GUDANG */
+	//Menu Daftar Harga Barang
+	var initTabelDaftarHarga = function(){
+		$.ajax({
+			url : 'dapur/get_daftar_harga',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$("div#daftarHargaContainerTable").html(data);
+			} 
+		});
+	};
+
+	
 });

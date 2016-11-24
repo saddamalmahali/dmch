@@ -36,6 +36,7 @@
                 <a href="#"><i class="fa fa-cubes"></i> <span class="nav-label">Dapur & Gudang</span><span class="fa arrow"></span></a>
                 
                 <ul class="nav nav-second-level collapse">
+                    <li ><a href="{{url('gudang')}}">Pebl Bahan Pokok</a></li>
                     <li ><a href="">Komposisi</a></li>
                     
                 </ul>

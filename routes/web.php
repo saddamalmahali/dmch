@@ -55,3 +55,10 @@ Route::get('konversi/update/{id}', 'MasterController@update_konversi_dialog');
 Route::post('konversi/tambah', 'MasterController@tambah_konversi');
 Route::post('konversi/update_konversi', 'MasterController@update_konversi');
 Route::get('konversi/hapus/{id}', 'MasterController@hapus_konversi');
+
+
+/* ===================MODUL DAPUR & GUDANG====================== */
+Route::get('/daftar_harga', 'DapurGudangController@index_dh');
+Route::post('dapur/get_daftar_harga', 'DapurGudangController@daftar_harga');
+Route::post('dapur/list_bahan', 'DapurGudangController@list_bahan');
+Route::get('dapur/tambah_daftar_harga', 'DapurGudangController@daftar_harga_tambah_dialog');

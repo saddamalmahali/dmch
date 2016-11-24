@@ -28,7 +28,7 @@ class CreateMasterTable extends Migration
             $table->string('nama', 50);
             $table->enum('jenis', ['pokok', 'pelengkap']);
             $table->text('keterangan');
-            $table->integer('id_toko')->length(10)->unsigned();;
+            $table->integer('id_toko')->length(10)->unsigned();
             $table->timestamp('create_date');
 
             $table->foreign('id_toko')->references('id')->on('data_toko');
