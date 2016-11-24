@@ -56,6 +56,15 @@ Route::post('konversi/tambah', 'MasterController@tambah_konversi');
 Route::post('konversi/update_konversi', 'MasterController@update_konversi');
 Route::get('konversi/hapus/{id}', 'MasterController@hapus_konversi');
 
+//menu data toko
+Route::get('data_toko', 'MasterController@index_toko');
+Route::get('data_toko/tambah_dialog', 'MasterController@toko_tambah_dialog');
+Route::get('data_toko/update_form/{id}', 'MasterController@toko_update_dialog');
+Route::get('data_toko/hapus/{id}', 'MasterController@toko_hapus');
+Route::post('data_toko/get_data_toko', 'MasterController@data_toko');
+Route::post('data_toko/tambah', 'MasterController@data_toko_tambah');
+Route::post('data_toko/update', 'MasterController@data_toko_update');
+
 
 /* ===================MODUL DAPUR & GUDANG====================== */
 Route::get('/daftar_harga', 'DapurGudangController@index_dh');

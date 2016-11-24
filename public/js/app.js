@@ -5,6 +5,8 @@ $(function(){
 	var elementSatuan = $('div#satuanContainerTable');
 	var elementKonversi = $('div#konversiContainerTable');
 	var elementHargaBahan = $('div#daftarHargaContainerTable');
+	var elementDataToko = $('div#tokoContainerTable');
+
 
 	$.ajaxSetup({
 	    headers: {
@@ -24,6 +26,8 @@ $(function(){
 			initTabelKonversi();
 		}else if(elementHargaBahan.length){
 			initTabelDaftarHarga();
+		}else if(elementDataToko.length){
+			initTabelDataToko();
 		}
 		
 		$('input#id_bahan_input').autocomplete({
@@ -302,6 +306,50 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTabelKonversi();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
+
+	//Menu Data Toko
+	var initTabelDataToko = function(){
+		$.ajax({
+			url : 'data_toko/get_data_toko',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$("div#tokoContainerTable").html(data);
+			} 
+		});
+	};
+
+	$(document).on('submit', 'form#form_tambah_toko', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'data_toko/tambah',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelDataToko();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
+
+	$(document).on('submit', 'form#form_update_toko', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'data_toko/update',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelDataToko();
 				
 				$('.modal').modal('hide');
 			},

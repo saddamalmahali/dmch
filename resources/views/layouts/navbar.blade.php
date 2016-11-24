@@ -25,6 +25,7 @@
                 <a href="#"><i class="fa fa-database"></i> <span class="nav-label">Master Data</span><span class="fa arrow"></span></a>
                 
                 <ul class="nav nav-second-level collapse">
+                    <li class="{{url()->full() == url('data_toko') ? 'active' : ''}}"><a href="{{url('data_toko')}}">Data Toko</a></li>
                     <li class="{{url()->full() == url('barang') ? 'active' : ''}}"><a href="{{url('barang')}}">Barang</a></li>
                     <li class="{{url()->full() == url('index_karyawan') ? 'active' : ''}}"><a href="{{url('index_karyawan')}}">Karyawan</a></li>
                     <li class="{{url()->full() == url('index_satuan') ? 'active' : ''}}"><a href="{{url('index_satuan')}}">Satuan</a></li>

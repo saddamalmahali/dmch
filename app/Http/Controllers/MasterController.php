@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Barang;
 use App\Karyawan;
 use App\Satuan;
+use App\DataToko;
 use App\KonversiSatuan;
 class MasterController extends Controller
 {
@@ -311,6 +312,81 @@ class MasterController extends Controller
         if($konversi->delete())
         {
             return redirect('index_konversi');
+        }
+    }
+
+    public function index_toko()
+    {
+        return view('master.data_toko.index');
+    }
+
+    public function data_toko(Request $request)
+    {   
+        if($request->ajax()){
+            $data= new DataToko();
+            $data = $data->paginate('5');
+
+            return response()->json(view()->make('master.data_toko.data', ['data'=>$data])->render());
+
+
+        }
+    }
+
+    public function toko_tambah_dialog()
+    {
+        return view()->make('master.data_toko.tambah_dialog');
+    }
+
+    public function data_toko_tambah(Request $request)
+    {
+        if($request->ajax()){
+            $toko = new DataToko();
+            $toko->kode = $request->input('kode');
+            $toko->nama = $request->input('nama');
+            $toko->alamat = $request->input('alamat');
+            $toko->kecamatan = $request->input('kecamatan');
+
+            if($toko->save()){
+                $data = [
+                    'message'=> 'Berhasil Menambahkan Toko!'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function toko_update_dialog($id)
+    {
+        $toko = DataToko::find($id);
+
+        return view()->make('master.data_toko.update_dialog', ['toko'=>$toko]);
+    }
+
+    public function data_toko_update(Request $request)
+    {
+        if($request->ajax()){
+            $toko = DataToko::find($request->input('id'));
+            $toko->kode = $request->input('kode');
+            $toko->nama = $request->input('nama');
+            $toko->alamat = $request->input('alamat');
+            $toko->kecamatan = $request->input('kecamatan');
+
+            if($toko->save()){
+                $data = [
+                    'message'=> 'Berhasil Update Toko!'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function toko_hapus($id)
+    {
+        $toko = DataToko::find($id);
+        if($toko->delete()){
+            return redirect('data_toko');
         }
     }
 
