@@ -15,13 +15,19 @@
 
     <!-- Toastr style -->
     <link href="{{URL::asset('css/plugins/toastr/toastr.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/plugins/jQueryUI/jquery-ui.css')}}" rel="stylesheet">
 
     <!-- Gritter -->
     <link href="{{URL::asset('js/plugins/gritter/jquery.gritter.css')}}" rel="stylesheet">
 
     <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/app.css')}}" rel="stylesheet">
 
+    {{-- Script --}}
+    <script src="js/jquery-2.1.1.js"></script>
+    <!-- jQuery UI -->
+    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
 </head>
 
 <body>
@@ -36,7 +42,7 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="js/jquery-2.1.1.js"></script>
+    
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -56,8 +62,7 @@
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
 
-    <!-- jQuery UI -->
-    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    
 
     <!-- GITTER -->
     <script src="js/plugins/gritter/jquery.gritter.min.js"></script>

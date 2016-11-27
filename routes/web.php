@@ -67,7 +67,19 @@ Route::post('data_toko/update', 'MasterController@data_toko_update');
 
 
 /* ===================MODUL DAPUR & GUDANG====================== */
+//menu daftar harga
 Route::get('/daftar_harga', 'DapurGudangController@index_dh');
 Route::post('dapur/get_daftar_harga', 'DapurGudangController@daftar_harga');
 Route::post('dapur/list_bahan', 'DapurGudangController@list_bahan');
+Route::post('dapur/list_satuan', 'DapurGudangController@list_satuan');
+Route::post('daftar_harga/tambah', 'DapurGudangController@daftar_harga_tambah');
 Route::get('dapur/tambah_daftar_harga', 'DapurGudangController@daftar_harga_tambah_dialog');
+
+//menu beli bahan
+Route::get('beli_bahan', 'DapurGudangController@index_beli_bahan');
+Route::get('beli_bahan/tambah_dialog', 'DapurGudangController@tambah_dialog_beli_bahan');
+Route::post('beli_bahan/get_data', 'DapurGudangController@list_beli_bahan');
+Route::post('beli_bahan/list_satuan', 'DapurGudangController@list_satuan_2');
+Route::post('beli_bahan/tambah', 'DapurGudangController@tambah_beli_bahan');
+Route::post('beli_bahan/hapus', 'DapurGudangController@hapus_beli_bahan');
+Route::get('beli_bahan/view/{id}', 'DapurGudangController@view_beli_bahan');

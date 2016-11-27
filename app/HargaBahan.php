@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class HargaBahan extends Model
 {
     protected $table = 'harga_bahan';
@@ -26,7 +26,22 @@ class HargaBahan extends Model
     public function getAllBarangByName($nama)
     {
     	$barang = new Barang();
-    	$barang->where('nama', 'like', "%".$nama."%")->select('id', 'nama')->get();
+    	$barang = $barang->where('nama', 'like', "%".$nama."%")->select('id', 'nama')->get();
     	return $barang;
     }
+
+    public function getAllSatuanByName($nama)
+    {
+        $satuan = new Satuan();
+        $satuan = $satuan->where('nama', 'like', "%". $nama."%")->select('id', 'nama')->get();
+        return $satuan;
+    }
+
+    public function getAllSatuanAliasByName($nama)
+    {
+        $satuan = new Satuan();
+        $satuan = $satuan->where('nama', 'like', "%". $nama."%")->select('id', 'alias')->get();
+        return $satuan;
+    }
+    
 }

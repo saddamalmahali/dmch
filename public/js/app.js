@@ -6,6 +6,7 @@ $(function(){
 	var elementKonversi = $('div#konversiContainerTable');
 	var elementHargaBahan = $('div#daftarHargaContainerTable');
 	var elementDataToko = $('div#tokoContainerTable');
+	var elementBeliBahan = $('div#pembelianBahanContainerTable');
 
 
 	$.ajaxSetup({
@@ -28,35 +29,11 @@ $(function(){
 			initTabelDaftarHarga();
 		}else if(elementDataToko.length){
 			initTabelDataToko();
+		}else if(elementBeliBahan.length){
+			initTableBeliBahan();
 		}
 		
-		$('input#id_bahan_input').autocomplete({
-			source : function(request, response){
-				$.ajax({
-					url : 'dapur/list_bahan',
-					method : 'post',
-					datatype : 'jsonp',
-					data : {term : request.term},
-					success : function(data){
-						var parsed = JSON.parse(data);
-		                var newArray = new Array(parsed.length);
-		                var i = 0;
-
-		                parsed.forEach(function (entry) {
-		                    var newObject = {
-		                    	id : entry.id,
-		                        label: entry.id+' | '+entry.nama
-		                    };
-		                    newArray[i] = newObject;
-		                    i++;
-		                });
-
-		                response(newArray);
-					}
-
-				});
-			},
-		});
+		
 		
 	});
 
@@ -369,5 +346,72 @@ $(function(){
 		});
 	};
 
+	$(document).on('submit', 'form#form_harga_barang', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'daftar_harga/tambah',
+			type : 'post',
+			data : {
+						_token : $('input[name=_token]').val(),
+						kode : $('input#kode_bahan').val(),
+						id_barang : $('input#id_bahan_input').attr('value'),
+						id_satuan : $('input#id_satuan_input').attr('value'),
+						harga : $('input#harga_bahan_input').val(),
+						keterangan : $('#keterangan_dapur_input').val()
+					},
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelDaftarHarga();
+
+				$('.modal').modal('hide');
+			}
+		});
+	});
+
+	// Menu Pembelian Bahan
+	var initTableBeliBahan = function(){
+		$.ajax({
+			url : 'beli_bahan/get_data',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$('div#pembelianBahanContainerTable').html(data);
+			}
+		});
+	}
+
+	$(document).on('submit', 'form#form_beli_bahan', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'beli_bahan/tambah',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTableBeliBahan();
+
+				$('.modal').modal('hide');
+			}
+		});
+	});
+
+	$(document).on('click', 'a.btn_beli_bahan_hapus', function(e){
+		e.preventDefault();
+		if(confirm('Apakah Yakin Akan Menghapus Data?')){
+			var id_beli = $(this).attr('value');
+			$.ajax({
+				url : 'beli_bahan/hapus',
+				type : 'post',
+				data : {id : id_beli},
+				dataType : 'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTableBeliBahan();
+				}
+			});
+		}
+	});
 	
 });

@@ -1,0 +1,31 @@
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th style="text-align: center;">No</th>
+				<th style="text-align: center;">No Nota</th>
+				<th style="text-align: center;">Tanggal</th>
+				<th style="text-align: center;">Keterangan</th>
+				<th style="text-align: center;">Opsi</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<?php $i = 0; ?>
+			@forelse($data as $beli_bahan)
+				<tr>
+					<td align="center">{{$i+1}}</td>
+					<td align="center">{{$beli_bahan->kode_beli}}</td>
+					<td align="center">{{date('d/m/Y', strtotime($beli_bahan->tanggal_beli))}}</td>
+					<td>{{$beli_bahan->keterangan}}</td>
+					<td align="center"><a value="{{$beli_bahan->id}}"  class="btn btn-danger btn-circle btn_beli_bahan_hapus"><i class="fa fa-close"></i></a> <a href="{{url('beli_bahan/view').'/'.$beli_bahan->id}}" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#modalBeliBahan" title="Lihat Detile Pembelian"><i class="fa fa-search" ></i></a></td>
+				</tr>
+				<?php $i++; ?>
+			@empty
+				<tr>
+					<td colspan="5" align="center">Tidak Ada Data</td>
+				</tr>
+			@endforelse
+		</tbody>
+	</table>
+</div>
