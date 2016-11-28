@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-12">
 			<div class="ibox">
 				<div class="ibox-title">
 					<h5>Data Pembelian Bahan</h5>

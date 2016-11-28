@@ -11,7 +11,17 @@
 	{{ csrf_field() }}
 	<div class="row">
 		<div class="col-md-4">
-			
+			<div class="form-group">
+				<label>Toko</label>
+				<select id="input_id_toko" name="id_toko" class="form-control">
+					<option value="">Pilih Peruntukan Toko</option>
+					@forelse($data_toko as $toko)
+						<option value="{{$toko->id}}">{{$toko->kode.' | '.$toko->nama}}</option>
+					@empty
+
+					@endforelse
+				</select>
+			</div>
 			<div class="form-group">
 				<label>No. Nota</label>
 				<input type="text" id="kode_beli_bahan_input" name="kode_beli" placeholder="Input Kode Bahan" class="form-control">

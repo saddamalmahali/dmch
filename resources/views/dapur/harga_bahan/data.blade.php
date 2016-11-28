@@ -20,11 +20,11 @@
 			@forelse($data as $harga)
 			<tr>
 				<td align="center">{{$i+1}}</td>
-				<td>{{$harga->kode}}</td>
+				<td align="center">{{$harga->kode}}</td>
 				<td align="center">{{$harga->barang->nama}}</td>
 				<td align="center">{{$harga->satuan->alias}}</td>
-				<td align="center">Rp. {{number_format($harga->harga)}},-</td>
-				<td>{{$harga->keterangan}}</td>
+				<td align="center" width="20%">Rp. {{number_format($harga->harga)}},-</td>
+				<td align="center">{{$harga->keterangan}}</td>
 				<td align="center"> <a class="btn btn-danger btn-circle" href="{{url('harga_bahan/hapus')."/".$harga->id}}"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<?php $i++; ?>

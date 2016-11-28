@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\HargaBahan;
 use App\Barang;
 use App\Satuan;
+use App\DataToko;
 use App\BeliBahan;
 use App\BeliBahanDetile;
 
@@ -122,13 +123,16 @@ class DapurGudangController extends Controller
         {
             $data = new BeliBahan();
             $data = $data->paginate('10');
+            
             return response()->json(view()->make('dapur.beli_bahan.data', ['data'=>$data])->render());
         }
     }
 
     public function tambah_dialog_beli_bahan()
     {
-        return view()->make('dapur.beli_bahan.form_tambah')->render();
+        $data_toko = new DataToko();
+        $data_toko = $data_toko->get();
+        return view()->make('dapur.beli_bahan.form_tambah', ['data_toko'=>$data_toko])->render();
     }
 
     public function tambah_beli_bahan(Request $request)
@@ -137,6 +141,7 @@ class DapurGudangController extends Controller
         {
             
             $beli_bahan = new BeliBahan();
+            $beli_bahan->id_toko = $request->input('id_toko');
             $beli_bahan->kode_beli = $request->input('kode_beli');
             $beli_bahan->tanggal_beli = $request->input('tanggal_beli');
             $beli_bahan->keterangan = $request->input('keterangan');
@@ -157,6 +162,7 @@ class DapurGudangController extends Controller
                             if($harga_bahan != null){
 
                                 $harga_bahan->harga = $detile_beli->harga;
+                                $harga_bahan->keterangan = 'Harga Pembelian Terakhir'.date('d/m/Y', strtotime($beli_bahan->tanggal_beli));
                                 $harga_bahan->save();
                             }else{
                                 $harga_bahan = new HargaBahan();
@@ -164,7 +170,7 @@ class DapurGudangController extends Controller
                                 $harga_bahan->id_barang = $detile_beli->id_barang;
                                 $harga_bahan->id_satuan = $detile_beli->id_satuan;
                                 $harga_bahan->harga = $detile_beli->harga;
-                                $harga_bahan->keterangan = 'Harga Pembelian Terakhir';
+                                $harga_bahan->keterangan = 'Harga Pembelian Terakhir'.date('d/m/Y', strtotime($beli_bahan->tanggal_beli));
                                 $harga_bahan->save();
                             }
 

@@ -27,9 +27,12 @@ class TblBeliBahan extends Migration
         if (! Schema::hasTable('beli_bahan')) {
             Schema::create('beli_bahan', function(Blueprint $table){
                 $table->increments('id');
+                $table->integer('id_toko')->length(10)->unsigned();
                 $table->string('kode_beli', 20);
                 $table->date('tanggal_beli');
                 $table->text('keterangan');
+
+                $table->foreign('id_toko')->references('id')->on('data_toko');
 
             });
         }
