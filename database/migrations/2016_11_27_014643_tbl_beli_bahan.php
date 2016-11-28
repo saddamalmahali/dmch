@@ -24,22 +24,41 @@ class TblBeliBahan extends Migration
         //     $table->foreign('id_toko')->references('id')->on('data_toko');
 
         // });
-        Schema::create('beli_bahan', function(Blueprint $table){
-            $table->increments('id');
-            $table->string('kode_beli', 20);
-            $table->date('tanggal_beli');
-            $table->text('keterangan');
+        if (! Schema::hasTable('beli_bahan')) {
+            Schema::create('beli_bahan', function(Blueprint $table){
+                $table->increments('id');
+                $table->string('kode_beli', 20);
+                $table->date('tanggal_beli');
+                $table->text('keterangan');
 
-        });
+            });
+        }
+        
+        if (! Schema::hasTable('beli_bahan_detile')) {
+            Schema::create('beli_bahan_detile', function(Blueprint $table){
+                $table->increments('id');
+                $table->integer('id_beli')->length(10)->unsigned();
+                $table->integer('id_barang')->length(10)->unsigned();
+                $table->double('besaran', 8, 2);
+                $table->integer('id_satuan')->length(10)->unsigned();
+                $table->double('harga', 8, 2);
+            });
+        }
 
-        Schema::create('beli_bahan_detile', function(Blueprint $table){
-            $table->increments('id');
-            $table->integer('id_beli')->length(10)->unsigned();
-            $table->integer('id_barang')->length(10)->unsigned();
-            $table->double('besaran', 8, 2);
-            $table->integer('id_satuan')->length(10)->unsigned();
-            $table->double('harga', 8, 2);
-        });
+        if (! Schema::hasTable('harga_bahan')) {
+            Schema::create('harga_bahan', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('kode', 50);
+                $table->integer('id_barang')->length(10)->unique()->unsigned();
+                $table->integer('id_satuan')->length(10)->unsigned();
+                $table->double('harga', 15, 2);
+                $table->text('keterangan');
+                $table->foreign('id_barang')->references('id')->on('barang');
+                $table->foreign('id_satuan')->references('id')->on('satuan');
+              
+            });
+        }
+        
     }
 
     /**
@@ -49,6 +68,8 @@ class TblBeliBahan extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('beli_bahan');
+        Schema::dropIfExists('beli_bahan_detile');
+        Schema::dropIfExists('harga_bahan');
     }
 }

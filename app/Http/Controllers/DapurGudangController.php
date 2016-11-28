@@ -152,7 +152,23 @@ class DapurGudangController extends Controller
                         $detile_beli->id_satuan = BeliBahanDetile::getIdSatuanByAlias($detile['id_satuan']);
                         $detile_beli->harga = $detile['harga'];
 
-                        $detile_beli->save();
+                        if($detile_beli->save()){
+                            $harga_bahan = HargaBahan::where('id_barang', '=', $detile_beli->id_barang)->first();
+                            if($harga_bahan != null){
+
+                                $harga_bahan->harga = $detile_beli->harga;
+                                $harga_bahan->save();
+                            }else{
+                                $harga_bahan = new HargaBahan();
+                                $harga_bahan->kode = $harga_bahan->generateAutoNumber();
+                                $harga_bahan->id_barang = $detile_beli->id_barang;
+                                $harga_bahan->id_satuan = $detile_beli->id_satuan;
+                                $harga_bahan->harga = $detile_beli->harga;
+                                $harga_bahan->keterangan = 'Harga Pembelian Terakhir';
+                                $harga_bahan->save();
+                            }
+
+                        }
                     }
                 }
 

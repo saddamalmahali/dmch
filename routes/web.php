@@ -73,7 +73,7 @@ Route::post('dapur/get_daftar_harga', 'DapurGudangController@daftar_harga');
 Route::post('dapur/list_bahan', 'DapurGudangController@list_bahan');
 Route::post('dapur/list_satuan', 'DapurGudangController@list_satuan');
 Route::post('daftar_harga/tambah', 'DapurGudangController@daftar_harga_tambah');
-Route::get('dapur/tambah_daftar_harga', 'DapurGudangController@daftar_harga_tambah_dialog');
+// Route::get('dapur/tambah_daftar_harga', 'DapurGudangController@daftar_harga_tambah_dialog');
 
 //menu beli bahan
 Route::get('beli_bahan', 'DapurGudangController@index_beli_bahan');

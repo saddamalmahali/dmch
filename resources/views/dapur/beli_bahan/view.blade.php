@@ -28,11 +28,6 @@
     						<td>{{date('d/m/Y', strtotime($beli_bahan->tanggal_beli))}}</td>    						
     					</tr>
     					<tr>
-    						<td>Jumlah Pembelian</td>
-    						<td>:</td>
-    						<td>{{number_format($jumlah)}}</td>    						
-    					</tr>
-    					<tr>
     						<td>Keterangan</td>
     						<td>:</td>
     						<td>{{$beli_bahan->keterangan}}</td>    						
@@ -56,7 +51,8 @@
 									<th style="text-align: center;">Nama Barang</th>
 									<th style="text-align: center;">Banyak</th>
 									<th style="text-align: center;">Harga</th>
-
+									<th style="text-align: center;">Jumlah</th>
+									
 								</tr>
 							</thead>
 							<tbody>
@@ -67,8 +63,9 @@
 										<td>{{$detile->barang->nama}}</td>
 										<td align="center">{{number_format($detile->besaran).' '.$detile->satuan->alias}}</td>
 										<td align="center">Rp. {{ number_format($detile->harga) }},-</td>
+										<td align="center">Rp. {{ number_format($detile->besaran*$detile->harga) }},-</td>
 									</tr>
-									<?php $i++; $jumlah = $jumlah+$detile->harga; ?>
+									<?php $i++; $jumlah = $jumlah+($detile->besaran*$detile->harga); ?>
 								@empty
 
 								@endforelse

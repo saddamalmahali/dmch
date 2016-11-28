@@ -10,7 +10,6 @@
 	                    <i class="fa fa-chevron-up"></i>
 	                </a>
 	                
-	                <a id="tambah_barang_btn" href="{{url('dapur/tambah_daftar_harga')}}" data-toggle="modal" data-target="#modalDaftarHarga" title="Tambah Daftar Harga Barang"><i class="fa fa-plus"></i></a>
 
 				</div>
 				

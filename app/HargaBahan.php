@@ -43,5 +43,23 @@ class HargaBahan extends Model
         $satuan = $satuan->where('nama', 'like', "%". $nama."%")->select('id', 'alias')->get();
         return $satuan;
     }
+
+    public function generateAutoNumber(){
+        $data = DB::table('harga_bahan')
+                ->max('kode');
+
+        if($data != null){
+            $no_akhir = (int) substr($data, 3 , 3);
+
+            $no_akhir++;
+
+            // $no = 'M'.sprintf("%04s", $noakhir);
+            $no = 'HB-'.sprintf("%03s", $no_akhir);
+
+            return $no;
+        }else{
+            return 'HB-001';
+        }
+    }
     
 }
