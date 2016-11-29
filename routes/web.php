@@ -68,6 +68,9 @@ Route::post('data_toko/update', 'MasterController@data_toko_update');
 //menu jenis dan donat
 Route::get('index_donat', 'MasterController@index_donat');
 Route::post('donat/data_jenis', 'MasterController@data_jenis');
+Route::post('donat/get_tabel_data_jenis', 'MasterController@tabel_data_jenis');
+Route::post('donat/data_donat', 'MasterController@data_donat');
+Route::post('donat/get_tabel_data_donat', 'MasterController@tabel_data_donat');
 
 
 /* ===================MODUL DAPUR & GUDANG====================== */

@@ -397,7 +397,32 @@ class MasterController extends Controller
 
     public function data_jenis()
     {
-        
+        return response()->json(view()->make('master.donat.data_jenis')->render());
+    }
+
+    public function tabel_data_jenis()
+    {
+        return response()->json(view()->make('master.donat.tabel_data_jenis')->render());
+    }
+
+    public function data_donat()
+    {
+        return $this->responseAsJson('master.donat.data_donat');
+    }
+
+    public function tabel_data_donat()
+    {
+        return $this->responseAsJson('master.donat.tabel_data_donat');
+    }
+
+    private function responseAsJson($page, $data = [])
+    {
+        if($data != null){
+
+        }else{
+            return response()->json(view()->make($page)->render());
+        }
+
     }
 
 }
