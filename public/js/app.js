@@ -414,6 +414,53 @@ $(function(){
 		}
 	});
 
+	//Menu Donat
+	$(document).on('submit', 'form#form_jenis_donat', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'donat/tambah_jenis',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTableJenisDonat();
 
+				$('.modal').modal('hide');
+			}
+		});
+	});
+
+	$(document).on('submit', 'form#form_update_jenis_donat', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'donat/update_jenis',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTableJenisDonat();
+
+				$('.modal').modal('hide');
+			}
+		});
+	});
+
+	$(document).on('click', 'a.btn_hapus_data_jenis', function(e){
+		e.preventDefault();
+		if(confirm('Apakah anda Yakin akan menghapus data ?')){
+			$.ajax({
+				url : 'donat/hapus_jenis',
+				type : 'post',
+				data : {id : $(this).attr('id')},
+				dataType : 'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTableJenisDonat();
+				}
+			});
+		}	
+	});
 	
 });

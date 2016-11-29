@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Barang;
 use App\Karyawan;
+use App\JenisDonat;
 use App\Satuan;
 use App\DataToko;
 use App\KonversiSatuan;
@@ -402,7 +403,9 @@ class MasterController extends Controller
 
     public function tabel_data_jenis()
     {
-        return response()->json(view()->make('master.donat.tabel_data_jenis')->render());
+        $jenis_donat = new JenisDonat();
+        $jenis_donat = $jenis_donat->paginate('5');
+        return response()->json(view()->make('master.donat.tabel_data_jenis', ['jenis_donat'=>$jenis_donat])->render());
     }
 
     public function data_donat()
@@ -412,7 +415,84 @@ class MasterController extends Controller
 
     public function tabel_data_donat()
     {
-        return $this->responseAsJson('master.donat.tabel_data_donat');
+        
+        return $this->responseAsJson('master.donat.tabel_data_donat' );
+    }
+
+    public function tambah_jenis_dialog()
+    {
+        $kode_jenis = JenisDonat::generateKodeJenis();
+        return $this->responseAsRender('master.donat.dialog_tambah_jenis', ['kode_jenis'=>$kode_jenis]);
+    }
+
+    public function update_jenis_dialog($id)
+    {
+        $jenis_donat = JenisDonat::find($id);
+
+        return $this->responseAsRender('master.donat.dialog_update_jenis', ['jenis_donat'=>$jenis_donat]);
+    }
+
+    public function tambah_jenis_donat(Request $request)
+    {
+        if($request->ajax())
+        {
+            $jenis_donat = new JenisDonat();
+            $jenis_donat->kode = $request->input('kode');
+            $jenis_donat->nama = $request->input('nama');
+            $jenis_donat->keterangan = $request->input('keterangan');
+
+            if($jenis_donat->save()){
+                $data = [
+                    'message'=> 'Berhasil Tambah Jenis!'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function update_jenis_donat(Request $request)
+    {
+        if($request->ajax())
+        {
+            $jenis_donat = JenisDonat::find($request->input('id'));
+            $jenis_donat->kode = $request->input('kode');
+            $jenis_donat->nama = $request->input('nama');
+            $jenis_donat->keterangan = $request->input('keterangan');
+
+            if($jenis_donat->save()){
+                $data = [
+                    'message'=> 'Berhasil Update Jenis!'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function hapus_jenis_donat(Request $request)
+    {
+        if($request->ajax())
+        {
+            $jenis_donat = JenisDonat::find($request->input('id'));
+
+            if($jenis_donat->delete()){
+                $data = [
+                    'message'=> 'Berhasil Hapus Jenis Donat!'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    private function responseAsRender($page, $data = [])
+    {
+        if($data != null){
+            return view()->make($page, $data)->render();
+        }else{
+            return view()->make($page)->render();
+        }
     }
 
     private function responseAsJson($page, $data = [])
@@ -424,5 +504,7 @@ class MasterController extends Controller
         }
 
     }
+
+
 
 }
