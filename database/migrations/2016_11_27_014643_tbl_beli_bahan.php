@@ -61,6 +61,7 @@ class TblBeliBahan extends Migration
               
             });
         }
+
         
     }
 

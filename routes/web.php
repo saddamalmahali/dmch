@@ -65,6 +65,10 @@ Route::post('data_toko/get_data_toko', 'MasterController@data_toko');
 Route::post('data_toko/tambah', 'MasterController@data_toko_tambah');
 Route::post('data_toko/update', 'MasterController@data_toko_update');
 
+//menu jenis dan donat
+Route::get('index_donat', 'MasterController@index_donat');
+Route::post('donat/data_jenis', 'MasterController@data_jenis');
+
 
 /* ===================MODUL DAPUR & GUDANG====================== */
 //menu daftar harga

@@ -19,6 +19,9 @@
 
     <!-- Gritter -->
     <link href="{{URL::asset('js/plugins/gritter/jquery.gritter.css')}}" rel="stylesheet">
+    <!-- Load CSS -->
+    {{-- <link href="{{URL::asset('css/plugins/css-loaders/css/fallback.css')}}" rel="stylesheet"> --}}
+    <link href="{{URL::asset('css/plugins/css-loaders/css/load5.css')}}" rel="stylesheet">
 
     <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">

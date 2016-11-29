@@ -30,6 +30,9 @@
                     <li class="{{url()->full() == url('index_karyawan') ? 'active' : ''}}"><a href="{{url('index_karyawan')}}">Karyawan</a></li>
                     <li class="{{url()->full() == url('index_satuan') ? 'active' : ''}}"><a href="{{url('index_satuan')}}">Satuan</a></li>
                     <li class="{{url()->full() == url('index_konversi') ? 'active' : ''}}"><a href="{{url('index_konversi')}}">Konversi Satuan</a></li>
+
+                    <li class="divider"></li>
+                    <li class="{{url()->full() == url('index_donat') ? 'active' : ''}}"><a href="{{url('index_donat')}}">Donat</a></li>
                     
                 </ul>
             </li>

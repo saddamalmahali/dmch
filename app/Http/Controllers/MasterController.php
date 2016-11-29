@@ -390,4 +390,14 @@ class MasterController extends Controller
         }
     }
 
+    public function index_donat()
+    {
+        return view('master.donat.index');
+    }
+
+    public function data_jenis()
+    {
+        
+    }
+
 }
