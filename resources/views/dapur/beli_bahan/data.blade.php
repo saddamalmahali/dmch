@@ -43,7 +43,7 @@
 				<?php $i++; ?>
 			@empty
 				<tr>
-					<td colspan="6" align="center">Tidak Ada Data</td>
+					<td colspan="7" align="center">Tidak Ada Data</td>
 				</tr>
 			@endforelse
 		</tbody>
