@@ -233,4 +233,5 @@ class DapurGudangController extends Controller
 
         return view()->make('dapur.beli_bahan.view', ['data'=>$data, 'beli_bahan'=>$beli_bahan])->render();
     }
+
 }

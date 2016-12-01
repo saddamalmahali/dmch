@@ -7,6 +7,8 @@ use App\Barang;
 use App\Karyawan;
 use App\JenisDonat;
 use App\Satuan;
+use App\Varian;
+use App\Komposisi;
 use App\DataToko;
 use App\KonversiSatuan;
 class MasterController extends Controller
@@ -415,8 +417,9 @@ class MasterController extends Controller
 
     public function tabel_data_donat()
     {
-        
-        return $this->responseAsJson('master.donat.tabel_data_donat' );
+        $data = new Varian();
+        $data = $data->paginate('9');
+        return $this->responseAsJson('master.donat.tabel_data_donat', ['data'=>$data]);
     }
 
     public function tambah_jenis_dialog()
@@ -486,6 +489,93 @@ class MasterController extends Controller
         }
     }
 
+    public function tambah_donat_dialog()
+    {
+        $jenis_donat = JenisDonat::all();
+        $kode_varian = Varian::generateKodeVarian();
+        $barang = new Barang();
+        $barang = $barang->where('jenis', '=', 'pokok')->get();
+        return $this->responseAsRender('master.donat.dialog_tambah', ['data'=>$jenis_donat, 'kode_varian'=>$kode_varian, 'data_bahan'=>$barang]);
+    }
+
+    public function tambah_donat(Request $request)
+    {
+        if($request->ajax())
+        {
+            $donat = new Varian();
+            $donat->id_jenis = $request->input('id_jenis');
+            $donat->kode = $request->input('kode');
+            $donat->rasa = $request->input('rasa');
+
+            if($donat->save()){
+
+                if($request->input('list_komposisi')!== null){
+                    $data = $request->input('list_komposisi');
+
+                    foreach($data as $k) {
+                        $komposisi = new Komposisi();
+                        $komposisi->id_varian = $donat->id;
+                        $komposisi->id_bahan = $k['id_bahan'];
+                        $komposisi->save();
+                    }
+
+                    $data = [
+                        'message'=> 'Berhasil Tambah Varian Donat!'
+                    ];
+
+                    return json_encode($data);
+                }else{
+                    $data = [
+                        'message'=> 'Berhasil Tambah Varian Donat!'
+                    ];
+
+                    return json_encode($data);
+                }
+
+                
+            }
+        }
+    }
+
+    public function hapus_donat(Request $request)
+    {
+        if($request->ajax()){
+            // return var_dump($request->all());
+            $varian = Varian::find($request->input('id_donat'));
+
+            if($varian->list_komposisi !== null){
+                $list_komposisi = $varian->list_komposisi;
+                foreach ($list_komposisi as $komposisi){
+                        $komposisi->delete();
+                }    
+                if($varian->delete()){
+                    $data = [
+                            'message'=> 'Berhasil Hapus Varian Donat!'
+                        ];
+
+                        return json_encode($data);
+                }
+            }
+
+            // if($varian->delete()){
+            //     $data = [
+            //             'message'=> 'Berhasil Hapus Varian Donat!'
+            //         ];
+
+            //         return json_encode($data);
+            // }
+            
+        }
+    }
+
+    public function detile_donat($id)
+    {
+        $donat = Varian::find($id);
+        $list_komposisi = $donat->list_komposisi;
+
+        return $this->responseAsRender('master.donat.view', ['donat'=>$donat, 'data_komposisi'=>$list_komposisi]);
+    }
+
     private function responseAsRender($page, $data = [])
     {
         if($data != null){
@@ -498,7 +588,7 @@ class MasterController extends Controller
     private function responseAsJson($page, $data = [])
     {
         if($data != null){
-
+            return response()->json(view()->make($page, $data)->render());
         }else{
             return response()->json(view()->make($page)->render());
         }

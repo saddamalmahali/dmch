@@ -4458,8 +4458,8 @@ body.mini-navbar.fixed-sidebar .logo-element {
 }
 .logo-name {
   color: #e6e6e6;
-  font-size: 180px;
-  font-weight: 800;
+  font-size: 90px;
+  font-weight: 400;
   letter-spacing: -10px;
   margin-bottom: 0;
 }
@@ -8226,4 +8226,18 @@ body.md-skin {
   #page-wrapper {
     margin: 0;
   }
+}
+
+.logo-name{
+
+}
+
+.logo-dmch > img{
+  
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  -o-user-select: none;
+  user-select: none;  
+
 }

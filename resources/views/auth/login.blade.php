@@ -20,9 +20,9 @@
 
     <div class="middle-box text-center loginscreen animated fadeInDown">
         <div>
-            <div>
+            <div class="logo-dmch" >
 
-                <h3 class="logo-name">DMCH</h3>
+                <img src="img/dmch-logo.png" style="max-width: 70%;" draggable="false" >
 
             </div>
             <h3>Selamat Datang di SIM DMCH</h3>
@@ -33,7 +33,7 @@
             <form class="m-t" role="form" method="POST" action="{{ url('/login') }}">
                 {{ csrf_field() }}
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email/Username" required autofocus>
                     @if ($errors->has('email'))
                         <span class="help-block">
                             <strong>{{ $errors->first('email') }}</strong>
@@ -41,7 +41,7 @@
                     @endif
                 </div>
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <input id="password" type="password" class="form-control" name="password" required>
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>
@@ -59,6 +59,9 @@
     <!-- Mainly scripts -->
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+    </script>
 
 </body>
 

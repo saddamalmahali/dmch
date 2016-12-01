@@ -39,7 +39,6 @@ class DonatDatabase extends Migration
         if (! Schema::hasTable('komposisi')) {
             Schema::create('komposisi', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('kode', 50);
                 $table->integer('id_varian')->length(10)->unsigned();
                 $table->integer('id_bahan')->length(10)->unsigned();
 

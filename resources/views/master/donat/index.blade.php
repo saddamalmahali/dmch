@@ -38,6 +38,8 @@
             });
         }
 
+        
+
         init_data();
 
         var initTableDonat = function(){
@@ -46,7 +48,7 @@
                 type : 'post',
                 dataType : 'json',
                 success : function(data){
-                    $('#donatContainerTable').html(data);
+                    $('div#donatContainerTable').html(data);
                 }
             });
         }
@@ -92,6 +94,20 @@
                         initTableDonat();
                     }
                 });
+            });
+
+            $('ul.nav > li > a#komposisi').on('click', function(){
+                $('.tab-content > div > div.panel-body').html('<div class="loader"></div>');
+
+                // $.ajax({
+                //     url : 'donat/data_donat',
+                //     type : 'post',
+                //     dataType : 'json',
+                //     success : function(data){
+                //         $('.tab-content > div > div.panel-body').html(data);
+                //         initTableDonat();
+                //     }
+                // });
             });
 
 

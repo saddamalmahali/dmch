@@ -1,8 +1,9 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
-            <li class="nav-header">
-                <div class="dropdown profile-element"> <span>
+            <li class="nav-header" >
+                <div class="dropdown profile-element" align="center"> 
+                {{-- <span>
                     <img alt="image" class="img-circle" src="img/profile_small.jpg" />
                      </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -14,7 +15,13 @@
                         <li><a href="mailbox.html">Mailbox</a></li>
                         <li class="divider"></li>
                         <li><a href="login.html">Logout</a></li>
-                    </ul>
+                    </ul> --}}
+                    <a href="{{url('/')}}"><img alt="image" src="img/dmch-logo.png" draggable="false" style="max-width: 70%; padding-bottom: 0px;"></a>
+                    {{-- <span >
+                        <div class="dmch-logo">
+                            
+                        </div>
+                    </span> --}}
                 </div>
                 <div class="logo-element">
                     DMCH

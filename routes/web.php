@@ -76,6 +76,11 @@ Route::post('donat/tambah_jenis', 'MasterController@tambah_jenis_donat');
 Route::post('donat/update_jenis', 'MasterController@update_jenis_donat');
 Route::post('donat/hapus_jenis', 'MasterController@hapus_jenis_donat');
 Route::get('donat/update_jenis_dialog/{id}', 'MasterController@update_jenis_dialog');
+Route::get('donat/tambah_dialog', 'MasterController@tambah_donat_dialog');
+Route::post('donat/tambah', 'MasterController@tambah_donat');
+Route::post('donat/hapus_donat', 'MasterController@hapus_donat');
+Route::get('donat/view/{id}', 'MasterController@detile_donat');
+
 
 
 /* ===================MODUL DAPUR & GUDANG====================== */

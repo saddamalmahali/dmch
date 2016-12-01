@@ -462,5 +462,44 @@ $(function(){
 			});
 		}	
 	});
+
+	$(document).on('submit', 'form#form_tambah_donat', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'donat/tambah',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTableDonat();
+
+				$('.modal').modal('hide');
+			}
+		});
+	});
+
+	$(document).on('click', 'a.btn_hapus_donat', function(e){
+		e.preventDefault();
+		
+		if(confirm('Apakah yakin akan menghapus data ?')){
+			$.ajax({
+				url : 'donat/hapus_donat',
+				type : 'post',
+				data : {id_donat : $(this).attr('id')},
+				dataType : 'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTableDonat();
+
+					// $('.modal').modal('hide');
+				},
+				error : function(e){
+					console.log('error dalam proses penghapusan : '+e);
+				}
+			});
+		}
+	});
+
 	
 });
