@@ -7,8 +7,10 @@ use App\HargaBahan;
 use App\Barang;
 use App\Satuan;
 use App\DataToko;
+use App\Karyawan;
 use App\BeliBahan;
 use App\BeliBahanDetile;
+use App\Olah;
 
 
 class DapurGudangController extends Controller
@@ -226,6 +228,8 @@ class DapurGudangController extends Controller
         }
     }
 
+    
+
     public function view_beli_bahan($id)
     {
         $beli_bahan = BeliBahan::find($id);
@@ -233,5 +237,64 @@ class DapurGudangController extends Controller
 
         return view()->make('dapur.beli_bahan.view', ['data'=>$data, 'beli_bahan'=>$beli_bahan])->render();
     }
+
+    // Menu Olah
+    public function index_olah()
+    {
+        return $this->responseAsRender('dapur.olah.index');
+    }
+
+    public function index_data_olah(Request $request)
+    {
+
+        if($request->ajax()){
+            $data = new Olah();
+            $data = $data->paginate('9');
+            return $this->responseAsJson('dapur.olah.data_olah', ['data'=>$data]);
+        }
+    }
+
+    public function tambah_olah_dialog()
+    {
+        $data_toko = DataToko::all();
+        return $this->responseAsRender('dapur.olah.tambah_dialog', ['data_toko'=>$data_toko]);
+    }
+
+    public function get_karyawan_toko(Request $request)
+    {
+        if($request->ajax())
+        {
+            $id_toko = $request->input('id_toko');
+
+            $karyawan = new Karyawan();
+            $karyawan = $karyawan->where('id_toko', '=', $id_toko)->get();
+
+            return json_encode($karyawan);
+        }
+    }
+
+
+
+    //end of menu olah
+
+    private function responseAsJson($page, $data=[])
+    {
+        if($data != null){
+            return response()->json(view()->make($page, $data)->render());
+        }else{
+            return response()->json(view()->make($page)->render());
+        }
+    }
+
+    private function responseAsRender($page, $data=[])
+    {
+        if($data != null){
+            return view()->make($page, $data)->render();
+        }else{
+            return view()->make($page)->render();
+        }
+
+    }
+
 
 }

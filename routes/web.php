@@ -82,6 +82,15 @@ Route::post('donat/hapus_donat', 'MasterController@hapus_donat');
 Route::get('donat/view/{id}', 'MasterController@detile_donat');
 
 
+//Menu Harga Jual
+Route::get('harga_jual', "MasterController@index_harga_jual");
+Route::post('harga_jual/get_data', "MasterController@get_data_harga_jual");
+Route::get('harga_jual/tambah_dialog', "MasterController@tambah_harga_jual_dialog");
+Route::post('harga_jual/get_jenis', 'MasterController@harga_jual_get_jenis');
+Route::post('harga_jual/tambah', 'MasterController@tambah_harga_jual');
+Route::get('harga_jual/edit_dialog/{id}', 'MasterController@update_harga_jual_dialog');
+Route::post('harga_jual/update', 'MasterController@update_harga_jual');
+
 
 /* ===================MODUL DAPUR & GUDANG====================== */
 //menu daftar harga
@@ -100,3 +109,21 @@ Route::post('beli_bahan/list_satuan', 'DapurGudangController@list_satuan_2');
 Route::post('beli_bahan/tambah', 'DapurGudangController@tambah_beli_bahan');
 Route::post('beli_bahan/hapus', 'DapurGudangController@hapus_beli_bahan');
 Route::get('beli_bahan/view/{id}', 'DapurGudangController@view_beli_bahan');
+
+//menu Olah
+Route::get('index_olah', 'DapurGudangController@index_olah');
+Route::post('index_olah/get_data_olah', 'DapurGudangController@index_data_olah');
+Route::post('index_olah/get_karyawan_by_toko', 'DapurGudangController@get_karyawan_toko');
+Route::get('index_olah/tambah_dialog', 'DapurGudangController@tambah_olah_dialog');
+
+
+/* MODUL JUAL BELI  */
+//menu jual
+Route::get('index_penjualan', 'JualBeliController@index_penjualan');
+Route::get('penjualan/tambah_dialog', 'JualBeliController@tambah_penjualan_dialog');
+Route::post('penjualan/get_data_penjualan', 'JualBeliController@data_penjualan');
+Route::post('penjualan/get_data_barang', 'JualBeliController@get_data_barang');
+Route::post('penjualan/get_harga_from_barang', 'JualBeliController@get_harga_from_barang');
+Route::post('penjualan/tambah', 'JualBeliController@tambah_penjualan');
+Route::post('penjualan/hapus', 'JualBeliController@hapus_penjualan');
+Route::get('penjualan/lihat/{id}', 'JualBeliController@lihat_penjualan');

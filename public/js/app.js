@@ -7,6 +7,9 @@ $(function(){
 	var elementHargaBahan = $('div#daftarHargaContainerTable');
 	var elementDataToko = $('div#tokoContainerTable');
 	var elementBeliBahan = $('div#pembelianBahanContainerTable');
+	var elementOlah = $('div#olahContainerTable');
+	var elementHargaJual = $('div#hargaJualContainerTable');
+	var elementPenjualan =$('div#penjualanTableContainer');
 
 
 	$.ajaxSetup({
@@ -31,6 +34,12 @@ $(function(){
 			initTabelDataToko();
 		}else if(elementBeliBahan.length){
 			initTableBeliBahan();
+		}else if(elementOlah.length){
+			initTabelOlah();
+		}else if(elementHargaJual.length){
+			initTabelHargaJual();
+		}else if(elementPenjualan.length){
+			initTabelPenjualan();
 		}
 		
 		
@@ -333,6 +342,53 @@ $(function(){
 		});
 	});
 
+	//menu harga jual
+	var initTabelHargaJual = function(){
+		$.ajax({
+			url : 'harga_jual/get_data',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$("div#hargaJualContainerTable").html(data);
+			}
+		});
+	};
+
+	$(document).on('submit', 'form#form_tambah_harga_jual', function(e){
+		e.preventDefault();
+		// console.log('Submit Tambah Harga Jual');
+		$.ajax({
+			url : 'harga_jual/tambah',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelHargaJual();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
+	$(document).on('submit', 'form#form_update_harga_jual', function(e){
+		e.preventDefault();
+		// console.log('Submit Tambah Harga Jual');
+		$.ajax({
+			url : 'harga_jual/update',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelHargaJual();
+				
+				$('.modal').modal('hide');
+			},
+		});
+	});
+
+	//end menu harga jual
+
 	/* MODUL DAPUR & GUDANG */
 	//Menu Daftar Harga Barang
 	var initTabelDaftarHarga = function(){
@@ -496,6 +552,66 @@ $(function(){
 				},
 				error : function(e){
 					console.log('error dalam proses penghapusan : '+e);
+				}
+			});
+		}
+	});
+
+	var initTabelOlah = function(){
+		$.ajax({
+			url : 'index_olah/get_data_olah',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$('div#olahContainerTable').html(data);
+			}
+		});
+	};
+
+
+	/* MODUL PENJUALAN */
+
+	var initTabelPenjualan = function(){
+		$.ajax({
+			url : 'penjualan/get_data_penjualan',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$('div#penjualanTableContainer').html(data);
+			}
+		});
+	}
+
+	$(document).on('submit', 'form#form_penjualan_tambah', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'penjualan/tambah',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelPenjualan();
+
+				$('.modal').modal('hide');
+			}
+		});
+	});
+
+	$(document).on('click', 'a.btn_penjualan_hapus', function(e){
+		e.preventDefault();
+		// console.log('Btn Hapus dipilih')
+		if(confirm('Yakin, Akan Menghapus Data?')){
+			$.ajax({
+				url : 'penjualan/hapus',
+				type : 'post',
+				data : {id : $(this).attr('id')},
+				dataType : 'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTabelPenjualan();
+
+					// $('.modal').modal('hide');
 				}
 			});
 		}

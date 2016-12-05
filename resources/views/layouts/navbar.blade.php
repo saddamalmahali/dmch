@@ -38,8 +38,10 @@
                     <li class="{{url()->full() == url('index_satuan') ? 'active' : ''}}"><a href="{{url('index_satuan')}}">Satuan</a></li>
                     <li class="{{url()->full() == url('index_konversi') ? 'active' : ''}}"><a href="{{url('index_konversi')}}">Konversi Satuan</a></li>
 
+
                     <li class="divider"></li>
                     <li class="{{url()->full() == url('index_donat') ? 'active' : ''}}"><a href="{{url('index_donat')}}">Donat</a></li>
+                    <li class="{{url()->full() == url('harga_jual') ? 'active' : ''}}"><a href="{{url('harga_jual')}}">Harga Jual</a></li>
                     
                 </ul>
             </li>
@@ -48,7 +50,18 @@
                 
                 <ul class="nav nav-second-level collapse">
                     <li ><a href="{{url('daftar_harga')}}">Daftar Harga</a></li>
-                    <li ><a href="{{url('beli_bahan')}}">Pembelian</a></li>
+                    
+                    <li ><a href="{{url('index_olah')}}">Olah Donat</a></li>
+                    
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-retweet"></i> <span class="nav-label">Pembelian/Penjualan</span><span class="fa arrow"></span></a>
+                
+                <ul class="nav nav-second-level collapse">
+                    
+                    <li ><a class="{{url()->full() == url('beli_bahan') ? 'active' : ''}}" href="{{url('beli_bahan')}}">Pembelian</a></li>
+                    <li ><a class="{{url()->full() == url('index_penjualan') ? 'active' : ''}}" href="{{url('index_penjualan')}}">Penjualan</a></li>
                     
                 </ul>
             </li>
