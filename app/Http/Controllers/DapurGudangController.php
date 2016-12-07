@@ -11,6 +11,8 @@ use App\Karyawan;
 use App\BeliBahan;
 use App\BeliBahanDetile;
 use App\Olah;
+use App\OlahDetile;
+use App\Varian;
 
 
 class DapurGudangController extends Controller
@@ -19,7 +21,7 @@ class DapurGudangController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index_dh()
     {
     	return view('dapur.harga_bahan.index');
@@ -30,9 +32,9 @@ class DapurGudangController extends Controller
     	if($request->ajax()){
     		$data = new HargaBahan();
 	    	$data = $data->paginate('10');
-	    	return response()->json(view()->make('dapur.harga_bahan.data', ['data'=>$data])->render());	
+	    	return response()->json(view()->make('dapur.harga_bahan.data', ['data'=>$data])->render());
     	}
-    	
+
     }
 
     public function daftar_harga_tambah_dialog()
@@ -55,7 +57,7 @@ class DapurGudangController extends Controller
 
     		echo json_encode($hasil);
     	}
-    	
+
     }
 
     public function list_satuan(Request $request)
@@ -125,7 +127,7 @@ class DapurGudangController extends Controller
         {
             $data = new BeliBahan();
             $data = $data->paginate('10');
-            
+
             return response()->json(view()->make('dapur.beli_bahan.data', ['data'=>$data])->render());
         }
     }
@@ -141,7 +143,7 @@ class DapurGudangController extends Controller
     {
         if($request->ajax())
         {
-            
+
             $beli_bahan = new BeliBahan();
             $beli_bahan->id_toko = $request->input('id_toko');
             $beli_bahan->kode_beli = $request->input('kode_beli');
@@ -215,7 +217,7 @@ class DapurGudangController extends Controller
 
                     return json_encode($data);
                 }
-                
+
             }else{
                 if($beli_bahan->delete()){
                     $data = [
@@ -228,7 +230,7 @@ class DapurGudangController extends Controller
         }
     }
 
-    
+
 
     public function view_beli_bahan($id)
     {
@@ -257,7 +259,9 @@ class DapurGudangController extends Controller
     public function tambah_olah_dialog()
     {
         $data_toko = DataToko::all();
-        return $this->responseAsRender('dapur.olah.tambah_dialog', ['data_toko'=>$data_toko]);
+				$varian = Varian::all();
+        // $no_urut = Olah::generateAutoNumber();
+        return $this->responseAsRender('dapur.olah.tambah_dialog', ['data_toko'=>$data_toko, 'data_varian'=>$varian]);
     }
 
     public function get_karyawan_toko(Request $request)
@@ -272,6 +276,72 @@ class DapurGudangController extends Controller
             return json_encode($karyawan);
         }
     }
+
+    public function generate_kode(Request $request)
+    {
+        if($request->ajax())
+        {
+            $id_toko = $request->input('id_toko');
+
+            $nomor = Olah::generateAutoNumber($id_toko);
+
+            if($nomor != null)
+            {
+                return json_encode($nomor);
+            }else{
+                return json_encode(['data'=>'kosong']);
+            }
+        }
+    }
+
+		public function tambah_olah(Request $request)
+		{
+			if($request->ajax())
+			{
+				$olah = new Olah();
+				$detile = $request->input('detile');
+				$olah->id_toko = $request->input('id_toko');
+				$olah->id_karyawan = $request->input('id_karyawan');
+				$olah->tanggal = $request->input('tanggal');
+				$olah->kode = $request->input('kode');
+				$olah->keterangan = $request->input('keterangan');
+
+				if($olah->save()){
+					if($detile != null){
+						foreach ($detile as $do) {
+							$detile_olah = new OlahDetile();
+							$detile_olah->id_olah = $olah->id;
+							$detile_olah->id_varian = $do['id_varian'];
+							$detile_olah->jumlah = $do['jumlah'];
+							$detile_olah->save();
+						}
+
+						$data = [
+							'message'=>'Sukses Menambahkan Data Olah!'
+						];
+
+						return json_encode($data);
+					}else{
+						$data = [
+							'message'=>'Sukses Menambahkan Data Olah!'
+						];
+					}
+				}else{
+					$data = [
+						'message'=>'Gagal Menambahkan Data Olah!'
+					];
+				}
+
+
+			}
+		}
+
+		public function lihat_olah($id){
+			$olah = Olah::find($id);
+			$list_detile = $olah->detile;
+
+			return $this->responseAsRender('dapur.olah.view_olah', ['olah'=>$olah, 'list_detile'=>$list_detile]);
+		}
 
 
 

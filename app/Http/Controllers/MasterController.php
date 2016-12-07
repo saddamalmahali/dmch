@@ -138,14 +138,15 @@ class MasterController extends Controller
 
     public function update_karyawan_form($id){
         $karyawan = Karyawan::find($id);
-
-        return view()->make('master.karyawan.update', ['karyawan'=>$karyawan])->render();
+        $toko =DataToko::all();
+        return view()->make('master.karyawan.update', ['karyawan'=>$karyawan, 'toko'=>$toko])->render();
     }
 
     public function karyawan_update(Request $request)
     {
         if($request->ajax()){
             $karyawan = Karyawan::find($request->input('id'));
+            $karyawan->id_toko = $request->input('id_toko');
             $karyawan->nama_depan = $request->input('nama_depan');
             $karyawan->nama_belakang = $request->input('nama_belakang');
             $karyawan->jenis_kelamin = $request->input('jenis_kelamin');

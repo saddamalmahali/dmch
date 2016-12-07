@@ -11,6 +11,17 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
+				<label>Toko</label>
+				<select name="id_toko" class="form-control">
+					<option value="">Pilih Toko</option>
+					@forelse($toko as $t)
+						<option value="{{$t->id}}" {{$karyawan->id_toko == $t->id ? 'selected="true"' : ''}}>{{$t->nama}}</option>
+					@empty
+
+					@endforelse
+				</select>
+			</div>
+			<div class="form-group">
 				<label>Nama Depan</label>
 				<input type="text" name="nama_depan" placeholder="Masukan Nama Depan Anda" class="form-control" value="{{$karyawan->nama_depan}}">
 			</div>

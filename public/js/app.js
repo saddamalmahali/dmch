@@ -19,7 +19,7 @@ $(function(){
 	});
 
 	$(document).ready(function(){
-		
+
 		if(elementBarang.length){
 			initData();
 		}else if(elementKaryawan.length){
@@ -41,9 +41,9 @@ $(function(){
 		}else if(elementPenjualan.length){
 			initTabelPenjualan();
 		}
-		
-		
-		
+
+
+
 	});
 
 	$(document).on('submit', 'form#form_update_barang', function(e){
@@ -90,9 +90,9 @@ $(function(){
         });
     }
 	// Barang API
-	// 
-	
-	
+	//
+
+
 
 	$(document).on('click', '.pagination a', function (e) {
     	var page = $(this).attr('href').split('page=')[1];
@@ -123,8 +123,8 @@ $(function(){
     // 	});
     // 	modal.modal('show');
     // })
-    // 
-    
+    //
+
 
 	var initData = function(){
 		initTable();
@@ -134,7 +134,7 @@ $(function(){
 		$('#barang').val('');
 		$('#jenis').val('');
 		$('#keterangan').val('');
-		
+
 	}
 
 	var initTable = function(){
@@ -145,7 +145,7 @@ $(function(){
 			success : function(data){
 				$("div#barangContainerTable").html(data);
 			}
-		});	
+		});
 	}
 
 	var showMessageSuccess = function(data){
@@ -163,7 +163,7 @@ $(function(){
 	}
 
 	// Karyawan API
-	 
+
 	$(document).on('submit', 'form#form_karyawan', function(e){
 		e.preventDefault();
 		console.log('form karyawan aksi');
@@ -175,7 +175,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTabelKaryawan();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -192,7 +192,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTabelKaryawan();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -218,7 +218,7 @@ $(function(){
 			dataType : 'json',
 			success : function(data){
 				$("div#satuanContainerTable").html(data);
-			} 
+			}
 		});
 	}
 
@@ -232,7 +232,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTableSatuan();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -248,7 +248,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTableSatuan();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -262,7 +262,7 @@ $(function(){
 			dataType : 'json',
 			success : function(data){
 				$("div#konversiContainerTable").html(data);
-			} 
+			}
 		});
 	};
 
@@ -276,7 +276,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTabelKonversi();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -292,7 +292,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTabelKonversi();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -306,7 +306,7 @@ $(function(){
 			dataType : 'json',
 			success : function(data){
 				$("div#tokoContainerTable").html(data);
-			} 
+			}
 		});
 	};
 
@@ -320,7 +320,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTabelDataToko();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -336,7 +336,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTabelDataToko();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -365,7 +365,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTabelHargaJual();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -381,7 +381,7 @@ $(function(){
 			success : function(data){
 				showMessageSuccess(data);
 				initTabelHargaJual();
-				
+
 				$('.modal').modal('hide');
 			},
 		});
@@ -398,7 +398,7 @@ $(function(){
 			dataType : 'json',
 			success : function(data){
 				$("div#daftarHargaContainerTable").html(data);
-			} 
+			}
 		});
 	};
 
@@ -516,7 +516,7 @@ $(function(){
 					initTableJenisDonat();
 				}
 			});
-		}	
+		}
 	});
 
 	$(document).on('submit', 'form#form_tambah_donat', function(e){
@@ -537,7 +537,7 @@ $(function(){
 
 	$(document).on('click', 'a.btn_hapus_donat', function(e){
 		e.preventDefault();
-		
+
 		if(confirm('Apakah yakin akan menghapus data ?')){
 			$.ajax({
 				url : 'donat/hapus_donat',
@@ -557,6 +557,8 @@ $(function(){
 		}
 	});
 
+	//Menu Olah
+
 	var initTabelOlah = function(){
 		$.ajax({
 			url : 'index_olah/get_data_olah',
@@ -567,6 +569,24 @@ $(function(){
 			}
 		});
 	};
+
+	$(document).on('submit','form#form_tambah_olah_donat',  function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'olah/tambah',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success: function(data){
+				console.log(data);
+			}
+		});
+	});
+
+	$(document).on('click', 'a.btn_hapus_olah', function(e){
+		e.preventDefault();
+		console.log('Tombol Hapus di click : '+$(this).attr('id'));
+	});
 
 
 	/* MODUL PENJUALAN */
@@ -617,5 +637,6 @@ $(function(){
 		}
 	});
 
-	
+
+
 });

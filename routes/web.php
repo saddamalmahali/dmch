@@ -108,13 +108,18 @@ Route::post('beli_bahan/get_data', 'DapurGudangController@list_beli_bahan');
 Route::post('beli_bahan/list_satuan', 'DapurGudangController@list_satuan_2');
 Route::post('beli_bahan/tambah', 'DapurGudangController@tambah_beli_bahan');
 Route::post('beli_bahan/hapus', 'DapurGudangController@hapus_beli_bahan');
+
 Route::get('beli_bahan/view/{id}', 'DapurGudangController@view_beli_bahan');
+
 
 //menu Olah
 Route::get('index_olah', 'DapurGudangController@index_olah');
 Route::post('index_olah/get_data_olah', 'DapurGudangController@index_data_olah');
 Route::post('index_olah/get_karyawan_by_toko', 'DapurGudangController@get_karyawan_toko');
+Route::post('index_olah/generate_kode', 'DapurGudangController@generate_kode');
+Route::post('olah/tambah', 'DapurGudangController@tambah_olah');
 Route::get('index_olah/tambah_dialog', 'DapurGudangController@tambah_olah_dialog');
+Route::get('olah/lihat/{id}', 'DapurGudangController@lihat_olah');
 
 
 /* MODUL JUAL BELI  */
