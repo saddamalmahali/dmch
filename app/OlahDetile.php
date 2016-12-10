@@ -13,4 +13,9 @@ class OlahDetile extends Model
       return $this->hasOne('App\Olah', 'id', 'id_olah');
     }
 
+    public function varian()
+    {
+      return $this->hasOne('App\Varian', 'id', 'id_varian');
+    }
+
 }

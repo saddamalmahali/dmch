@@ -92,6 +92,16 @@ Route::get('harga_jual/edit_dialog/{id}', 'MasterController@update_harga_jual_di
 Route::post('harga_jual/update', 'MasterController@update_harga_jual');
 
 
+//Menu Komisi
+Route::get('index_komisi', 'MasterController@index_komisi');
+Route::get('komisi/tambah_dialog', 'MasterController@tambah_komisi_dialog');
+Route::post('komisi/get_data_komisi', 'MasterController@get_data_komisi');
+Route::post('komisi/tambah', 'MasterController@tambah_komisi');
+Route::post('komisi/hapus', 'MasterController@hapus_komisi');
+Route::get('komisi/update/{id}', 'MasterController@update_komisi_dialog');
+Route::post('komisi/update', 'MasterController@update_komisi');
+
+
 /* ===================MODUL DAPUR & GUDANG====================== */
 //menu daftar harga
 Route::get('/daftar_harga', 'DapurGudangController@index_dh');
@@ -122,7 +132,7 @@ Route::get('index_olah/tambah_dialog', 'DapurGudangController@tambah_olah_dialog
 Route::get('olah/lihat/{id}', 'DapurGudangController@lihat_olah');
 
 
-/* MODUL JUAL BELI  */
+/* =======================MODUL JUAL BELI=========================== */
 //menu jual
 Route::get('index_penjualan', 'JualBeliController@index_penjualan');
 Route::get('penjualan/tambah_dialog', 'JualBeliController@tambah_penjualan_dialog');

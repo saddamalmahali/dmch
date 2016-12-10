@@ -10,7 +10,7 @@ $(function(){
 	var elementOlah = $('div#olahContainerTable');
 	var elementHargaJual = $('div#hargaJualContainerTable');
 	var elementPenjualan =$('div#penjualanTableContainer');
-
+	var elementKomisi = $('div#komisiContainerTable');
 
 	$.ajaxSetup({
 	    headers: {
@@ -40,6 +40,8 @@ $(function(){
 			initTabelHargaJual();
 		}else if(elementPenjualan.length){
 			initTabelPenjualan();
+		}else if(elementKomisi.length){
+			initTableKomisi();
 		}
 
 
@@ -389,6 +391,68 @@ $(function(){
 
 	//end menu harga jual
 
+	//Menu Komisi
+	var initTableKomisi = function(){
+		$.ajax({
+			url : 'komisi/get_data_komisi',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$('div#komisiContainerTable').html(data);
+			}
+		});
+	}
+
+	$(document).on('submit', 'form#form_tambah_komisi', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'komisi/tambah',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTableKomisi();
+
+				$('.modal').modal('hide');
+			}
+		});
+	});
+
+	$(document).on('click','.btn_hapus_komisi', function(e){
+		e.preventDefault();
+		// console.log('Hapus Data : '+$(this).attr('id'));
+		if(confirm('Apakah Anda Yakin Akan Menghapus?')){
+			$.ajax({
+				url : 'komisi/hapus',
+				type : 'post',
+				data : {id : $(this).attr('id')},
+				dataType : 'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTableKomisi();
+				}
+			});
+		}
+	});
+
+	$(document).on('submit', 'form#form_update_komisi', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'komisi/update',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTableKomisi();
+
+				$('.modal').modal('hide');
+			}
+		});
+	});
+	//End Of Menu Komisi
+
 	/* MODUL DAPUR & GUDANG */
 	//Menu Daftar Harga Barang
 	var initTabelDaftarHarga = function(){
@@ -569,6 +633,20 @@ $(function(){
 			}
 		});
 	};
+
+	$(document).on('submit', 'form#form_filter_olah', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'index_olah/get_data_olah',
+			type : 'post',
+			dataType : 'json',
+			data : $(this).serialize(),
+			success : function(data){
+				// $('div#olahContainerTable').html(data);
+				console.log(data);
+			}
+		});
+	});
 
 	$(document).on('submit','form#form_tambah_olah_donat',  function(e){
 		e.preventDefault();

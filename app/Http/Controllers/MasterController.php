@@ -12,6 +12,7 @@ use App\Komposisi;
 use App\DataToko;
 use App\KonversiSatuan;
 use App\DaftarHargaPenjualan;
+use App\Komisi;
 class MasterController extends Controller
 {
 
@@ -674,6 +675,97 @@ class MasterController extends Controller
     }
 
     //end of menu Harga Jual
+
+    //menu komisi
+    public function index_komisi()
+    {
+        return $this->responseAsView('master.komisi.index');
+    }
+
+    public function get_data_komisi()
+    {
+        $data = Komisi::all();
+        return $this->responseAsJson('master.komisi.data_komisi', ['data'=>$data]);
+    }
+
+    public function tambah_komisi_dialog()
+    {
+        $list_satuan = Satuan::all();
+        $list_jenis = JenisDonat::all();
+
+        return $this->responseAsView('master.komisi.tambah_dialog', ['list_satuan'=>$list_satuan, 'list_jenis'=>$list_jenis]);
+    }
+
+    public function tambah_komisi(Request $request)
+    {
+        if($request->ajax())
+        {
+            $komisi = new Komisi();
+            $komisi->id_jenis = $request->input('id_jenis');
+            $komisi->id_satuan = $request->input('id_satuan');
+            $komisi->komisi = $request->input('komisi');
+            $komisi->keterangan = $request->input('keterangan');
+
+            if($komisi->save()){
+                $data = [
+                    'message'=>'Berhasil Menambahkan data Komisi',
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function hapus_komisi(Request $request)
+    {
+        if($request->ajax()){
+            $komisi = Komisi::find($request->input('id'));
+
+            if($komisi->delete()){
+                $data = [
+                    'message'=>'Berhasil Menghapus data Komisi',
+                ];
+
+                return json_encode($data);
+            }else{
+                $data = [
+                    'message'=>'Gagal Menghapus data Komisi',
+                ];
+            }
+        }
+    }
+
+    public function update_komisi_dialog($id)
+    {
+        $komisi = Komisi::find($id);
+        $list_satuan = Satuan::all();
+        $list_jenis = JenisDonat::all();
+
+        return $this->responseAsRender('master.komisi.update_dialog', ['list_satuan'=>$list_satuan, 'list_jenis'=>$list_jenis, 'komisi'=>$komisi]);
+    }
+
+
+    public function update_komisi(Request $request)
+    {
+        if($request->ajax()){
+            $komisi = Komisi::find($request->input('id'));
+
+            $komisi->id_jenis = $request->input('id_jenis');
+            $komisi->id_satuan = $request->input('id_satuan');
+            $komisi->komisi = $request->input('komisi');
+            $komisi->keterangan = $request->input('keterangan');
+
+            if($komisi->save()){
+                $data = [
+                    'message'=>'Berhasil Menambahkan data Komisi',
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    //end of menu komisi
 
     private function responseAsRender($page, $data = [])
     {

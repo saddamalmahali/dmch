@@ -21,12 +21,18 @@
 
     <h4 class="modal-title">Detile Olahan</h4>
 </div>
+
 <div class="modal-body">
   <div class="row">
     <section class="panel panel-primary">
       <div class="panel-body">
-        <div class="col-md-8">
+        <div class="col-md-12">
           <table class="table" style="padding:0; margin:0;">
+            <tr>
+              <td>Karyawan</td>
+              <td> : </td>
+              <td> {{$olah->karyawan->nama_depan.' '.$olah->karyawan->nama_belakang}} </td>
+            </tr>
             <tr>
               <td>Kode Proses</td>
               <td> : </td>
@@ -35,12 +41,17 @@
             <tr>
               <td>Tanggal</td>
               <td> : </td>
-              <td> {{$olah->tanggal}} </td>
+              <td> {{date('d-m-Y', strtotime($olah->tanggal))}} </td>
             </tr>
             <tr>
               <td>Keterangan </td>
               <td> : </td>
               <td> {{$olah->keterangan}} </td>
+            </tr>
+            <tr>
+              <td>Toko</td>
+              <td> : </td>
+              <td> {{$olah->toko->kode.' | '.$olah->toko->nama}} </td>
             </tr>
           </table>
         </div>
@@ -48,47 +59,31 @@
     </section>
   </div>
   <div class="row">
-    <section class="panel panel-primary">
-      <div class="panel-body">
-        <div class="col-md-6">
-          <table class="table">
+    <section class="panel">
+      <table class="table table-striped">
+        <thead class="bg-primary">
+          <tr>
+            <th style="text-align:center;">No</th>
+            <th style="text-align:center;">Jenis</th>
+            <th style="text-align:center;">Varian</th>
+            <th style="text-align:center;">Jumlah</th>
+          </tr>
+        </thead>
+        <tbody >
+          <?php $i = 0; ?>
+          @forelse($list_detile as $detile)
             <tr>
-              <td>Kode</td>
-              <td> : </td>
-              <td> {{$olah->toko->kode}} </td>
+              <td align="center">{{$i+1}}</td>
+              <td align="center">{{$detile->varian->jenis->kode.' | '.$detile->varian->jenis->nama}}</td>
+              <td align="center">{{$detile->varian->kode.' | '.$detile->varian->rasa}}</td>
+              <td align="center">{{number_format($detile->jumlah)}}</td>
             </tr>
-            <tr>
-              <td>Nama</td>
-              <td> : </td>
-              <td> {{$olah->toko->nama}} </td>
-            </tr>
-            <tr>
-              <td>Alamat </td>
-              <td> : </td>
-              <td> {{$olah->toko->alamat}} </td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-6">
-          <table class="table">
-            <tr>
-              <td>Karyawan</td>
-              <td> : </td>
-              <td> {{$olah->karyawan->nama_depan.' '.$olah->karyawan->nama_belakang}} </td>
-            </tr>
-            <tr>
-              <td>Nama</td>
-              <td> : </td>
-              <td> {{$olah->toko->nama}} </td>
-            </tr>
-            <tr>
-              <td>Alamat </td>
-              <td> : </td>
-              <td> {{$olah->toko->alamat}} </td>
-            </tr>
-          </table>
-        </div>
-      </div>
+            <?php $i++; ?>
+          @empty
+
+          @endforelse
+        </tbody>
+      </table>
     </section>
   </div>
 </div>

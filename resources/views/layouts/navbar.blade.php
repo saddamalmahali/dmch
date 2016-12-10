@@ -42,6 +42,7 @@
                     <li class="divider"></li>
                     <li class="{{url()->full() == url('index_donat') ? 'active' : ''}}"><a href="{{url('index_donat')}}">Donat</a></li>
                     <li class="{{url()->full() == url('harga_jual') ? 'active' : ''}}"><a href="{{url('harga_jual')}}">Harga Jual</a></li>
+                    <li class="{{url()->full() == url('index_komisi') ? 'active' : ''}}"><a href="{{url('index_komisi')}}">Komisi</a></li>
                     
                 </ul>
             </li>

@@ -250,9 +250,15 @@ class DapurGudangController extends Controller
     {
 
         if($request->ajax()){
-            $data = new Olah();
-            $data = $data->paginate('9');
-            return $this->responseAsJson('dapur.olah.data_olah', ['data'=>$data]);
+            // $data = new Olah();
+
+            // if($request->input('tanggal') != null){
+            //     $data->where('tanggal', '=', $request->input('tanggal'));
+            // }
+            
+            // $data = $data->paginate('9');
+            // return $this->responseAsJson('dapur.olah.data_olah', ['data'=>$data]);
+            return $request->input('tanggal');
         }
     }
 
@@ -338,7 +344,7 @@ class DapurGudangController extends Controller
 
 		public function lihat_olah($id){
 			$olah = Olah::find($id);
-			$list_detile = $olah->detile;
+			$list_detile = $olah->list_detile;
 
 			return $this->responseAsRender('dapur.olah.view_olah', ['olah'=>$olah, 'list_detile'=>$list_detile]);
 		}

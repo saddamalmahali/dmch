@@ -6,24 +6,35 @@
 		<div class="col-md-8">
 			<div class="ibox">
 				<div class="ibox-title">
-					<h5>Olah</h5>
+					<h5>List Data Olahan</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 		                    <i class="fa fa-chevron-up"></i>
 		                </a>
-		                
-		                <a id="tambah_barang_btn" href="{{url('index_olah/tambah_dialog')}}" data-toggle="modal" data-target="#modalOlah" title="Tambah Data Olah"><i class="fa fa-plus"></i></a>
 
+		                <a id="tambah_barang_btn" href="{{url('index_olah/tambah_dialog')}}" data-toggle="modal" data-target="#modalOlah" title="Tambah Data Olah"><i class="fa fa-plus"></i></a>
+										
 					</div>
-					
+
 				</div>
 				<div class="ibox-content">
-					<div class="page-header">
-						<h2>List Data Olahan</h2>
+					<div class="row">
+						<div class="col-md-6">
+							<div class='panel'>			
+								<form class="form-inline" id="form_filter_olah">
+									<div class="input-group">
+										<input type="date" class="input-sm form-control" id='input_filter_tanggal' name="tanggal" placeholder="Tanggal">
+										<span class="input-group-btn">
+											<input type='submit' class="btn btn-sm btn-primary">
+										</span>
+									</div>				
+								</form>
+							</div>
+						</div>
 					</div>
 					<div id="tableContainer">
 						<div id="olahContainerTable">
-							
+
 						</div>
 					</div>
 				</div>
@@ -40,9 +51,9 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-                
+
             </div>
-            
+
         </div>
     </div>
 </div>
