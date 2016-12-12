@@ -141,4 +141,11 @@ Route::post('penjualan/get_data_barang', 'JualBeliController@get_data_barang');
 Route::post('penjualan/get_harga_from_barang', 'JualBeliController@get_harga_from_barang');
 Route::post('penjualan/tambah', 'JualBeliController@tambah_penjualan');
 Route::post('penjualan/hapus', 'JualBeliController@hapus_penjualan');
+Route::post('penjualan/get_tabel_detile_toko', 'JualBeliController@get_tabel_detile_toko');
 Route::get('penjualan/lihat/{id}', 'JualBeliController@lihat_penjualan');
+Route::post('penjualan/generate_nomor', 'JualBeliController@penjualan_generate_nomor');
+
+
+
+/* ================LAPORAN PENGELUARAN================== */
+Route::get('index_pengeluaran', 'KeuanganController@index_pengeluaran');

@@ -66,6 +66,19 @@
                     
                 </ul>
             </li>
+
+            <li class="divider"></li>
+            <li>
+                <a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">Laporan</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    
+                    <li ><a class="{{url()->full() == url('index_pengeluaran') ? 'active' : ''}}" href="{{url('index_pengeluaran')}}">Pengeluaran</a></li>
+                    
+                    
+                </ul>
+                
+                
+            </li>
         </ul>
 
     </div>

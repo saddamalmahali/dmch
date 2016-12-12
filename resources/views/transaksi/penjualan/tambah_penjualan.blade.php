@@ -8,56 +8,72 @@
     
 	{{ csrf_field() }}
 	<div class="row">
+		<div class="wrapper-content">
+			<div class="col-md-4">
+				<div class="ibox-content">
+						<div class="form-group">
+							<label>Toko</label>
+							<select name="id_toko" class="form-control" id='select_id_toko'>
+								<option value="">Pilih Toko</option>
+								@forelse($data_toko as $toko)
+								<option value="{{$toko->id}}">{{$toko->kode.' | '.$toko->nama}}</option>
+								@empty
 
-		<div class="col-md-4">
-			<div class="panel panel-primary">
-				<div class="panel-body">
+								@endforelse
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label>Tanggal</label>
+							<input type="date" name="tanggal_penjualan" class="form-control">
+						</div>
+				</div>			
+			</div>
+			<div class="col-md-8">
+				<div class="ibox-content">
 					<div class="form-group">
-						<label>Toko</label>
-						<select name="id_toko" class="form-control">
-							<option value="">Pilih Toko</option>
-							@forelse($data_toko as $toko)
-							<option value="{{$toko->id}}">{{$toko->kode.' | '.$toko->nama}}</option>
-							@empty
-
-							@endforelse
-						</select>
+						<label>Nomor Penjualan</label>
+						<input type='text' name='kode_penjualan' id="input_kode_penjualan" class='form-control' readonly="true">
 					</div>
-
-					<div class="form-group">
-						<label>Tanggal</label>
-						<input type="date" name="tanggal_penjualan" class="form-control">
-					</div>
-				</div>
-			</div>			
-		</div>
-		<div class="col-md-8">
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h2 class="panel-title">
-						Data Detile Penjualan
-						<a class="pull-right btn-tambah-detile"><i class="fa fa-plus"></i></a>
-					</h2>
-
-				</div>
-				<div class="panel-body">
-					<div class="table-responsive">
-						<table class="table table-primary" id="form_dynamic">
-							<thead>
-								<tr>
-									<th style="text-align: center; width: 22%;">Jenis</th>
-									<th style="text-align: center; width: 25%">Barang</th>
-									<th style="text-align: center; width: 18%">Satuan</th>
-									<th style="text-align: center;">Banyak</th>
-									<th style="text-align: center; width: 25%">Total</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-							</tbody>
-						</table>	
+					<div class="tabel_detile_toko">
+					
 					</div>
 					
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="wrapper-content">
+			<div class="col-md-12">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h2 class="panel-title">
+							Data Detile Penjualan
+							<a class="pull-right btn-tambah-detile"><i class="fa fa-plus"></i></a>
+						</h2>
+
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-primary" id="form_dynamic">
+								<thead>
+									<tr>
+										<th style="text-align: center; width: 22%;">Jenis</th>
+										<th style="text-align: center; width: 25%">Barang</th>
+										<th style="text-align: center; width: 18%">Satuan</th>
+										<th style="text-align: center;">Banyak</th>
+										<th style="text-align: center; width: 25%">Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									
+								</tbody>
+							</table>	
+						</div>
+						
+					</div>
 				</div>
 			</div>
 		</div>
@@ -240,6 +256,28 @@ $(function(){
 		});
 
 		
+	});
+
+	$(document).on('change', '#select_id_toko', function(e){
+		e.preventDefault();
+		//console.log('Toko Dipilih : '+$(this).val());
+		$.ajax({
+			url : 'penjualan/generate_nomor',
+			type : 'post',
+			data : {id_toko : $(this).val()},
+			success : function(data){
+				$('#input_kode_penjualan').val(data);
+			}
+		});
+		$.ajax({
+			url : 'penjualan/get_tabel_detile_toko',
+			type : 'post',
+			data : {id_toko : $(this).val()},
+			dataType : 'json',
+			success : function(data){
+				$('.tabel_detile_toko').html(data);
+			}
+		});
 	});
 });
 	

@@ -30,7 +30,7 @@ class PemasukanDatabase extends Migration
             Schema::create('penjualan', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('id_toko')->length(10)->unsigned();
-                $table->string('kode_toko', 20);
+                $table->string('kode_penjualan', 50);                
                 $table->date('tanggal_penjualan');
                 $table->timestamps();
 

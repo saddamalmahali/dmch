@@ -699,6 +699,7 @@ $(function(){
 	$(document).on('click', 'a.btn_penjualan_hapus', function(e){
 		e.preventDefault();
 		// console.log('Btn Hapus dipilih')
+		
 		if(confirm('Yakin, Akan Menghapus Data?')){
 			$.ajax({
 				url : 'penjualan/hapus',

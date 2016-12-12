@@ -85,7 +85,7 @@ class JualBeliController extends Controller
 
     		$penjualan = new Penjualan();
     		$penjualan->id_toko = $id_toko;
-    		$penjualan->kode_toko = $toko->kode;
+    		$penjualan->kode_penjualan = $request->input('kode_penjualan');
     		$penjualan->tanggal_penjualan = $request->input('tanggal_penjualan');
 
     		if($penjualan->save()){
@@ -162,6 +162,24 @@ class JualBeliController extends Controller
     		return $this->responseAsView('transaksi.penjualan.lihat_transaksi', ['penjualan'=>$penjualan, 'list_detile'=>$list_detile]);
     	}
     }
+
+	public function get_tabel_detile_toko(Request $request)
+	{
+		if($request->ajax()){
+			$toko = DataToko::find($request->input('id_toko'));
+			return $this->responseAsJson('transaksi.penjualan.tabel_detile_toko', ['toko'=>$toko]);
+		}
+	}
+
+	public function penjualan_generate_nomor(Request $request)
+	{
+		if($request->ajax()){
+			$id_toko = $request->input('id_toko');
+			$kode = Penjualan::generateAutoNumber($id_toko);
+
+			echo $kode; 
+		}
+	}
 
     public function responseAsView($page, $data=[])
     {

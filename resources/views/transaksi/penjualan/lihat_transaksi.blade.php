@@ -1,7 +1,7 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
-    <h4 class="modal-title">Tambah Penjualan</h4>
+    <h4 class="modal-title">Detail Penjualan</h4>
 </div>
 <form id="form_penjualan_tambah" role="form">
 <div class="modal-body">
@@ -11,35 +11,36 @@
 
 		<div class="col-md-4">
 			
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h2 class="panel-title">Data Perusahaan</h2>
-				</div>
-				<div class="panel-body">
-					<table class="table table-bordered">
-						<tr>
-							<td>Kode Toko</td>
-							<td>:</td>
-							<td>{{$penjualan->toko->kode}}</td>
-						</tr>
-						<tr>
-							<td>Nama Toko</td>
-							<td>:</td>
-							<td>{{$penjualan->toko->nama}}</td>
-						</tr>
-						<tr>
-							<td>Alamat Toko</td>
-							<td>:</td>
-							<td>{{$penjualan->toko->alamat}}</td>
-						</tr>
-						<tr>
-							<td>Tanggal Transaksi</td>
-							<td>:</td>
-							<td><i class="label label-primary">{{$penjualan->tanggal_penjualan}}</i></td>
-						</tr>
-					</table>
-				</div>
-			</div>			
+			
+			<div class="ibox-content">
+				<div class="table-responsive">
+                                <table class="table shoping-cart-table">
+
+                                    <tbody>
+                                    <tr>
+                                        
+                                        <td class="desc">
+                                            <h4>
+                                            <a href="#" class="text-navy">
+                                                {{$penjualan->toko->nama .'('.$penjualan->toko->kode.')'}}
+                                            </a>
+                                            </h4>
+                                            <p class="small">
+                                                {{$penjualan->toko->alamat}} <br />
+												{{$penjualan->toko->kecamatan}}
+                                            </p>
+
+											<p>
+												<b>Tanggal Penjualan<b><br />
+												<span class="label label-primary">{{$penjualan->tanggal_penjualan}}</span>
+											</p>
+                                            
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+			</div>		
 		</div>
 		<div class="col-md-8">
 			<div class="panel panel-success">

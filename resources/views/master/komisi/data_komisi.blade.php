@@ -22,6 +22,7 @@
                         <a class="btn btn-danger btn-circle btn_hapus_komisi" id="{{$komisi->id}}"><i class="fa fa-close"></i></a>                        
                     </td>
                 </tr>
+                <?php $i++; ?>
             @empty
                 <tr>
                     <td colspan="5" align="center">Tidak Ada Data</td>
