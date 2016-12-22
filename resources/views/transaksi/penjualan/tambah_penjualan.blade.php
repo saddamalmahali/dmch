@@ -62,7 +62,7 @@
 									<tr>
 										<th style="text-align: center; width: 22%;">Jenis</th>
 										<th style="text-align: center; width: 25%">Barang</th>
-										<th style="text-align: center; width: 18%">Satuan</th>
+										<th style="text-align: center; width: 18%">Kuantitas</th>
 										<th style="text-align: center;">Banyak</th>
 										<th style="text-align: center; width: 25%">Total</th>
 									</tr>

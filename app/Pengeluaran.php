@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengeluaran extends Model
 {
-    //
+    protected $table = 'pengeluaran';
+
+
+    public function toko()
+    {
+        return $this->hasOne('App\DataToko', 'id', 'id_toko');
+    }
 }

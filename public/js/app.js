@@ -6,11 +6,12 @@ $(function(){
 	var elementKonversi = $('div#konversiContainerTable');
 	var elementHargaBahan = $('div#daftarHargaContainerTable');
 	var elementDataToko = $('div#tokoContainerTable');
-	var elementBeliBahan = $('div#pembelianBahanContainerTable');
+	var elementPengeluaran = $('div#pengeluaranContainerTable');
 	var elementOlah = $('div#olahContainerTable');
 	var elementHargaJual = $('div#hargaJualContainerTable');
 	var elementPenjualan =$('div#penjualanTableContainer');
 	var elementKomisi = $('div#komisiContainerTable');
+	var elementJenisPengeluaran = $('div#jenisPengeluaranContainerTable');
 
 	$.ajaxSetup({
 	    headers: {
@@ -32,8 +33,8 @@ $(function(){
 			initTabelDaftarHarga();
 		}else if(elementDataToko.length){
 			initTabelDataToko();
-		}else if(elementBeliBahan.length){
-			initTableBeliBahan();
+		}else if(elementPengeluaran.length){
+			initTablePengeluaran();
 		}else if(elementOlah.length){
 			initTabelOlah();
 		}else if(elementHargaJual.length){
@@ -42,11 +43,13 @@ $(function(){
 			initTabelPenjualan();
 		}else if(elementKomisi.length){
 			initTableKomisi();
+		}else if(elementJenisPengeluaran.length){
+			initTabelJenisPengeluaran();
 		}
 
 
-
 	});
+
 
 	$(document).on('submit', 'form#form_update_barang', function(e){
 		e.preventDefault();
@@ -453,6 +456,69 @@ $(function(){
 	});
 	//End Of Menu Komisi
 
+	//Menu Jenis Pengeluaran 
+
+	var initTabelJenisPengeluaran = function(){
+		$.ajax({
+			url : 'jenis_pengeluaran/get_tabel',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				$("div#jenisPengeluaranContainerTable").html(data);
+			}
+		});
+	}
+
+	$(document).on('submit', 'form#form_tambah_jenis_pengeluaran', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'jenis_pengeluaran/tambah',
+			type : 'post',
+			data : $(this).serialize(), 
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelJenisPengeluaran();
+
+				$('.modal').modal('hide');
+			}
+		});
+		console.log('Form Jenis Pengeluaran Submit');
+	});
+
+	$(document).on('submit', 'form#form_update_jenis_pengeluaran', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'jenis_pengeluaran/update',
+			type : 'post',
+			data : $(this).serialize(), 
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelJenisPengeluaran();
+
+				$('.modal').modal('hide');
+			}
+		});
+		console.log('Form Jenis Pengeluaran Submit');
+	});
+
+	$(document).on('click', 'a.btn-hapus-jenis-pengeluaran', function(e){
+		e.preventDefault();
+		if(confirm('Apakah Anda Yakin akan menghapus data ?')){
+			$.ajax({
+				url : 'jenis_pengeluaran/hapus',
+				type : 'post',
+				data : {id : $(this).attr('id') }, 
+				dataType : 'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTabelJenisPengeluaran();
+				}
+			});
+		}
+	});
+
 	/* MODUL DAPUR & GUDANG */
 	//Menu Daftar Harga Barang
 	var initTabelDaftarHarga = function(){
@@ -489,32 +555,55 @@ $(function(){
 		});
 	});
 
-	// Menu Pembelian Bahan
-	var initTableBeliBahan = function(){
+	// Menu Pengeluaran
+	var initTablePengeluaran = function(){
 		$.ajax({
-			url : 'beli_bahan/get_data',
+			url : 'pengeluaran/get_data',
 			type : 'post',
 			dataType : 'json',
 			success : function(data){
-				$('div#pembelianBahanContainerTable').html(data);
+				$('div#pengeluaranContainerTable').html(data);
 			}
 		});
 	}
 
-	$(document).on('submit', 'form#form_beli_bahan', function(e){
+	$(document).on('submit', 'form#form_tambah_pengeluaran', function(e){
 		e.preventDefault();
-		$.ajax({
-			url : 'beli_bahan/tambah',
-			type : 'post',
-			data : $(this).serialize(),
-			dataType : 'json',
-			success : function(data){
-				showMessageSuccess(data);
-				initTableBeliBahan();
+		var input_file = document.getElementById('foto');
+		var data_file = input_file.files;
+		var formData = new FormData();
+		formData.append('foto',data_file);
 
-				$('.modal').modal('hide');
-			}
-		});
+		var input = document.getElementById('foto');
+		var foto = input.files[0];
+		var data = new FormData();
+		
+		data.append("filefoto", foto);
+		var xhr = new XMLHttpRequest;
+		xhr.open('POST', 'pengeluaran/upload', true);
+		xhr.send(data);
+
+		if(data_file.length){
+			
+			$.ajax({
+				url : 'pengeluaran/tambah',
+				type : 'post',
+                cache: false,
+				dataType : 'text',
+                contentType: false,
+                processData: false,
+				data : formData,
+				success : function(data){
+					//showMessageSuccess(data);
+					//initTableBeliBahan();
+					console.log(data);
+					//$('.modal').modal('hide');
+				}
+			});
+		}else{
+			console.log('data kosong');
+		}
+		//console.log(data_file);
 	});
 
 	$(document).on('click', 'a.btn_beli_bahan_hapus', function(e){
@@ -642,8 +731,8 @@ $(function(){
 			dataType : 'json',
 			data : $(this).serialize(),
 			success : function(data){
-				// $('div#olahContainerTable').html(data);
-				console.log(data);
+				$('div#olahContainerTable').html(data);
+				//console.log(data);
 			}
 		});
 	});
@@ -679,6 +768,21 @@ $(function(){
 			}
 		});
 	}
+
+	$(document).on('submit', 'form#form_filter_penjualan', function(e){
+		e.preventDefault();
+		console.log($(this).serialize());
+		$.ajax({
+			url : 'penjualan/get_data_penjualan',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				//console.log(data);
+				$('div#penjualanTableContainer').html(data);
+			}
+		});
+	});	
 
 	$(document).on('submit', 'form#form_penjualan_tambah', function(e){
 		e.preventDefault();

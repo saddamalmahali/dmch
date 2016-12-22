@@ -27,5 +27,5 @@
 			@endforelse
 		</tbody>
 	</table>
-	<div>{{$data->links()}}</div>
+	<div align="center">{{$data->links()}}</div>
 </div>

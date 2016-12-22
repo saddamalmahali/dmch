@@ -19,6 +19,8 @@
 
     <!-- Gritter -->
     <link href="{{URL::asset('js/plugins/gritter/jquery.gritter.css')}}" rel="stylesheet">
+
+    <link href="{{URL::asset('css/plugins/iCheck/custom.css')}}" rel="stylesheet">
     
 
     <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
@@ -29,6 +31,24 @@
     <script src="js/jquery-2.1.1.js"></script>
     <!-- jQuery UI -->
     <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Flot -->
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="js/plugins/flot/jquery.flot.symbol.js"></script>
+    <script src="js/plugins/flot/jquery.flot.time.js"></script>
+
+
+    <!-- Chartjs -->
+    <script src="js/plugins/chartJs/Chart.js"></script>
+    <script src="js/plugins/chartJs/Chart.bundle.min.js"></script>
+
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+
+    
 </head>
 
 <body>
@@ -48,12 +68,9 @@
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <!-- Flot -->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="js/plugins/flot/jquery.flot.spline.js"></script>
-    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    
+
+    
 
     <!-- Peity -->
     <script src="js/plugins/peity/jquery.peity.min.js"></script>
@@ -77,12 +94,17 @@
     <!-- ChartJS-->
     <script src="js/plugins/chartJs/Chart.min.js"></script>
 
+    
+    
+
     <!-- Toastr -->
     <script src="js/plugins/toastr/toastr.min.js"></script>
 
     <script type="text/javascript" src="js/app.js"></script>
     <script>
         $(document).ready(function() {
+
+            
             // setTimeout(function() {
             //     toastr.options = {
             //         closeButton: true,

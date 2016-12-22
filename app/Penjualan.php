@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Penjualan extends Model
 {
@@ -28,7 +29,7 @@ class Penjualan extends Model
             $kode_toko = DataToko::find($id_toko)->kode;
 
             // $no = 'M'.sprintf("%04s", $noakhir);
-            return sprintf("%03s", $no_akhir).'/'.$pjl.'-'.$toko.'/'.$kode_toko.'/'.date('m').'/'.date('Y');
+            return sprintf("%03s", $no_akhir).'/'.$pjl.'-'.$toko.'/'.$kode_toko.'/'.date('Y');
 
             return $no_akhir;
         }else{
@@ -36,7 +37,7 @@ class Penjualan extends Model
             $toko = 'DMCH.Garut';
             $pjl = 'PJL';
             $kode_toko = DataToko::find($id_toko)->kode;
-            return $no_urt.'/'.$pjl.'-'.$toko.'/'.$kode_toko.'/'.date('m').'/'.date('Y');
+            return $no_urt.'/'.$pjl.'-'.$toko.'/'.$kode_toko.'/'.date('Y');
         }
 
         // $kode = "001/DMCH.Garut/OLH/2016";
@@ -44,5 +45,13 @@ class Penjualan extends Model
         // $no_urut = substr($kode, 0, 3);
 
         // return $no_urut;
+    }
+
+    public function getDataChartPerTahun($tahun, $bulan)
+    {
+        $data = self::where(DB::raw('extract(YEAR from tanggal_penjualan)'), '=', $tahun);
+        $data->where(DB::raw('extract(MONTH from tanggal_penjualan)'), '=', $bulan);
+        $data = $data->get();
+        return $data;
     }
 }

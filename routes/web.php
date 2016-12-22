@@ -16,6 +16,7 @@ Route::get('/', 'HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::post('home/get_data_chart', 'HomeController@get_data_chart_penjualan');
 
 /* Modul Master */
 
@@ -101,6 +102,15 @@ Route::post('komisi/hapus', 'MasterController@hapus_komisi');
 Route::get('komisi/update/{id}', 'MasterController@update_komisi_dialog');
 Route::post('komisi/update', 'MasterController@update_komisi');
 
+//Menu Jenis Pengeluaran
+Route::get('master_jenis_pengeluaran', 'MasterController@index_jenis_pengeluaran');
+Route::post('jenis_pengeluaran/get_tabel', 'MasterController@get_tabel_jenis_pengeluaran');
+Route::get('jenis_pengeluaran/tambah_dialog', 'MasterController@tambah_jenis_pengeluaran_dialog');
+Route::get('jenis_pengeluaran/update_dialog/{id}', 'MasterController@update_jenis_pengeluaran_dialog');
+Route::post('jenis_pengeluaran/tambah', 'MasterController@tambah_jenis_pengeluaran');
+Route::post('jenis_pengeluaran/update', 'MasterController@update_jenis_pengeluaran');
+Route::post('jenis_pengeluaran/hapus', 'MasterController@hapus_jenis_pengeluaran');
+
 
 /* ===================MODUL DAPUR & GUDANG====================== */
 //menu daftar harga
@@ -111,15 +121,7 @@ Route::post('dapur/list_satuan', 'DapurGudangController@list_satuan');
 Route::post('daftar_harga/tambah', 'DapurGudangController@daftar_harga_tambah');
 // Route::get('dapur/tambah_daftar_harga', 'DapurGudangController@daftar_harga_tambah_dialog');
 
-//menu beli bahan
-Route::get('beli_bahan', 'DapurGudangController@index_beli_bahan');
-Route::get('beli_bahan/tambah_dialog', 'DapurGudangController@tambah_dialog_beli_bahan');
-Route::post('beli_bahan/get_data', 'DapurGudangController@list_beli_bahan');
-Route::post('beli_bahan/list_satuan', 'DapurGudangController@list_satuan_2');
-Route::post('beli_bahan/tambah', 'DapurGudangController@tambah_beli_bahan');
-Route::post('beli_bahan/hapus', 'DapurGudangController@hapus_beli_bahan');
 
-Route::get('beli_bahan/view/{id}', 'DapurGudangController@view_beli_bahan');
 
 
 //menu Olah
@@ -134,18 +136,32 @@ Route::get('olah/lihat/{id}', 'DapurGudangController@lihat_olah');
 
 /* =======================MODUL JUAL BELI=========================== */
 //menu jual
-Route::get('index_penjualan', 'JualBeliController@index_penjualan');
-Route::get('penjualan/tambah_dialog', 'JualBeliController@tambah_penjualan_dialog');
-Route::post('penjualan/get_data_penjualan', 'JualBeliController@data_penjualan');
-Route::post('penjualan/get_data_barang', 'JualBeliController@get_data_barang');
-Route::post('penjualan/get_harga_from_barang', 'JualBeliController@get_harga_from_barang');
-Route::post('penjualan/tambah', 'JualBeliController@tambah_penjualan');
-Route::post('penjualan/hapus', 'JualBeliController@hapus_penjualan');
-Route::post('penjualan/get_tabel_detile_toko', 'JualBeliController@get_tabel_detile_toko');
-Route::get('penjualan/lihat/{id}', 'JualBeliController@lihat_penjualan');
-Route::post('penjualan/generate_nomor', 'JualBeliController@penjualan_generate_nomor');
+Route::get('index_penjualan', 'TransaksiController@index_penjualan');
+Route::get('penjualan/tambah_dialog', 'TransaksiController@tambah_penjualan_dialog');
+Route::post('penjualan/get_data_penjualan', 'TransaksiController@data_penjualan');
+Route::post('penjualan/get_data_barang', 'TransaksiController@get_data_barang');
+Route::post('penjualan/get_harga_from_barang', 'TransaksiController@get_harga_from_barang');
+Route::post('penjualan/tambah', 'TransaksiController@tambah_penjualan');
+Route::post('penjualan/hapus', 'TransaksiController@hapus_penjualan');
+Route::post('penjualan/get_tabel_detile_toko', 'TransaksiController@get_tabel_detile_toko');
+Route::get('penjualan/lihat/{id}', 'TransaksiController@lihat_penjualan');
+Route::post('penjualan/generate_nomor', 'TransaksiController@penjualan_generate_nomor');
 
+//menu Pengeluaran
+Route::get('pengeluaran', 'TransaksiController@index_pengeluaran');
+Route::get('pengeluaran/tambah_dialog', 'TransaksiController@tambah_dialog_pengeluaran');
+Route::post('pengeluaran/get_data', 'TransaksiController@list_pengeluaran');
+Route::post('pengeluaran/list_satuan', 'TransaksiController@list_satuan_2');
+Route::post('pengeluaran/tambah', 'TransaksiController@tambah_pengeluaran');
+Route::post('pengeluaran/hapus', 'TransaksiController@hapus_pengeluaran');
 
+Route::get('pengeluaran/view/{id}', 'TransaksiController@view_pengeluaran');
 
 /* ================LAPORAN PENGELUARAN================== */
+//Menu Pengeluaran
 Route::get('index_pengeluaran', 'KeuanganController@index_pengeluaran');
+Route::post('pengeluaran/get_data_harian', 'KeuanganController@get_data_harian');
+
+//Menu Pemasukan
+Route::get('index_pemasukan', 'KeuanganController@index_pemasukan');
+Route::post('pemasukan/get_data_harian', 'KeuanganController@get_data_pemasukan_harian');

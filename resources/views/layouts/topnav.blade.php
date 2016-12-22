@@ -23,7 +23,7 @@
     </nav>
     </div>
     
-    <div class="wrapper wrapper-content">
+    <div class="wrapper">
         <div class="row">
             @yield('content')
         </div>    

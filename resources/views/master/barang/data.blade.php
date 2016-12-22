@@ -9,7 +9,7 @@
 				<th style="text-align: center;">Nama Barang</th>
 				<th style="text-align: center;">Jenis</th>
 				<th style="text-align: center;">Keterangan</th>
-				<th style="text-align: center;">Opsi</th>
+				<th style="text-align: center; width:20%;">Opsi</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -20,7 +20,7 @@
 				<td>{{$barang->nama}}</td>
 				<td align="center">{{$barang->jenis}}</td>
 				<td>{{$barang->keterangan}}</td>
-				<td align="center"><a class="btn btn-primary btn-sm" href="{{url('barang/update')."/".$barang->id}}" data-toggle="modal" data-target="#modalBarang"><i class="fa fa-pencil"></i></a> | <a class="btn btn-danger btn-sm" href="{{url('barang/hapus')."/".$barang->id}}"><i class="fa fa-trash"></i></a></td>
+				<td align="center"><a class="btn btn-primary btn-circle" href="{{url('barang/update')."/".$barang->id}}" data-toggle="modal" data-target="#modalBarang"><i class="fa fa-pencil"></i></a>  <a class="btn btn-danger btn-circle" href="{{url('barang/hapus')."/".$barang->id}}"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<?php $i++; ?>
 			@empty

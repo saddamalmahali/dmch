@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header" >
-                <div class="dropdown profile-element" align="center"> 
+                <div class="dropdown profile-element wrapper" align="center"> 
                 {{-- <span>
                     <img alt="image" class="img-circle" src="img/profile_small.jpg" />
                      </span>
@@ -43,6 +43,14 @@
                     <li class="{{url()->full() == url('index_donat') ? 'active' : ''}}"><a href="{{url('index_donat')}}">Donat</a></li>
                     <li class="{{url()->full() == url('harga_jual') ? 'active' : ''}}"><a href="{{url('harga_jual')}}">Harga Jual</a></li>
                     <li class="{{url()->full() == url('index_komisi') ? 'active' : ''}}"><a href="{{url('index_komisi')}}">Komisi</a></li>
+
+                    <li>
+                        <a href="#"><span class="nav-label">Transaksi</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse">
+                            <li class="{{url()->full() == url('master_jenis_pengeluaran') ? 'active' : ''}}"><a  href="{{url('master_jenis_pengeluaran')}}">Jenis Pengeluaran</a></li>
+                            <li><a href="{{url('index_donat')}}">Jenis Pemasukan</a></li>
+                        </ul>
+                    </li>
                     
                 </ul>
             </li>
@@ -57,11 +65,11 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-retweet"></i> <span class="nav-label">Pembelian/Penjualan</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-retweet"></i> <span class="nav-label">Transaksi</span><span class="fa arrow"></span></a>
                 
                 <ul class="nav nav-second-level collapse">
                     
-                    <li ><a class="{{url()->full() == url('beli_bahan') ? 'active' : ''}}" href="{{url('beli_bahan')}}">Pembelian</a></li>
+                    <li ><a class="{{url()->full() == url('pengeluaran') ? 'active' : ''}}" href="{{url('pengeluaran')}}">Pengeluaran</a></li>
                     <li ><a class="{{url()->full() == url('index_penjualan') ? 'active' : ''}}" href="{{url('index_penjualan')}}">Penjualan</a></li>
                     
                 </ul>
@@ -73,6 +81,7 @@
                 <ul class="nav nav-second-level collapse">
                     
                     <li ><a class="{{url()->full() == url('index_pengeluaran') ? 'active' : ''}}" href="{{url('index_pengeluaran')}}">Pengeluaran</a></li>
+                    <li ><a class="{{url()->full() == url('index_pemasukan') ? 'active' : ''}}" href="{{url('index_pemasukan')}}">Pemasukan</a></li>
                     
                     
                 </ul>

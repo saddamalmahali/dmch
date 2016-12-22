@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Login</title>
+    <title>DMCH | Login</title>
 
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
@@ -27,7 +27,6 @@
             </div>
             <h3>Selamat Datang di SIM DMCH</h3>
             <p>Dengan Bangga Kami Persembahkan Pelayanan Yang Lebih Menarik.
-                <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
             </p>
             <p>Silahkan Masuk Untuk Memulai Aplikasi</p>
             <form class="m-t" role="form" method="POST" action="{{ url('/login') }}">

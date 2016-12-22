@@ -27,14 +27,20 @@
                                             </h4>
                                             <p class="small">
                                                 {{$penjualan->toko->alamat}} <br />
-												{{$penjualan->toko->kecamatan}}
+												{{$penjualan->toko->kecamatan}} <br />
+												
                                             </p>
 
 											<p>
 												<b>Tanggal Penjualan<b><br />
 												<span class="label label-primary">{{$penjualan->tanggal_penjualan}}</span>
 											</p>
-                                            
+											
+											<br />
+											<p>
+												<h3>Total : <span class="pull-right">Rp. {{number_format($total_penjualan)}},-</span></h3>
+											</p>
+											
                                         </td>
                                     </tr>
                                     </tbody>

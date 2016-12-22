@@ -13,6 +13,7 @@ use App\DataToko;
 use App\KonversiSatuan;
 use App\DaftarHargaPenjualan;
 use App\Komisi;
+use App\JenisPengeluaran;
 class MasterController extends Controller
 {
 
@@ -592,14 +593,14 @@ class MasterController extends Controller
     public function get_data_harga_jual()
     {
         $data = new DaftarHargaPenjualan();
-        $data = $data->paginate('9');
+        $data = $data->orderBy('id_jenis', 'asc')->paginate('9');
 
         return $this->responseAsJson('master.harga_jual.tabel_harga', ['data'=>$data]);
     }
 
     public function tambah_harga_jual_dialog()
     {
-        $data_satuan = Satuan::all();
+        $data_satuan = Satuan::where('jenis', '=', 'unit_penjualan')->get();
         return $this->responseAsRender('master.harga_jual.tambah_dialog', ['data_satuan'=>$data_satuan]);
     }
 
@@ -764,8 +765,87 @@ class MasterController extends Controller
             }
         }
     }
-
     //end of menu komisi
+
+    //Menu Jenis Pengeluaran
+    public function index_jenis_pengeluaran()
+    {
+        return $this->responseAsView('master.jenis_pengeluaran.index');
+    }
+
+    public function get_tabel_jenis_pengeluaran(Request $request)
+    {
+        if($request->ajax()){
+            $data = new JenisPengeluaran();
+
+            $data = $data->paginate('5');
+            return $this->responseAsJson('master.jenis_pengeluaran.tabel_data', ['data'=>$data]);
+        }
+    }
+
+    public function tambah_jenis_pengeluaran_dialog()
+    {
+        $kode= JenisPengeluaran::generateKodeJenis();
+        return $this->responseAsRender('master.jenis_pengeluaran.form_tambah', ['kode'=>$kode]);
+    }
+
+    public function tambah_jenis_pengeluaran(Request $request)
+    {
+        if($request->ajax()){
+            $jenis_pengeluaran = new JenisPengeluaran();
+            $jenis_pengeluaran->kode_jenis = $request->input('kode_jenis');
+            $jenis_pengeluaran->nama_jenis = $request->input('nama_jenis');
+            $jenis_pengeluaran->keterangan = $request->input('keterangan');
+
+            if($jenis_pengeluaran->save()){
+                $data = [
+                    'message'=>'Sukses Menambahkan data Jenis Pengeluaran'
+                ];
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function update_jenis_pengeluaran_dialog($id)
+    {
+        $jenis_pengeluaran = JenisPengeluaran::find($id);
+
+        return $this->responseAsRender('master.jenis_pengeluaran.form_update', ['jenis_pengeluaran'=>$jenis_pengeluaran]);
+    }
+
+    public function update_jenis_pengeluaran(Request $request)
+    {
+        if($request->ajax()){
+            $jenis_pengeluaran = JenisPengeluaran::find($request->input('id'));
+            $jenis_pengeluaran->kode_jenis = $request->input('kode_jenis');
+            $jenis_pengeluaran->nama_jenis = $request->input('nama_jenis');
+            $jenis_pengeluaran->keterangan = $request->input('keterangan');
+
+            if($jenis_pengeluaran->save()){
+                $data = [
+                    'message'=>'Sukses Merubah data Jenis Pengeluaran'
+                ];
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function hapus_jenis_pengeluaran(Request $request)
+    {
+        if($request->ajax()){
+            $jenis_pengeluaran = JenisPengeluaran::find($request->input('id'));
+            if($jenis_pengeluaran->delete()){
+                $data = [
+                    'message'=>'Sukses Menghapus Data Jenis Pengeluaran'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    //end Menu Jenis Pengeluaran
+    
 
     private function responseAsRender($page, $data = [])
     {
