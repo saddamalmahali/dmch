@@ -51,6 +51,10 @@
                             <li><a href="{{url('index_donat')}}">Jenis Pemasukan</a></li>
                         </ul>
                     </li>
+
+                    <li class="{{url()->full() == url('index_jabatan') ? 'active' : ''}}"><a href="{{url('index_jabatan')}}">Jabatan</a></li>
+
+                    <li class="{{url()->full() == url('index_tunjangan_jabatan') ? 'active' : ''}}"><a href="{{url('index_tunjangan_jabatan')}}">Tunjangan Jabatan</a></li>
                     
                 </ul>
             </li>

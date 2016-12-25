@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\LaporanKeuangan;
 use App\DataToko;
 use App\Penjualan;
+use App\Pengeluaran;
 
 class KeuanganController extends Controller
 {
@@ -56,6 +57,8 @@ class KeuanganController extends Controller
             return $this->responseAsJson('laporan.pemasukan.data_harian', ['list_pemasukan'=>$detile]);
         }
     }
+
+    
 
     public function responseAsView($page, $data =[])
     {

@@ -13,7 +13,9 @@ use App\DataToko;
 use App\KonversiSatuan;
 use App\DaftarHargaPenjualan;
 use App\Komisi;
+use App\Jabatan;
 use App\JenisPengeluaran;
+use App\TunjanganJabatan;
 class MasterController extends Controller
 {
 
@@ -845,7 +847,165 @@ class MasterController extends Controller
     }
 
     //end Menu Jenis Pengeluaran
-    
+    //Menu Jabatan
+    public function index_jabatan()
+    {
+        return $this->responseAsView('master.jabatan.index_jabatan');
+    }
+
+    public function get_data_jabatan(Request $request)
+    {
+        $data = new Jabatan();
+        $data = $data->paginate('5');
+        return $this->responseAsJson('master.jabatan.data', ['data'=>$data]);
+    }
+
+    public function tambah_jabatan_dialog()
+    {
+        $kode = Jabatan::generateKodeJenis();
+        return $this->responseAsRender('master.jabatan.tambah', ['kode_jabatan'=>$kode]);
+    }
+
+    public function tambah_jabatan(Request $request)
+    {
+        if($request->ajax()){
+            $jabatan = new Jabatan();
+            $jabatan->kode = $request->input('kode');
+            $jabatan->nama = $request->input('nama');
+            $jabatan->keterangan = $request->input('keterangan');
+
+            if($jabatan->save()){
+                $data = [
+                    'message'=>'Sukses Menambahkan Data Jabatan!'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function update_jabatan_dialog($id)
+    {
+        $jabatan = Jabatan::find($id);
+        return $this->responseAsRender('master.jabatan.update',['jabatan'=>$jabatan]);
+    }
+
+    public function update_jabatan(Request $request)
+    {
+        if($request->ajax()){
+            $jabatan = Jabatan::find($request->input('id'));
+            $jabatan->kode = $request->input('kode');
+            $jabatan->nama = $request->input('nama');
+            $jabatan->keterangan = $request->input('keterangan');
+
+            if($jabatan->save()){
+                $data = [
+                    'message'=>'Sukses Merubah Data Jabatan!'
+                ];
+
+                return json_encode($data);
+            } 
+        }
+    }
+
+    public function hapus_jabatan(Request $request)
+    {
+        if($request->ajax()){
+            $jabatan = Jabatan::find($request->input('id'));
+
+            if($jabatan->delete()){
+                $data = [
+                    'message' => 'Sukses Menghapus Data',
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    //end Menu Jabatan
+    //Menu Tunjangan Jabatan
+    public function index_tunjangan()
+    {
+        return $this->responseAsView('master.tunjangan.index');
+    }    
+
+    public function get_data_table(Request $request)
+    {
+        if($request->ajax()){
+            
+            $data = TunjanganJabatan::all();
+            return $this->responseAsJson('master.tunjangan.data', ['data'=>$data]);            
+
+        }
+        
+    }
+
+    public function tambah_tunjangan_dialog()
+    {
+        $jabatan = Jabatan::all();
+        return $this->responseAsRender('master.tunjangan.dialog',['data_jabatan'=>$jabatan]);
+    }
+
+    public function tambah_tunjangan(Request $request)
+    {
+        if($request->ajax()){
+            $tunjangan = new TunjanganJabatan();
+            $tunjangan->id_jabatan = $request->input('id_jabatan');
+            $tunjangan->nama = $request->input('nama');
+            $tunjangan->jumlah = $request->input('jumlah');
+            $tunjangan->keterangan = $request->input('keterangan');
+
+            if($tunjangan->save()){
+                $data = [
+                    'message'=>'Sukses Menyimpan Data Tunjangan Jabatan'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function update_tunjangan_dialog($id){
+        $tunjangan = TunjanganJabatan::find($id);
+        $data_jabatan = Jabatan::all();
+        return $this->responseAsRender('master.tunjangan.update', ['tunjangan'=>$tunjangan, 'data_jabatan'=>$data_jabatan]);
+    }
+
+    public function update_tunjangan(Request $request){
+        if($request->ajax()){
+            $tunjangan = TunjanganJabatan::find($request->input('id'));
+            $tunjangan->id_jabatan = $request->input('id_jabatan');
+            $tunjangan->nama = $request->input('nama');
+            $tunjangan->jumlah = $request->input('jumlah');
+            $tunjangan->keterangan = $request->input('keterangan');
+
+            if($tunjangan->save()){
+                $data = [
+                    'message'=>'Sukses Merubah Data Tunjangan Jabatan'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+
+    public function hapus_tunjangan(Request $request)
+    {
+        if($request->ajax()){
+            $tunjangan = TunjanganJabatan::find($request->input('id'));
+            
+            if($tunjangan->delete()){
+                $data = [
+                    'message'=>'Sukses Menghapus Data Tunjangan Jabatan'
+                ];
+
+                return json_encode($data);
+            }
+        }
+    }
+    //End Of Menu Tunjangan
+
 
     private function responseAsRender($page, $data = [])
     {
@@ -875,6 +1035,6 @@ class MasterController extends Controller
         }
     }
 
-
+    
 
 }

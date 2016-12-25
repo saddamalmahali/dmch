@@ -51,7 +51,7 @@
     
 </head>
 
-<body>
+<body class="fixed-sidebar pace-done fixed-nav fixed-nav-basic">
     <div id="wrapper">
         
         @include('layouts.navbar')

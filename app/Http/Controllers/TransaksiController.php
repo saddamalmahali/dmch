@@ -205,16 +205,45 @@ class TransaksiController extends Controller
 	//Menu Pengeluaran
 	public function index_pengeluaran(Request $request)
     {
-        return view('transaksi.pengeluaran.index');
+
+		
+				
+		$data_jenis = JenisPengeluaran::all();
+
+        return view('transaksi.pengeluaran.index', ['data_jenis'=>$data_jenis]);
     }
 
     public function list_pengeluaran(Request $request)
     {
         if($request->ajax())
         {
-            $data = new Pengeluaran();
-            $data = $data->paginate('10');
-			return $this->responseAsJson('transaksi.pengeluaran.data', ['data'=>$data]);
+			$id_jenis = $request->input('id_jenis');
+			$tanggal = $request->input('tanggal');
+			$data_bulan = $tanggal.'-01';
+			$jenis_pembayaran = $request->input('jenis_pembayaran');
+
+			if(($id_jenis != null) || ($tanggal != null) || ($jenis_pembayaran != null) ){
+				$data = new Pengeluaran();
+				if($id_jenis != null){
+					$data = $data->where('id_jenis', '=', $id_jenis);
+				}
+
+				if($tanggal != null){
+					$data = $data->where(DB::raw('MONTH(tanggal)'), date('m', strtotime($data_bulan)));
+				}
+
+				if($jenis_pembayaran != null){
+					$data = $data->where('jenis_pembayaran', '=', $jenis_pembayaran);
+				}
+				
+				$data = $data->paginate('10');
+				return $this->responseAsJson('transaksi.pengeluaran.data', ['data'=>$data]);
+			}else{
+				$data = new Pengeluaran();
+            	$data = $data->paginate('10');
+				return $this->responseAsJson('transaksi.pengeluaran.data', ['data'=>$data]);
+			}
+            
             //return response()->json(view()->make('transaksi.pengeluaran.data', ['data'=>$data])->render());
         }
     }
@@ -228,63 +257,40 @@ class TransaksiController extends Controller
         return view()->make('transaksi.pengeluaran.form_tambah', ['data_toko'=>$data_toko, 'data_jenis_pengeluaran'=>$data_jenis_pengeluaran])->render();
     }
 
-    public function tambah_pengeluaran(Request $request)
+	public function tambah_pengeluaran(Request $request)
     {
-        if($request->ajax())
-        {
-			echo json_encode($request->file('foto'));
-            // $beli_bahan = new BeliBahan();
-            // $beli_bahan->id_toko = $request->input('id_toko');
-            // $beli_bahan->kode_beli = $request->input('kode_beli');
-            // $beli_bahan->tanggal_beli = $request->input('tanggal_beli');
-            // $beli_bahan->keterangan = $request->input('keterangan');
+        if($request->ajax()){
+            $pengeluaran = new Pengeluaran();
+            $path_destination = '/public/uploads';
+            $destination = base_path() . $path_destination;
+            
+            
 
-            // if($beli_bahan->save()){
-            //     if($request->input('detile_beli') !== null){
-            //         $data = $request->input('detile_beli');
-            //         foreach ($data as $detile) {
-            //             $detile_beli = new BeliBahanDetile();
-            //             $detile_beli->id_beli = $beli_bahan->id;
-            //             $detile_beli->id_barang = BeliBahanDetile::getBarangByNama($detile['id_barang']);
-            //             $detile_beli->besaran = $detile['besaran'];
-            //             $detile_beli->id_satuan = BeliBahanDetile::getIdSatuanByAlias($detile['id_satuan']);
-            //             $detile_beli->harga = $detile['harga'];
+            $file = $request->file('file_foto')->getClientOriginalName();
 
-            //             if($detile_beli->save()){
-            //                 $harga_bahan = HargaBahan::where('id_barang', '=', $detile_beli->id_barang)->first();
-            //                 if($harga_bahan != null){
+            if($request->file('file_foto')->move($destination, $file)){
+                $pengeluaran->id_toko = $request->input('id_toko');
+                $pengeluaran->id_jenis = $request->input('id_jenis');
+                $pengeluaran->jenis_pembayaran = $request->input('jenis_pembayaran');
+                $pengeluaran->kode = $request->input('kode');
+                $pengeluaran->tanggal = $request->input('tanggal');
+                $pengeluaran->file = $path_destination.'/'.$file;
+                $pengeluaran->keterangan = $request->input('keterangan');
+                if($pengeluaran->save()){
+                    $data = [
+                        'message'=>'Sukses Menambahkan Data Pengeluaran!'
+                    ];
 
-            //                     $harga_bahan->harga = $detile_beli->harga;
-            //                     $harga_bahan->keterangan = 'Harga Pembelian Terakhir'.date('d/m/Y', strtotime($beli_bahan->tanggal_beli));
-            //                     $harga_bahan->save();
-            //                 }else{
-            //                     $harga_bahan = new HargaBahan();
-            //                     $harga_bahan->kode = $harga_bahan->generateAutoNumber();
-            //                     $harga_bahan->id_barang = $detile_beli->id_barang;
-            //                     $harga_bahan->id_satuan = $detile_beli->id_satuan;
-            //                     $harga_bahan->harga = $detile_beli->harga;
-            //                     $harga_bahan->keterangan = 'Harga Pembelian Terakhir'.date('d/m/Y', strtotime($beli_bahan->tanggal_beli));
-            //                     $harga_bahan->save();
-            //                 }
+                    return json_encode($data);
+                }
+            }
 
-            //             }
-            //         }
-            //     }
 
-            //     $data = [
-            //         'message'=>'Berhasil Menambahkan Bahan Yang Dibeli'
-            //     ];
-
-            //     return json_encode($data);
-            //}
-            // foreach ($data as $detile_beli) {
-            //     echo $detile_beli['id_barang']."<br />";
-            //     echo $detile_beli['besaran']."<br />";
-            //     echo $detile_beli['id_satuan']."<br />";
-            //     echo $detile_beli['harga']."<br />";
-            // }
+            
         }
     }
+
+    
 
     public function hapus_beli_bahan(Request $request)
     {

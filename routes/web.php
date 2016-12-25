@@ -112,6 +112,24 @@ Route::post('jenis_pengeluaran/update', 'MasterController@update_jenis_pengeluar
 Route::post('jenis_pengeluaran/hapus', 'MasterController@hapus_jenis_pengeluaran');
 
 
+//Menu Jabatan
+Route::get('index_jabatan', 'MasterController@index_jabatan');
+Route::post('jabatan/get_data', 'MasterController@get_data_jabatan');
+Route::get('jabatan/tambah_dialog', 'MasterController@tambah_jabatan_dialog');
+Route::post('jabatan/tambah', 'MasterController@tambah_jabatan');
+Route::get('jabatan/update_dialog/{id}', 'MasterController@update_jabatan_dialog');
+Route::post('jabatan/update', 'MasterController@update_jabatan');
+Route::post('jabatan/hapus', 'MasterController@hapus_jabatan');
+
+//Menu Tunjangan Jabatan
+Route::get('index_tunjangan_jabatan', 'MasterController@index_tunjangan');
+Route::post('tunjangan/get_data', 'MasterController@get_data_table');
+Route::get('tunjangan/tambah_dialog', 'MasterController@tambah_tunjangan_dialog');
+Route::post('tunjangan/tambah', 'MasterController@tambah_tunjangan');
+Route::get('tunjangan/update_dialog/{id}', 'MasterController@update_tunjangan_dialog');
+Route::post('tunjangan/update', 'MasterController@update_tunjangan');
+Route::post('tunjangan/hapus', 'MasterController@hapus_tunjangan');
+
 /* ===================MODUL DAPUR & GUDANG====================== */
 //menu daftar harga
 Route::get('/daftar_harga', 'DapurGudangController@index_dh');
@@ -153,6 +171,7 @@ Route::get('pengeluaran/tambah_dialog', 'TransaksiController@tambah_dialog_penge
 Route::post('pengeluaran/get_data', 'TransaksiController@list_pengeluaran');
 Route::post('pengeluaran/list_satuan', 'TransaksiController@list_satuan_2');
 Route::post('pengeluaran/tambah', 'TransaksiController@tambah_pengeluaran');
+
 Route::post('pengeluaran/hapus', 'TransaksiController@hapus_pengeluaran');
 
 Route::get('pengeluaran/view/{id}', 'TransaksiController@view_pengeluaran');

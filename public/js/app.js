@@ -12,6 +12,8 @@ $(function(){
 	var elementPenjualan =$('div#penjualanTableContainer');
 	var elementKomisi = $('div#komisiContainerTable');
 	var elementJenisPengeluaran = $('div#jenisPengeluaranContainerTable');
+	var elementJabatan = $('div#jabatanContainerTable');
+	var elementTunjangan = $('div#tunjanganContainerTable');
 
 	$.ajaxSetup({
 	    headers: {
@@ -45,6 +47,10 @@ $(function(){
 			initTableKomisi();
 		}else if(elementJenisPengeluaran.length){
 			initTabelJenisPengeluaran();
+		}else if(elementJabatan.length){
+			initTabelJabatan();
+		}else if(elementTunjangan.length){
+			initTabelTunjangan();
 		}
 
 
@@ -519,6 +525,134 @@ $(function(){
 		}
 	});
 
+	//end of menu jenis pengeluaran
+
+	//Menu Jabatan 
+	var initTabelJabatan = function(){
+		$.ajax({
+			url : 'jabatan/get_data',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				elementJabatan.html(data);
+			}
+		});
+	};
+
+	$(document).on('submit', 'form#form_tambah_jabatan', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'jabatan/tambah',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelJabatan();
+
+				$('.modal').modal('hide');
+			}
+		});
+	});
+
+	$(document).on('submit', 'form#form_update_jabatan', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'jabatan/update',
+			type : 'post',
+			data : $(this).serialize(),
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelJabatan();
+
+				$('.modal').modal('hide');
+			}
+		});	
+	});
+
+	$(document).on('click', 'a.btn-hapus-jabatan', function(e){
+		e.preventDefault();
+		if(confirm('Apakah anda yakin akan menghapus data?')){
+			var id = $(this).prop('id');
+			$.ajax({
+				url : 'jabatan/hapus',
+				type : 'post',
+				data : {id : id},
+				dataType : 'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTabelJabatan();
+				}
+			});
+		}
+	});
+
+	//End of Menu Jabatan
+	//Menu Tunjangan Jabtan
+
+	var initTabelTunjangan = function(){
+		$.ajax({
+			url : 'tunjangan/get_data',
+			type : 'post',
+			dataType : 'json',
+			success : function(data){
+				elementTunjangan.html(data);
+			}
+		});
+	};
+
+	$(document).on('submit', 'form#form_tambah_tunjangan', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'tunjangan/tambah',
+			type : 'post',
+			data : $(this).serialize(), 
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelTunjangan();
+
+				$('.modal').modal('hide');
+			}
+		});	
+	});
+
+	$(document).on('submit', 'form#form_update_tunjangan', function(e){
+		e.preventDefault();
+		$.ajax({
+			url : 'tunjangan/update',
+			type : 'post',
+			data : $(this).serialize(), 
+			dataType : 'json',
+			success : function(data){
+				showMessageSuccess(data);
+				initTabelTunjangan();
+
+				$('.modal').modal('hide');
+			}
+		});
+	});
+
+	$(document).on('click', 'a.btn-hapus-tunjangan', function(e){
+		e.preventDefault();
+
+		if(confirm('Apakah Anda yakin akan menghapus data Tunjangan?')){
+			var id = $(this).prop('id');
+			$.ajax({
+				url : 'tunjangan/hapus',
+				type : 'post',
+				data : {id : id}, 
+				dataType : 'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTabelTunjangan();
+				}
+			});
+		}
+	});
+
+	//End of menu tunjangan jabatan
 	/* MODUL DAPUR & GUDANG */
 	//Menu Daftar Harga Barang
 	var initTabelDaftarHarga = function(){
@@ -567,43 +701,74 @@ $(function(){
 		});
 	}
 
+	var dataPengeluaranByFilter = function(data){
+		$.ajax({
+			url : 'pengeluaran/get_data',
+			type : 'post',
+			data : data,
+			dataType : 'json',
+			success : function(data){
+				$('div#pengeluaranContainerTable').html(data);
+			}
+		});
+	}
+
+	$(document).on('submit', 'form#form_filter_index_pengeluaran', function(e){
+		e.preventDefault();
+		var data = $(this).serialize();
+		dataPengeluaranByFilter(data);
+	});
+
 	$(document).on('submit', 'form#form_tambah_pengeluaran', function(e){
 		e.preventDefault();
-		var input_file = document.getElementById('foto');
-		var data_file = input_file.files;
-		var formData = new FormData();
-		formData.append('foto',data_file);
-
-		var input = document.getElementById('foto');
-		var foto = input.files[0];
-		var data = new FormData();
+		var id_toko = $('select#input_id_toko_pengeluaran').val();
+		var kode = $('input#input_kode_pengeluaran').val();
+		var id_jenis = $('select#input_id_jenis_pengeluaran').val();
 		
-		data.append("filefoto", foto);
-		var xhr = new XMLHttpRequest;
-		xhr.open('POST', 'pengeluaran/upload', true);
-		xhr.send(data);
 
-		if(data_file.length){
-			
-			$.ajax({
-				url : 'pengeluaran/tambah',
-				type : 'post',
-                cache: false,
-				dataType : 'text',
-                contentType: false,
-                processData: false,
-				data : formData,
-				success : function(data){
-					//showMessageSuccess(data);
-					//initTableBeliBahan();
-					console.log(data);
-					//$('.modal').modal('hide');
-				}
-			});
-		}else{
-			console.log('data kosong');
-		}
+		var file = document.getElementById('input_file_foto');
+		var data_file = file.files[0];
+		var formData = new FormData();
+		formData.append("file_foto", data_file);
+
+		// var xhr = new XMLHttpRequest;
+		// xhr.open('POST', 'pengeluaran/upload', true);
+		// xhr.send(data);
+		// jQuery.each(data_file, function(i, file) {
+		// 	formData.append('file['+i+']', file);
+		// });
+
+		var tanggal = $('input#input_tanggal_pengeluaran').val();
+		var keterangan = $('textarea#input_keterangan_pengeluaran').val();
+		var jenis_pembayaran =$('input[name=jenis_pembayaran]:checked').val();
+
+		formData.append('id_toko',id_toko);
+		formData.append('id_jenis',id_jenis);
+		formData.append('jenis_pembayaran',jenis_pembayaran);
+		formData.append('kode',kode);
+		formData.append('tanggal',tanggal);
+		formData.append('keterangan',keterangan);
+
+		$.ajax({
+			url: 'pengeluaran/tambah',
+    		data: formData,
+			cache: false,
+			contentType: false,
+			processData: false,
+			type: 'POST',
+			success: function(data){
+				showMessageSuccess(data);
+				initTablePengeluaran();
+
+				$('.modal').modal('hide');
+			}
+		});
 		//console.log(data_file);
+	});
+
+	$(document).on('click', 'a#btn_reset_form_filter_pengeluaran', function(e){
+		e.preventDefault();
+		initTablePengeluaran();
 	});
 
 	$(document).on('click', 'a.btn_beli_bahan_hapus', function(e){
@@ -783,6 +948,8 @@ $(function(){
 			}
 		});
 	});	
+
+	
 
 	$(document).on('submit', 'form#form_penjualan_tambah', function(e){
 		e.preventDefault();

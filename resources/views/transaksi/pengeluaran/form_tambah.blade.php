@@ -14,7 +14,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Toko</label>
-						<select id="input_id_toko" name="id_toko" class="form-control">
+						<select id="input_id_toko_pengeluaran" name="id_toko" class="form-control">
 							<option value="">Pilih Peruntukan Toko</option>
 							@forelse($data_toko as $toko)
 								<option value="{{$toko->id}}">{{$toko->kode.' | '.$toko->nama}}</option>
@@ -25,11 +25,11 @@
 					</div>
 					<div class="form-group">
 						<label>No. Nota</label>
-						<input type="text" id="kode_beli_bahan_input" name="kode_beli" placeholder="Input Kode Bahan" class="form-control">
+						<input type="text" id="input_kode_pengeluaran" name="kode_beli" placeholder="Input Kode Bahan" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Jenis Pengeluaran</label>
-						<select name="id_jenis" class="form-control">
+						<select name="id_jenis" class="form-control" id="input_id_jenis_pengeluaran">
 							<option value="" disabled selected>Pilih Jenis Pengeluaran</option>
 							@forelse ($data_jenis_pengeluaran as $jenis_pengeluaran)
 								<option value="{{$jenis_pengeluaran->id}}">{{$jenis_pengeluaran->nama_jenis}}</option>
@@ -40,23 +40,23 @@
 					</div>
 					<div class="form-group">
 						<label>File</label>
-						<input type="file" class="form-control" name="foto" id="foto">
+						<input type="file" class="form-control form-control-file" name="foto" id="input_file_foto" >
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Tanggal</label>
-						<input type="date" id="tanggal_beli_bahan_input" name="tanggal_beli" class="form-control" placeholder="Cari Bahan">
+						<input type="date" id="input_tanggal_pengeluaran" name="tanggal_beli" class="form-control" placeholder="Cari Bahan">
 					</div>
 					<div class="form-group">
 						<label>Keterangan</label>
-						<textarea rows="3" id="keterangan_dapur_input" name="keterangan" placeholder="Masukan Keterangan" class="form-control"></textarea>
+						<textarea rows="3" id="input_keterangan_pengeluaran" name="keterangan" placeholder="Masukan Keterangan" class="form-control"></textarea>
 					</div>
 					
 					<div class="form-group">
 						<label>Jenis Pembayaran</label>
-						<div class="i-checks"><label> <input type="radio" value="tunai" name="jenis_pembayaran"> <i></i> Tunai </label></div>
-						<div class="i-checks"><label> <input type="radio" value="bank" name="jenis_pembayaran"> <i></i> Bank </label>
+						<div class="i-checks"><label> <input type="radio" value="tunai" name="jenis_pembayaran" id="input_jenis_pembayaran_pengeluaran"> <i></i> Tunai </label></div>
+						<div class="i-checks"><label> <input type="radio" value="bank" name="jenis_pembayaran" id="input_jenis_pembayaran_pengeluaran"> <i></i> Bank </label>
 
 					</div>
 				</div>
