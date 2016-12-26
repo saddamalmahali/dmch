@@ -236,11 +236,11 @@ class TransaksiController extends Controller
 					$data = $data->where('jenis_pembayaran', '=', $jenis_pembayaran);
 				}
 				
-				$data = $data->paginate('10');
+				$data = $data->paginate('5');
 				return $this->responseAsJson('transaksi.pengeluaran.data', ['data'=>$data]);
 			}else{
 				$data = new Pengeluaran();
-            	$data = $data->paginate('10');
+            	$data = $data->paginate('5');
 				return $this->responseAsJson('transaksi.pengeluaran.data', ['data'=>$data]);
 			}
             
@@ -264,8 +264,7 @@ class TransaksiController extends Controller
             $path_destination = '/public/uploads';
             $destination = base_path() . $path_destination;
             
-            
-
+			// return json_encode($request->all());
             $file = $request->file('file_foto')->getClientOriginalName();
 
             if($request->file('file_foto')->move($destination, $file)){
@@ -276,52 +275,94 @@ class TransaksiController extends Controller
                 $pengeluaran->tanggal = $request->input('tanggal');
                 $pengeluaran->file = $path_destination.'/'.$file;
                 $pengeluaran->keterangan = $request->input('keterangan');
-                if($pengeluaran->save()){
-                    $data = [
-                        'message'=>'Sukses Menambahkan Data Pengeluaran!'
-                    ];
+				$data_detile = $request->input('detile_pengeluaran');
 
-                    return json_encode($data);
+				
+                if($pengeluaran->save()){
+
+					if($data_detile != null){
+						foreach ($data_detile as $detile) {
+							$d_pengeluaran = new PengeluaranDetile();
+							$d_pengeluaran->id_pengeluaran = $pengeluaran->id;
+							$barang= Barang::getBarangByName($detile['id_barang']);
+							$satuan = Satuan::getSatuanByAlias($detile['id_satuan']);
+							$d_pengeluaran->id_barang = $barang->id;
+							$d_pengeluaran->kuantitas = $detile['besaran'];
+							$d_pengeluaran->id_satuan = $satuan->id;
+							$d_pengeluaran->harga = $detile['harga'];
+
+							$d_pengeluaran->save();
+							
+
+						}
+
+						$data = [
+                        'message'=>'Sukses Menambahkan Data Pengeluaran!'
+						];
+
+						return json_encode($data);
+					}else{
+						$data = [
+							'message'=>'Sukses Menambahkan Data Pengeluaran!'
+						];
+
+						return json_encode($data);
+					}
+
+                    
                 }
             }
-
-
-            
         }
     }
 
     
 
-    public function hapus_beli_bahan(Request $request)
+    public function hapus_pengeluaran(Request $request)
     {
         if($request->ajax())
         {
             $id = $request->input('id');
-            $beli_bahan = BeliBahan::find($id);
+            $pengeluaran = Pengeluaran::find($id);
+			
+			$detile = $pengeluaran->detile;
+			if($detile != null){
+				foreach ($detile as $d) {
+					$d->delete();
+				}
 
-            if($beli_bahan->detile!= null){
-                $detile = $beli_bahan->detile;
-                foreach ($detile as $d) {
-                    $d->delete();
-                }
+				if($pengeluaran->delete()){
+					$data = [
+						'message'=> 'Sukses Menghapus Pengeluaran',
+					];
 
-                if($beli_bahan->delete()){
-                    $data = [
-                    'message'=>'Berhasil Menghapus Data Pengeluaran'
-                    ];
+					return json_encode($data);
+				}else{
+					if($pengeluaran->delete()){
+						$data = [
+							'message'=>'Sukses menghapus pengeluaran'
+						];
+						return json_encode($data);
+					}
+				}
+			}
+        }
+    }
 
-                    return json_encode($data);
-                }
+	public function list_satuan(Request $request)
+    {
+        if($request->ajax())
+        {
+            $harga_bahan = new HargaBahan();
+            $nama = $request->input('term');
+            $data = $harga_bahan->getAllSatuanByName($nama);
 
-            }else{
-                if($beli_bahan->delete()){
-                    $data = [
-                    'message'=>'Berhasil Menghapus Data Pengeluaran'
-                    ];
+            $hasil = array();
 
-                    return json_encode($data);
-                }
+            foreach ($data as $i ) {
+                array_push($hasil, $i);
             }
+
+            echo json_encode($hasil);
         }
     }
 
@@ -329,10 +370,10 @@ class TransaksiController extends Controller
 
     public function view_pengeluaran($id)
     {
-        $beli_bahan = BeliBahan::find($id);
-        $data = $beli_bahan->detile;
+        $pengeluaran = Pengeluaran::find($id);
+        $data = $pengeluaran->detile;
 
-        return view()->make('transaksi.pengeluaran.view', ['data'=>$data, 'beli_bahan'=>$beli_bahan])->render();
+        return view()->make('transaksi.pengeluaran.view', ['data'=>$data, 'pengeluaran'=>$pengeluaran])->render();
     }
 
     public function responseAsView($page, $data=[])

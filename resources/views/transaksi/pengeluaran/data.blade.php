@@ -21,7 +21,10 @@
 					<td align="center" style="vertical-align: middle;">{{date('d/m/Y', strtotime($pengeluaran->tanggal))}}</td>
 					
 					<td width="30%" align="center">{{$pengeluaran->keterangan}}</td>
-					<td align="center"><a value="{{$pengeluaran->id}}"  class="btn btn-danger btn-circle btn_pengeluaran_hapus"><i class="fa fa-close"></i></a> <a href="{{url('pengeluaran/view').'/'.$pengeluaran->id}}" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#modalPengeluaran" title="Lihat Detile Pengeluaran"><i class="fa fa-search" ></i></a></td>
+					<td align="center">
+						<a href="{{url('pengeluaran/view').'/'.$pengeluaran->id}}" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#modalPengeluaran" title="Lihat Detile Pengeluaran"><i class="fa fa-search" ></i></a> 
+						<a id="{{$pengeluaran->id}}"  class="btn btn-danger btn-circle btn_pengeluaran_hapus"><i class="fa fa-close"></i></a> 
+					</td>
 				</tr>
 				<?php $i++; ?>
 			@empty
@@ -31,4 +34,5 @@
 			@endforelse
 		</tbody>
 	</table>
+	<div style="padding-top: 0; margin-top: 0;text-align: center;">{{ $data->links() }}</div>
 </div>

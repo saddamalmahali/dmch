@@ -13,6 +13,8 @@ class Satuan extends Model
         'nama', 'alias', 'keterangan',
     ];
 
-
+    static function getSatuanByAlias($name){
+        return self::where('alias', '=', $name)->first();
+    }
     
 }

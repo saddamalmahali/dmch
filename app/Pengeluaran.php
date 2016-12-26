@@ -13,4 +13,9 @@ class Pengeluaran extends Model
     {
         return $this->hasOne('App\DataToko', 'id', 'id_toko');
     }
+
+    public function detile()
+    {
+        return $this->hasMany('App\PengeluaranDetile', 'id_pengeluaran','id');
+    }
 }

@@ -14,4 +14,8 @@ class Barang extends Model
     protected $fillable = [
         'nama', 'jenis', 'keterangan',
     ];
+
+    static function getBarangByName($name){
+        return self::where('nama', '=', $name)->first();
+    }
 }

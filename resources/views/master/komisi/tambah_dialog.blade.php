@@ -20,7 +20,7 @@
         </select>
 	</div>
 	<div class="form-group">
-		<label>Jenis</label>
+		<label>Satuan</label>
 		<select class="form-control" name="id_satuan" >
 			@forelse ($list_satuan as $satuan)
                 <option value="{{$satuan->id}}">{{$satuan->nama.' ('.$satuan->alias.')'}}</option>

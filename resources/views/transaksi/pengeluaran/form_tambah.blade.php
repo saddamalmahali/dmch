@@ -25,7 +25,7 @@
 					</div>
 					<div class="form-group">
 						<label>No. Nota</label>
-						<input type="text" id="input_kode_pengeluaran" name="kode_beli" placeholder="Input Kode Bahan" class="form-control">
+						<input type="text" id="input_kode_pengeluaran" name="kode" placeholder="Input Kode Bahan" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Jenis Pengeluaran</label>
@@ -46,7 +46,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Tanggal</label>
-						<input type="date" id="input_tanggal_pengeluaran" name="tanggal_beli" class="form-control" placeholder="Cari Bahan">
+						<input type="date" id="input_tanggal_pengeluaran" name="tanggal" class="form-control" placeholder="Cari Bahan">
 					</div>
 					<div class="form-group">
 						<label>Keterangan</label>
@@ -122,12 +122,12 @@
 		$(document).on('click', 'a#tambah_detile_bahan', function(e){
 
 			dynamic_form.append(
-					"<tr id='detile_beli_"+i+"'>"+
-						"<td><input type='text' class='form-control' id='input_id_barang_"+i+"' name='detile_beli["+i+"][id_barang]'></td>"+
-						"<td><input type='number' class='form-control' name='detile_beli["+i+"][besaran]'></td>"+
-						"<td><input type='text' class='form-control' id='input_id_satuan_"+i+"'  name='detile_beli["+i+"][id_satuan]'></td>"+
-						"<td><input type='number' class='form-control' name='detile_beli["+i+"][harga]'></td>"+
-						"<td><a id="+i+" class='btn btn-danger btn-circle btn_detile_beli_remove' ><i class='fa fa-close'></i></a></td>"+
+					"<tr id='detile_pengeluaran_"+i+"'>"+
+						"<td><input type='text' class='form-control' id='input_id_barang_"+i+"' name='detile_pengeluaran["+i+"][id_barang]'></td>"+
+						"<td><input type='number' class='form-control' name='detile_pengeluaran["+i+"][besaran]'></td>"+
+						"<td><input type='text' class='form-control' id='input_id_satuan_"+i+"'  name='detile_pengeluaran["+i+"][id_satuan]'></td>"+
+						"<td><input type='number' class='form-control' name='detile_pengeluaran["+i+"][harga]'></td>"+
+						"<td><a id="+i+" class='btn btn-danger btn-circle btn_detile_pengeluaran_remove' ><i class='fa fa-close'></i></a></td>"+
 						
 					"</tr>"
 					);
@@ -160,7 +160,7 @@
 				select : function(evt, ui){
 					console.log(evt);
 					
-					$("#input_id_barang_"+i+"").attr('value', ui.item.id);
+					$("#input_id_barang_"+i+"").val(ui.item.id);
 					
 				}
 			});
@@ -168,7 +168,7 @@
 			$('#input_id_satuan_'+i).autocomplete({
 				source : function(request, response){
 					$.ajax({
-						url : 'beli_bahan/list_satuan',
+						url : 'pengeluaran/list_satuan',
 						method : 'post',
 						datatype : 'jsonp',
 						data : {term : request.term},
@@ -193,21 +193,21 @@
 					});
 				},
 				select : function(evt, ui){
-					$('#input_id_satuan_'+i+'').attr('value', ui.item.id);
+					$('#input_id_satuan_'+i+'').val(ui.item.id);
 
 					console.log(ui.item.id);
 				}
 			});
 
-			$( "#input_id_barang_"+i+"" ).autocomplete( "option", "appendTo", "#form_beli_bahan" );
-			$( "#input_id_satuan_"+i+"" ).autocomplete( "option", "appendTo", "#form_beli_bahan" );
+			$( "#input_id_barang_"+i+"" ).autocomplete( "option", "appendTo", "#form_tambah_pengeluaran" );
+			$( "#input_id_satuan_"+i+"" ).autocomplete( "option", "appendTo", "#form_tambah_pengeluaran" );
 			i++;
 		});
 
-		$(document).on('click', '.btn_detile_beli_remove', function(e){
+		$(document).on('click', '.btn_detile_pengeluaran_remove', function(e){
 			e.preventDefault();
 			var row_id = $(this).attr('id');
-			$('#detile_beli_'+row_id+'').remove();
+			$('#detile_pengeluaran_'+row_id+'').remove();
 		});
 
 		

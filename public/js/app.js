@@ -725,10 +725,14 @@ $(function(){
 		var kode = $('input#input_kode_pengeluaran').val();
 		var id_jenis = $('select#input_id_jenis_pengeluaran').val();
 		
+		var detile_pengeluaran = $('form#form_tambah_pengeluaran').serializeArray();
 
+		
 		var file = document.getElementById('input_file_foto');
+		
 		var data_file = file.files[0];
 		var formData = new FormData();
+
 		formData.append("file_foto", data_file);
 
 		// var xhr = new XMLHttpRequest;
@@ -737,17 +741,21 @@ $(function(){
 		// jQuery.each(data_file, function(i, file) {
 		// 	formData.append('file['+i+']', file);
 		// });
-
+		$.each(detile_pengeluaran, function(index, value){
+			
+			formData.append(value.name, value.value);
+		});
+		// console.log(formData.get('data'));
 		var tanggal = $('input#input_tanggal_pengeluaran').val();
 		var keterangan = $('textarea#input_keterangan_pengeluaran').val();
 		var jenis_pembayaran =$('input[name=jenis_pembayaran]:checked').val();
 
-		formData.append('id_toko',id_toko);
-		formData.append('id_jenis',id_jenis);
-		formData.append('jenis_pembayaran',jenis_pembayaran);
-		formData.append('kode',kode);
-		formData.append('tanggal',tanggal);
-		formData.append('keterangan',keterangan);
+		// formData.append('id_toko',id_toko);
+		// formData.append('id_jenis',id_jenis);
+		// formData.append('jenis_pembayaran',jenis_pembayaran);
+		// formData.append('kode',kode);
+		// formData.append('tanggal',tanggal);
+		// formData.append('keterangan',keterangan);
 
 		$.ajax({
 			url: 'pengeluaran/tambah',
@@ -756,10 +764,11 @@ $(function(){
 			contentType: false,
 			processData: false,
 			type: 'POST',
+			dataType : 'json',
 			success: function(data){
 				showMessageSuccess(data);
 				initTablePengeluaran();
-
+				
 				$('.modal').modal('hide');
 			}
 		});
@@ -771,18 +780,18 @@ $(function(){
 		initTablePengeluaran();
 	});
 
-	$(document).on('click', 'a.btn_beli_bahan_hapus', function(e){
+	$(document).on('click', 'a.btn_pengeluaran_hapus', function(e){
 		e.preventDefault();
 		if(confirm('Apakah Yakin Akan Menghapus Data?')){
-			var id_beli = $(this).attr('value');
+			var id_beli = $(this).attr('id');
 			$.ajax({
-				url : 'beli_bahan/hapus',
+				url : 'pengeluaran/hapus',
 				type : 'post',
 				data : {id : id_beli},
 				dataType : 'json',
 				success : function(data){
 					showMessageSuccess(data);
-					initTableBeliBahan();
+					initTablePengeluaran();
 				}
 			});
 		}

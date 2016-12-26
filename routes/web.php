@@ -169,7 +169,7 @@ Route::post('penjualan/generate_nomor', 'TransaksiController@penjualan_generate_
 Route::get('pengeluaran', 'TransaksiController@index_pengeluaran');
 Route::get('pengeluaran/tambah_dialog', 'TransaksiController@tambah_dialog_pengeluaran');
 Route::post('pengeluaran/get_data', 'TransaksiController@list_pengeluaran');
-Route::post('pengeluaran/list_satuan', 'TransaksiController@list_satuan_2');
+Route::post('pengeluaran/list_satuan', 'DapurGudangController@list_satuan_2');
 Route::post('pengeluaran/tambah', 'TransaksiController@tambah_pengeluaran');
 
 Route::post('pengeluaran/hapus', 'TransaksiController@hapus_pengeluaran');

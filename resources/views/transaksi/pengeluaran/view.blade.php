@@ -5,7 +5,7 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
-    <h4 class="modal-title">Detile Pembelian : #{{$beli_bahan->kode_beli}}</h4>
+    <h4 class="modal-title">Detile Pengeluaran : #{{$pengeluaran->kode}}</h4>
 </div>
 <?php $jumlah =0; ?>
 <div class="modal-body">
@@ -20,17 +20,17 @@
     					<tr>
     						<td>Kode Pembelian</td>
     						<td>:</td>
-    						<td><span class="label label-primary">{{$beli_bahan->kode_beli}}</span></td>    						
+    						<td><span class="label label-primary">{{$pengeluaran->kode}}</span></td>    						
     					</tr>
     					<tr>
     						<td>Tanggal Pembelian</td>
     						<td>:</td>
-    						<td>{{date('d/m/Y', strtotime($beli_bahan->tanggal_beli))}}</td>    						
+    						<td>{{date('d/m/Y', strtotime($pengeluaran->tanggal))}}</td>    						
     					</tr>
     					<tr>
     						<td>Keterangan</td>
     						<td>:</td>
-    						<td>{{$beli_bahan->keterangan}}</td>    						
+    						<td>{{$pengeluaran->keterangan}}</td>    						
     					</tr>
     				</table>
     			</div>
@@ -61,11 +61,11 @@
 									<tr>
 										<td align="center">{{$i+1}}</td>
 										<td>{{$detile->barang->nama}}</td>
-										<td align="center">{{number_format($detile->besaran).' '.$detile->satuan->alias}}</td>
+										<td align="center">{{number_format($detile->kuantitas).' '.$detile->satuan->alias}}</td>
 										<td align="center">Rp. {{ number_format($detile->harga) }},-</td>
-										<td align="center">Rp. {{ number_format($detile->besaran*$detile->harga) }},-</td>
+										<td align="center">Rp. {{ number_format($detile->kuantitas*$detile->harga) }},-</td>
 									</tr>
-									<?php $i++; $jumlah = $jumlah+($detile->besaran*$detile->harga); ?>
+									<?php $i++; $jumlah = $jumlah+($detile->kuantitas*$detile->harga); ?>
 								@empty
 
 								@endforelse
