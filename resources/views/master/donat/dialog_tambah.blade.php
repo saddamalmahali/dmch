@@ -42,6 +42,8 @@
 							<thead>
 								<tr>
 									<th style="text-align: center;">Nama Barang</th>
+									<th style="text-align: center;">Kuantitas</th>
+									<th style="text-align: center;">Satuan</th>
 									<th style="text-align: center;">Opsi</th>
 								</tr>
 							</thead>
@@ -68,13 +70,87 @@
 		$(document).on('click', 'a#tambah_komposisi', function(e){
 			dynamic_form.append(
 					"<tr id='data_komposisi_"+i+"'>"+
-						"<td><select class='form-control' id='input_komposisi_"+i+"' name='list_komposisi["+i+"][id_bahan]'>@forelse($data_bahan as $bahan) <option value='{{$bahan->id}}'>{{$bahan->nama}}</option>@empty @endforelse</select></td>"+
+						"<td><input type='text' class='form-control' id='input_id_bahan_"+i+"' name='list_komposisi["+i+"][id_bahan]'></td>"+
+						"<td><input class='form-control' id='input_kuantitas_"+i+"' name='list_komposisi["+i+"][kuantitas]'></td>"+
+						"<td><input type='text' class='form-control' id='input_id_satuan_"+i+"'  name='list_komposisi["+i+"][id_satuan]'></td>"+
 						"<td align='center'><a class='btn btn-danger btn-circle btn_komposisi_remove' id='"+i+"'><i class='fa fa-close'></i></a></td>"+
 					"</tr>"
 				);
+			
+			$("#input_id_bahan_"+i+"").autocomplete({
+				source : function(request, response){
+					$.ajax({
+						url : 'dapur/list_bahan',
+						method : 'post',
+						datatype : 'jsonp',
+						data : {term : request.term},
+						success : function(data){
+							var parsed = JSON.parse(data);
+			                var newArray = new Array(parsed.length);
+			                var i = 0;
 
+			                parsed.forEach(function (entry) {
+			                    var newObject = {
+			                    	id : entry.id,
+			                        label: entry.nama
+			                    };
+			                    newArray[i] = newObject;
+			                    i++;
+			                });
+
+			                response(newArray);
+						},
+						
+					});
+				},
+				select : function(evt, ui){
+					console.log(evt);
+					
+					$("#input_id_bahan_"+i+"").val(ui.item.id);
+					
+				}
+			});
+
+			$('#input_id_satuan_'+i).autocomplete({
+				source : function(request, response){
+					$.ajax({
+						url : 'pengeluaran/list_satuan',
+						method : 'post',
+						datatype : 'jsonp',
+						data : {term : request.term},
+						success : function(data){
+							var parsed = JSON.parse(data);
+			                var newArray = new Array(parsed.length);
+			                var i = 0;
+
+			                parsed.forEach(function (entry) {
+			                    var newObject = {
+			                    	id : entry.id,
+			                        label: entry.alias
+			                    };
+			                    newArray[i] = newObject;
+			                    i++;
+			                });
+
+			                response(newArray);
+						}
+						
+
+					});
+				},
+				select : function(evt, ui){
+					$('#input_id_satuan_'+i+'').val(ui.item.id);
+
+					console.log(ui.item.id);
+				}
+			});
+
+			$( "#input_id_bahan_"+i+"" ).autocomplete( "option", "appendTo", "#form_tambah_donat" );
+			$( "#input_id_satuan_"+i+"" ).autocomplete( "option", "appendTo", "#form_tambah_donat" );
 			i++;
 		});
+
+		
 
 		$(document).on('click', '.btn_komposisi_remove', function(e){
 			e.preventDefault();

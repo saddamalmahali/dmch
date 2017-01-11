@@ -854,10 +854,11 @@ $(function(){
 			data : $(this).serialize(),
 			dataType : 'json',
 			success : function(data){
-				showMessageSuccess(data);
-				initTableDonat();
+				console.log(data);
+				// showMessageSuccess(data);
+				// initTableDonat();
 
-				$('.modal').modal('hide');
+				// $('.modal').modal('hide');
 			}
 		});
 	});
@@ -919,14 +920,28 @@ $(function(){
 			data : $(this).serialize(),
 			dataType : 'json',
 			success: function(data){
-				console.log(data);
+				showMessageSuccess(data);
+				initTabelOlah();
+
+				$('.modal').modal('hide');
 			}
 		});
 	});
 
 	$(document).on('click', 'a.btn_hapus_olah', function(e){
 		e.preventDefault();
-		console.log('Tombol Hapus di click : '+$(this).attr('id'));
+		if(confirm('Apakah Anda yakin akan menghapus data?')){
+			$.ajax({
+				url : 'olah/hapus',
+				type : 'post',
+				data : {id : $(this).attr('id')},
+				dataType : 'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTabelOlah();
+				}
+			});
+		}
 	});
 
 
@@ -942,6 +957,8 @@ $(function(){
 			}
 		});
 	}
+
+	
 
 	$(document).on('submit', 'form#form_filter_penjualan', function(e){
 		e.preventDefault();

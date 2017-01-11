@@ -16,5 +16,10 @@ class Satuan extends Model
     static function getSatuanByAlias($name){
         return self::where('alias', '=', $name)->first();
     }
+
+    public function konversi()
+    {
+        return $this->hasOne('App\KonversiSatuan', 'id_konversi', 'id');
+    } 
     
 }

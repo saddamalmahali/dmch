@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="col-md-8">
+	<div class="col-md-8 wrapper-content">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<h5>DATA HARGA BARANG</h5>

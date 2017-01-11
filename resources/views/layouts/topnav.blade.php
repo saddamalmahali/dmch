@@ -1,10 +1,9 @@
-<div id="page-wrapper" class="gray-bg dashbard-1">
-    <div class="row border-bottom">
+<div class="row border-bottom">
     <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
-    <div class="navbar-header">
-        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-        
-    </div>
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            
+        </div>
         <ul class="nav navbar-top-links navbar-right">
             
             <li class="pull-right">
@@ -21,25 +20,4 @@
         </ul>
 
     </nav>
-    </div>
-    
-    <div class="wrapper">
-        <div class="row">
-            @yield('content')
-        </div>    
-    </div>
-    
-
-    <div class="row">
-        <div class="col-lg-12">
-            
-            <div class="footer fixed">
-                
-                <div>
-                    <strong>Copyright</strong> Donat Madu Cihanjuang Garut &copy; {{date('Y')}}
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>

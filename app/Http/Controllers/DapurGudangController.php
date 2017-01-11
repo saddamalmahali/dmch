@@ -238,6 +238,30 @@ class DapurGudangController extends Controller
 			return $this->responseAsRender('dapur.olah.view_olah', ['olah'=>$olah, 'list_detile'=>$list_detile]);
 		}
 
+    public function hapus_olah(Request $request)
+    {
+        if($request->ajax())
+        {
+            $id_olah = $request->input('id');
+            $olah = Olah::find($id_olah);
+
+            if($olah->list_detile != null){
+                foreach ($olah->list_detile as $detile) {
+                    $detile->delete();
+                }
+
+                if($olah->delete()){
+                    $data = [
+                        'message'=>'Berhasil Menghapus Data Olah',
+                    ];
+                    return json_encode($data);
+                }
+            }
+
+            
+        }
+    }
+
 
 
     //end of menu olah

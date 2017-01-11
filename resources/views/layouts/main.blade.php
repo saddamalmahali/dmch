@@ -23,39 +23,51 @@
     <link href="{{URL::asset('css/plugins/iCheck/custom.css')}}" rel="stylesheet">
     
 
+    <link href="{{URL::asset('css/plugins/select2/select2.min.css')}}" rel="stylesheet">
+
     <link href="{{URL::asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/app.css')}}" rel="stylesheet">
 
+
     {{-- Script --}}
-    <script src="js/jquery-2.1.1.js"></script>
+    <script src="{{url('js/jquery-2.1.1.js')}}"></script>
     <!-- jQuery UI -->
-    <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="{{url('js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
     <!-- Flot -->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="js/plugins/flot/jquery.flot.spline.js"></script>
-    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
-    <script src="js/plugins/flot/jquery.flot.symbol.js"></script>
-    <script src="js/plugins/flot/jquery.flot.time.js"></script>
+    <script src="{{url('js/plugins/flot/jquery.flot.js')}}"></script>
+    <script src="{{url('js/plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
+    <script src="{{url('js/plugins/flot/jquery.flot.spline.js')}}"></script>
+    <script src="{{url('js/plugins/flot/jquery.flot.resize.js')}}"></script>
+    <script src="{{url('js/plugins/flot/jquery.flot.pie.js')}}"></script>
+    <script src="{{url('js/plugins/flot/jquery.flot.symbol.js')}}"></script>
+    <script src="{{url('js/plugins/flot/jquery.flot.time.js')}}"></script>
 
 
     <!-- Chartjs -->
-    <script src="js/plugins/chartJs/Chart.js"></script>
-    <script src="js/plugins/chartJs/Chart.bundle.min.js"></script>
+    <script src="{{url('js/plugins/chartJs/Chart.js')}}"></script>
+    <script src="{{url('js/plugins/chartJs/Chart.bundle.min.js')}}"></script>
 
-    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{{url('js/plugins/iCheck/icheck.min.js')}}"></script>
 
+    <script src="{{url('js/plugins/select2/select2.full.min.js')}}"></script>
+    <script src="{{url('js/plugins/footable/footable.all.min.js')}}"></script>
+    <script src="{{url('js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
     
 </head>
 
-<body class="fixed-sidebar pace-done fixed-nav fixed-nav-basic">
+<body class="pace-done fixed-nav fixed-nav-basic">
     <div id="wrapper">
         
         @include('layouts.navbar')
-        @include('layouts.topnav')
+        <div id="page-wrapper" class="gray-bg dashboard-1">
+            @include('layouts.topnav')
+            @yield('content')
+            @include('layouts.footer')
+        </div>
+
+        
         
         
         
@@ -64,43 +76,44 @@
 
     <!-- Mainly scripts -->
     
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+    <script src="{{url('js/bootstrap.min.js')}}"></script>
+    <script src="{{url('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
     
+
+
+    <script src="{{url('js/plugins/chosen/chosen.jquery.js')}}"></script>   
 
     
 
     <!-- Peity -->
-    <script src="js/plugins/peity/jquery.peity.min.js"></script>
-    <script src="js/demo/peity-demo.js"></script>
+    <script src="{{url('js/plugins/peity/jquery.peity.min.js')}}"></script>
+    <script src="{{url('js/demo/peity-demo.js')}}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="{{url('js/inspinia.js')}}"></script>
+    <script src="{{url('js/plugins/pace/pace.min.js')}}"></script>
 
     
 
     <!-- GITTER -->
-    <script src="js/plugins/gritter/jquery.gritter.min.js"></script>
+    <script src="{{url('js/plugins/gritter/jquery.gritter.min.js')}}"></script>
 
     <!-- Sparkline -->
-    <script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="{{url('js/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
 
     <!-- Sparkline demo data  -->
-    <script src="js/demo/sparkline-demo.js"></script>
+    <script src="{{url('js/demo/sparkline-demo.js')}}"></script>
 
     <!-- ChartJS-->
-    <script src="js/plugins/chartJs/Chart.min.js"></script>
+    <script src="{{url('js/plugins/chartJs/Chart.min.js')}}"></script>
 
     
     
 
     <!-- Toastr -->
-    <script src="js/plugins/toastr/toastr.min.js"></script>
+    <script src="{{url('js/plugins/toastr/toastr.min.js')}}"></script>
 
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="{{url('js/app.js')}}"></script>
     <script>
         $(document).ready(function() {
 

@@ -222,7 +222,7 @@ $(function(){
 										+"</select>"
 									+"</td>"+	
 									"<td>"+
-										"<select id='"+i+"' name='detile["+i+"][input_barang]' class='form-control input_barang_"+i+"' disabled>"+
+										"<select data-placeholder='Pilih Barang' id='input_barang_"+i+"' name='detile["+i+"][input_barang]' class='form-control input_barang_"+i+"' disabled>"+
 
 										"</select>"
 									+"</td>"+
@@ -245,6 +245,8 @@ $(function(){
 				loadDataInputBarang($(this));
 				
 			});
+
+			$("#input_barang_"+i+"").chosen({disable_search_threshold: 10});
 
 			$(document).on('change', ".input_barang_"+i+"", function(e){
 				// e.preventDefault();

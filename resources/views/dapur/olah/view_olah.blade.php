@@ -24,43 +24,82 @@
 
 <div class="modal-body">
   <div class="row">
-    <section class="panel panel-primary">
-      <div class="panel-body">
-        <div class="col-md-12">
-          <table class="table" style="padding:0; margin:0;">
-            <tr>
-              <td>Karyawan</td>
-              <td> : </td>
-              <td> {{$olah->karyawan->nama_depan.' '.$olah->karyawan->nama_belakang}} </td>
-            </tr>
-            <tr>
-              <td>Kode Proses</td>
-              <td> : </td>
-              <td> {{$olah->kode}} </td>
-            </tr>
-            <tr>
-              <td>Tanggal</td>
-              <td> : </td>
-              <td> {{date('d-m-Y', strtotime($olah->tanggal))}} </td>
-            </tr>
-            <tr>
-              <td>Keterangan </td>
-              <td> : </td>
-              <td> {{$olah->keterangan}} </td>
-            </tr>
-            <tr>
-              <td>Toko</td>
-              <td> : </td>
-              <td> {{$olah->toko->kode.' | '.$olah->toko->nama}} </td>
-            </tr>
+    <div class="col-md-5">
+      <section class="panel panel-primary">
+        <div class="panel-body">
+          <div class="col-md-12">
+            <table class="table table-hover" style="padding:0; margin:0;">
+              <tr>
+                <td>Karyawan</td>
+                <td> : </td>
+                <td> {{$olah->karyawan->nama_depan.' '.$olah->karyawan->nama_belakang}} </td>
+              </tr>
+              <tr>
+                <td>Kode Proses</td>
+                <td> : </td>
+                <td> {{$olah->kode}} </td>
+              </tr>
+              <tr>
+                <td>Tanggal</td>
+                <td> : </td>
+                <td> {{date('d-m-Y', strtotime($olah->tanggal))}} </td>
+              </tr>
+              <tr>
+                <td>Keterangan </td>
+                <td> : </td>
+                <td> {{$olah->keterangan}} </td>
+              </tr>
+              <tr>
+                <td>Toko</td>
+                <td> : </td>
+                <td> {{$olah->toko->kode.' | '.$olah->toko->nama}} </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-7">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Daftar Bahan Baku yang Keluar</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-hover">
+            
+            <tbody>
+              
+                <?php $i=0; ?>
+                @if($olah->list_detile != null)
+                    @foreach($olah->list_detile as $do)
+                        <tr class="bg-warning"><th colspan="3">{{$do->varian->jenis->nama.' ('.$do->varian->rasa.')'}}</th></tr>
+                        @if($do->varian->list_komposisi != null)
+
+                          @foreach($do->varian->list_komposisi as $komposisi)
+                              <tr>
+                                <td>{{$i+1}}</td>
+                                <td>{{$komposisi->bahan->nama}}</td>
+                                <td align="center">{{($komposisi->kuantitas * $do->jumlah)/$komposisi->satuan->konversi->nilai_konversi.' kg'}}</td>
+                              </tr>
+
+                              <?php $i++; ?>
+                          @endforeach
+                            
+                        @endif
+                        <tr><th colspan="3"></th></tr>
+                    @endforeach
+                @endif
+              
+            </tbody>
           </table>
         </div>
       </div>
-    </section>
+    </div>
+    
   </div>
   <div class="row">
-    <section class="panel">
-      <table class="table table-striped">
+    <section class="panel white-bg">
+      <table class="table table-hover">
         <thead class="bg-primary">
           <tr>
             <th style="text-align:center;">No</th>

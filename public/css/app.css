@@ -66,3 +66,27 @@
     box-shadow: 0em -2.6em 0em 0em rgba(55,60,56, 0.2), 1.8em -1.8em 0 0em rgba(55,60,56, 0.2), 2.5em 0em 0 0em rgba(55,60,56, 0.2), 1.75em 1.75em 0 0em rgba(55,60,56, 0.2), 0em 2.5em 0 0em rgba(55,60,56, 0.2), -1.8em 1.8em 0 0em rgba(55,60,56, 0.5), -2.6em 0em 0 0em rgba(55,60,56, 0.7), -1.8em -1.8em 0 0em #373c38;
   }
 }
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;   /* prevent horizontal scrollbar */
+    overflow-x: hidden; /* add padding to account for vertical scrollbar */
+    z-index:1000 !important;
+}
+
+.table-header{
+    background:#E0F7FF;border-top:2px solid #B3D7E5
+}
+
+.important-info{background:white;margin:0 0 1em 0;margin:0 0 1rem 0;margin-bottom:1px}
+.important-info>h4{font-size:2em;white-space:nowrap;background:white;padding:0.45em;padding:1rem}
+.important-info>h4>a>small,.important-info>h4>small{font-size:0.4em;display:block}
+.important-info>h4 a{display:block}
+.important-info .input-group.customer select{border-radius:2px 0 0 2px}
+
+.important-info{background:#E0F7FF;border-top:2px solid #B3D7E5}
+.important-info dl{margin-top:2em}
+.important-info .total-amount h2{margin-top:1em;margin-bottom:1em}
+.important-info.form{padding-top:1em;padding-bottom:1em}
+
+.invoice-details,.transactions-table,.invoice-summary,.payment-history,.invoice-history,.sales-return-history,.sales-return-other,.products-table,.credit-memo-details,.credit-memo-table,.credit-memo-summary{margin:0;padding-top:1em;padding-bottom:1em;background:white}

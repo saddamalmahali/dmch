@@ -16,7 +16,7 @@
                         <li class="divider"></li>
                         <li><a href="login.html">Logout</a></li>
                     </ul> --}}
-                    <a href="{{url('/')}}"><img alt="image" src="img/dmch-logo.png" draggable="false" style="max-width: 70%; padding-bottom: 0px;"></a>
+                    <a href="{{url('/')}}"><img alt="image" src="{{url('/img/dmch-logo.png')}}" draggable="false" style="max-width: 70%; padding-bottom: 0px;"></a>
                     {{-- <span >
                         <div class="dmch-logo">
                             
@@ -69,6 +69,10 @@
                 </ul>
             </li>
             <li>
+                <a href="{{url('/kas_bank/index')}}" class="{{url()->full() == url('/kas_bank/index') ? 'active' : ''}}"><i class="fa fa-money"></i> <span class="nav-label">Kas & Bank</span></a>
+                
+            </li>
+            <li>
                 <a href="#"><i class="fa fa-retweet"></i> <span class="nav-label">Transaksi</span><span class="fa arrow"></span></a>
                 
                 <ul class="nav nav-second-level collapse">
@@ -92,6 +96,7 @@
                 
                 
             </li>
+           
         </ul>
 
     </div>

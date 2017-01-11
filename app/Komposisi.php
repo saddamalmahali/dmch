@@ -16,4 +16,9 @@ class Komposisi extends Model
     {
         return $this->hasOne('App\Barang', 'id', 'id_bahan');
     }
+
+    public function satuan()
+    {
+        return $this->hasOne('App\Satuan', 'id', 'id_satuan');
+    }
 }

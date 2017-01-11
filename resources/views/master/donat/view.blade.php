@@ -32,18 +32,20 @@
     			<div class="panel panel-warning">
     				<table class="table table-border">
 	    				<tr>
-	    					<td colspan="2" align="center"><b>Komposisi</b></td>
+	    					<td colspan="3" align="center"><b>Komposisi</b></td>
 	    				</tr>
 	    				<?php $i=0; ?>
 	    				@forelse($data_komposisi as $komposisi)
 						<tr>
 							<td>{{$i+1}}</td>
 							<td>{{$komposisi->bahan->nama}}</td>
+							<td>{{number_format($komposisi->kuantitas).''.$komposisi->satuan->alias}}</td>
+
 						</tr>
 						<?php $i++; ?>
 	    				@empty
 						<tr>
-							<td colspan="2">Tidak Ada Komposisi</td>
+							<td colspan="3">Tidak Ada Komposisi</td>
 						</tr>
 	    				@endforelse
 	    			</table>

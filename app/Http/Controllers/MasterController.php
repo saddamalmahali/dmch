@@ -59,6 +59,8 @@ class MasterController extends Controller
     	}
     }
 
+
+
     public function tambahDialog()
     {
     	return view()->make('master.barang.dialog')->render();
@@ -511,6 +513,7 @@ class MasterController extends Controller
     {
         if($request->ajax())
         {
+            // return json_encode($request->all());
             $donat = new Varian();
             $donat->id_jenis = $request->input('id_jenis');
             $donat->kode = $request->input('kode');
@@ -523,8 +526,12 @@ class MasterController extends Controller
 
                     foreach($data as $k) {
                         $komposisi = new Komposisi();
+                        $barang= Barang::getBarangByName($k['id_bahan']);
+						$satuan = Satuan::getSatuanByAlias($k['id_satuan']);
                         $komposisi->id_varian = $donat->id;
-                        $komposisi->id_bahan = $k['id_bahan'];
+                        $komposisi->id_bahan = $barang->id;
+                        $komposisi->kuantitas = $k['kuantitas'];
+                        $komposisi->id_satuan = $satuan->id;
                         $komposisi->save();
                     }
 

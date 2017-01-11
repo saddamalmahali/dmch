@@ -150,6 +150,7 @@ Route::post('index_olah/generate_kode', 'DapurGudangController@generate_kode');
 Route::post('olah/tambah', 'DapurGudangController@tambah_olah');
 Route::get('index_olah/tambah_dialog', 'DapurGudangController@tambah_olah_dialog');
 Route::get('olah/lihat/{id}', 'DapurGudangController@lihat_olah');
+Route::post('olah/hapus', 'DapurGudangController@hapus_olah');
 
 
 /* =======================MODUL JUAL BELI=========================== */
@@ -184,3 +185,13 @@ Route::post('pengeluaran/get_data_harian', 'KeuanganController@get_data_harian')
 //Menu Pemasukan
 Route::get('index_pemasukan', 'KeuanganController@index_pemasukan');
 Route::post('pemasukan/get_data_harian', 'KeuanganController@get_data_pemasukan_harian');
+
+/* ================= MODUL AKUNTANSI ====================== */
+Route::get('index_akun', 'AkunController@index_akun');
+Route::get('akun/tambah', 'AkunController@tambah_akun');
+Route::post('akun/tambah', 'AkunController@save_akun');
+
+
+/* ==================== MENU KAS & BANK ================= */
+Route::get('/kas_bank/index', 'KasBankController@index_kas');
+Route::get('/kas_bank/terima', 'KasBankController@terima_kas');
