@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateTableKomposisi extends Migration
+class UpdateTableSatuan extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateTableKomposisi extends Migration
      */
     public function up()
     {
-        Schema::table('komposisi', function ($table) {
-            $table->double('kuantitas', 10, 2);
+        Schema::table('satuan', function ($table) {
+            $table->enum('jenis', ['umum', 'jenis_penjualan']);
             
         });
     }
@@ -26,9 +26,10 @@ class UpdateTableKomposisi extends Migration
      */
     public function down()
     {
-        Schema::table('komposisi', function ($table) {
-            $table->dropColumn('kuantitas');
+        Schema::table('satuan', function ($table) {
+            $table->dropColumn('jenis');
             
         });
+         
     }
 }

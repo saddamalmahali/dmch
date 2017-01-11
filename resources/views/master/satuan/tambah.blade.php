@@ -17,6 +17,14 @@
 		<label>Alias Satuan</label>
 		<input type="text" id="alias_satuan" name="alias" placeholder="Input Alias Satuan" class="form-control">
 	</div>
+	<div class="form-group">
+		<label>Alias Satuan</label>
+		<select name="jenis" id="input_satuan_jenis" class="form-control">
+			<option value="" selected disabled>Pilih Jenis Satuan</option>
+			<option value="umum">Umum</option>
+			<option value="unit_penjualan">Unit Penjualan</option>
+		</select>
+	</div>
 	
 	<div class="form-group">
 		<label>Keterangan</label>
