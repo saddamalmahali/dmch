@@ -203,6 +203,7 @@ class MasterController extends Controller
             $satuan->nama = $request->input('nama');
             $satuan->alias = $request->input('alias');
             $satuan->keterangan = $request->input('keterangan');
+            $satuan->jenis = $request->input('jenis');
 
             if($satuan->save()){
                 $data = [
@@ -227,6 +228,7 @@ class MasterController extends Controller
             $satuan = Satuan::find($request->input('id'));
             $satuan->nama = $request->input('nama');
             $satuan->alias = $request->input('alias');
+            $satuan->jenis = $request->input('jenis');
             $satuan->keterangan = $request->input('keterangan');
 
             if($satuan->save()){
@@ -609,7 +611,7 @@ class MasterController extends Controller
 
     public function tambah_harga_jual_dialog()
     {
-        $data_satuan = Satuan::where('jenis', '=', 'unit_penjualan')->get();
+        $data_satuan = Satuan::where('jenis', '=', 'jenis_penjualan')->get();
         return $this->responseAsRender('master.harga_jual.tambah_dialog', ['data_satuan'=>$data_satuan]);
     }
 

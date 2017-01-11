@@ -22,7 +22,7 @@
 		<select name="jenis" id="input_satuan_jenis" class="form-control">
 			<option value="" selected disabled>Pilih Jenis Satuan</option>
 			<option value="umum">Umum</option>
-			<option value="unit_penjualan">Unit Penjualan</option>
+			<option value="jenis_penjualan">Unit Penjualan</option>
 		</select>
 	</div>
 	

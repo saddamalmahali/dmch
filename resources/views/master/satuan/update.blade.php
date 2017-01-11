@@ -18,6 +18,14 @@
 		<label>Alias Satuan</label>
 		<input type="text" id="alias_satuan" name="alias" placeholder="Input Alias Satuan" class="form-control" value="{{$satuan->alias}}">
 	</div>
+	<div class="form-group">
+		<label>Alias Satuan</label>
+		<select name="jenis" id="input_satuan_jenis" class="form-control">
+			<option value="" selected disabled>Pilih Jenis Satuan</option>
+			<option value="umum" {{$satuan->jenis == 'umum' ? 'selected' : ''}}>Umum</option>
+			<option value="jenis_penjualan" {{$satuan->jenis == 'unit_penjualan' ? 'selected' : ''}}>Unit Penjualan</option>
+		</select>
+	</div>
 	
 	<div class="form-group">
 		<label>Keterangan</label>
