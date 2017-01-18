@@ -15,15 +15,12 @@ class CreatePengeluaranDetilesTable extends Migration
     {
         Schema::create('pengeluaran_detile', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_pengeluaran')->length(10)->unsigned();
-            $table->integer('id_barang')->length(10)->unsigned();
+            $table->integer('id_pengeluaran')->length(10);
+            $table->integer('id_barang')->length(10);
             $table->double('kuantitas', 10, 2);
-            $table->integer('id_satuan')->length(10)->unsigned();
+            $table->integer('id_satuan')->length(10);
             $table->double('harga', 10, 2);
 
-            $table->foreign('id_pengeluaran')->references('id')->on('pengeluaran');
-            $table->foreign('id_barang')->references('id')->on('barang');
-            $table->foreign('id_satuan')->references('id')->on('satuan');
         });
     }
 

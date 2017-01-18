@@ -17,11 +17,9 @@ class PemasukanDatabase extends Migration
             Schema::create('daftar_harga_penjualan', function (Blueprint $table) {
                 $table->increments('id');
                 $table->enum('jenis', ['pokok', 'umum']);
-                $table->integer('id_jenis')->length(10)->unsigned();
-                $table->integer('id_satuan')->length(10)->unsigned();
+                $table->integer('id_jenis')->length(10);
+                $table->integer('id_satuan')->length(10);
                 $table->double('harga', 8, 2);
-
-                $table->foreign('id_jenis')->references('id')->on('jenis_donat');
               
             });
         }
@@ -29,12 +27,11 @@ class PemasukanDatabase extends Migration
         if (! Schema::hasTable('penjualan')) {
             Schema::create('penjualan', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('id_toko')->length(10)->unsigned();
+                $table->integer('id_toko')->length(10);
                 $table->string('kode_penjualan', 50);                
                 $table->date('tanggal_penjualan');
                 $table->timestamps();
 
-                $table->foreign('id_toko')->references('id')->on('data_toko');
               
             });
         }

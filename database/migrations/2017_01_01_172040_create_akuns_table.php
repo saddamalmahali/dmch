@@ -15,7 +15,7 @@ class CreateAkunsTable extends Migration
     {
         Schema::create('akun', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_kategori')->length(10)->unsigned();
+            $table->integer('id_kategori')->length(10);
             $table->integer('header')->length(10)->nullable();
             $table->string('kode');
             $table->string('nama');
@@ -24,7 +24,6 @@ class CreateAkunsTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('id_kategori')->references('id')->on('kategori_akun');
         });
     }
 

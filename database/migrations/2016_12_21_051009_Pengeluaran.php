@@ -15,8 +15,8 @@ class Pengeluaran extends Migration
     {
         Schema::create('pengeluaran', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_toko')->length(10)->unsigned();
-            $table->integer('id_jenis')->length(10)->unsigned();
+            $table->integer('id_toko');
+            $table->integer('id_jenis');
             $table->enum('jenis_pembayaran', ['tunai', 'bank']);
             $table->string('kode')->length(20);
             $table->date('tanggal');
@@ -24,8 +24,6 @@ class Pengeluaran extends Migration
             $table->text('keterangan')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_toko')->references('id')->on('data_toko');
-            $table->foreign('id_jenis')->references('id')->on('jenis_pengeluaran');
         });
     }
 

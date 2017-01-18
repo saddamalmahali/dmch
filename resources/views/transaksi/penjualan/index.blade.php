@@ -80,6 +80,11 @@
 			
 		}
 	});
+	$(document).on('click', '.btn-penjualan-print', function(e){
+		e.preventDefault();
+		var id = $(this).attr('id');
+		console.log('Button Print di Klik : '+id);
+	});
 </script>
 
 @endsection

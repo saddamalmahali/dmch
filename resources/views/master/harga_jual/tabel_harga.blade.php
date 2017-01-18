@@ -17,7 +17,10 @@
 				<td align="center">{{$harga_jual->data_jenis->nama}}</td>
 				<td align="center">{{$harga_jual->satuan->nama.' ('.$harga_jual->satuan->alias.')'}}</td>
 				<td align="center">Rp. {{number_format($harga_jual->harga)}},-</td>
-				<td align="center"><a class="btn btn-primary btn-circle" href="{{url('harga_jual/edit_dialog').'/'.$harga_jual->id}}" data-toggle="modal" data-target="#modalHargaJual"><i class="fa fa-pencil"></i></a> <a class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></a></td>
+				<td align="center">
+					<a class="btn btn-primary btn-circle" href="{{url('harga_jual/edit_dialog').'/'.$harga_jual->id}}" data-toggle="modal" data-target="#modalHargaJual"><i class="fa fa-pencil"></i></a> 
+					<a class="btn btn-danger btn-circle btn-hapus-harga-jual" id="{{$harga_jual->id}}"><i class="fa fa-trash"></i></a>
+				</td>
 			</tr>
 			<?php $i++ ?>
 			@empty

@@ -52,16 +52,24 @@
 	$(document).ready(function(){
 
 		var selectJenisBarang = $('select#input_jenis_harga_jual');
+		var selectSatuan = $('select#input_satuan_harga_jual');
 		var resetJenisBarang = function(){
-			$('#input_jenis_harga_jual').find('option').remove();
+			selectJenisBarang.find('option').remove();
 			selectJenisBarang.attr('disabled', true);
 
 		};
 
+		var resetSatuan = function(){
+			selectSatuan.find('option').remove();
+			selectSatuan.attr('disabled', true);
+		}
+
 		resetJenisBarang();
 		$('select#input_kategori_harga_jual').on('change', function(){
 			resetJenisBarang();
-			selectJenisBarang.append('<option>Loading...</option>')
+			resetSatuan();
+			selectJenisBarang.append('<option>Loading...</option>');
+			selectSatuan.append('<option>Loading...</option>');
 			$.ajax({
 				url : 'harga_jual/get_jenis',
 				type : 'post',
@@ -69,11 +77,19 @@
 				dataType : 'json',
 				success : function(data){
 					if(data != null){
-						console.log('data isi');
+						
 						resetJenisBarang();
 						selectJenisBarang.attr('disabled', false);
-						$.each(data, function(key, value){
+						selectSatuan.append('<option value="" disabled selected>Pilih Barang</option>');
+						$.each(data.jenis, function(key, value){
 							selectJenisBarang.append("<option value='"+value.id+"'>"+value.nama+"</option")
+						});
+
+						resetSatuan();
+						selectSatuan.attr('disabled', false);
+						selectSatuan.append('<option value="" disabled selected>Pilih Satuan</option>');
+						$.each(data.satuan, function(key, value){
+							selectSatuan.append("<option value='"+value.id+"'>"+value.alias+"</option>")
 						});
 					}
 
@@ -83,5 +99,7 @@
 				}
 			});
 		});
+
+		
 	});
 </script>

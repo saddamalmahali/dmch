@@ -27,12 +27,11 @@ class TblBeliBahan extends Migration
         if (! Schema::hasTable('beli_bahan')) {
             Schema::create('beli_bahan', function(Blueprint $table){
                 $table->increments('id');
-                $table->integer('id_toko')->length(10)->unsigned();
+                $table->integer('id_toko')->length(10);
                 $table->string('kode_beli', 20);
                 $table->date('tanggal_beli');
                 $table->text('keterangan');
 
-                $table->foreign('id_toko')->references('id')->on('data_toko');
 
             });
         }
@@ -40,10 +39,10 @@ class TblBeliBahan extends Migration
         if (! Schema::hasTable('beli_bahan_detile')) {
             Schema::create('beli_bahan_detile', function(Blueprint $table){
                 $table->increments('id');
-                $table->integer('id_beli')->length(10)->unsigned();
-                $table->integer('id_barang')->length(10)->unsigned();
+                $table->integer('id_beli')->length(10);
+                $table->integer('id_barang')->length(10);
                 $table->double('besaran', 8, 2);
-                $table->integer('id_satuan')->length(10)->unsigned();
+                $table->integer('id_satuan')->length(10);
                 $table->double('harga', 8, 2);
             });
         }
@@ -52,12 +51,10 @@ class TblBeliBahan extends Migration
             Schema::create('harga_bahan', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('kode', 50);
-                $table->integer('id_barang')->length(10)->unique()->unsigned();
-                $table->integer('id_satuan')->length(10)->unsigned();
+                $table->integer('id_barang')->length(10)->unique();
+                $table->integer('id_satuan')->length(10);
                 $table->double('harga', 15, 2);
                 $table->text('keterangan');
-                $table->foreign('id_barang')->references('id')->on('barang');
-                $table->foreign('id_satuan')->references('id')->on('satuan');
               
             });
         }

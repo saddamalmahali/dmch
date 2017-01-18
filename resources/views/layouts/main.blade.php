@@ -22,6 +22,7 @@
 
     <link href="{{URL::asset('css/plugins/iCheck/custom.css')}}" rel="stylesheet">
     
+    <link href="{{URL::asset('css/plugins/chosen/chosen.css')}}" rel="stylesheet">
 
     <link href="{{URL::asset('css/plugins/select2/select2.min.css')}}" rel="stylesheet">
 

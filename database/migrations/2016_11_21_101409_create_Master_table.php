@@ -32,10 +32,8 @@ class CreateMasterTable extends Migration
                 $table->string('nama', 50);
                 $table->enum('jenis', ['pokok', 'pelengkap']);
                 $table->text('keterangan');
-                $table->integer('id_toko')->length(10)->unsigned();
+                $table->integer('id_toko')->length(10);
                 $table->timestamp('create_date');
-
-                $table->foreign('id_toko')->references('id')->on('data_toko');
 
             });
         }
@@ -46,10 +44,9 @@ class CreateMasterTable extends Migration
                 $table->string('kode', 11);
                 $table->string('nama', 20);
                 $table->integer('kapasitas');
-                $table->integer('id_toko')->length(10)->unsigned();;
+                $table->integer('id_toko');
                 $table->timestamp('create_date');
 
-                $table->foreign('id_toko')->references('id')->on('data_toko');
 
             });
         }
@@ -82,25 +79,21 @@ class CreateMasterTable extends Migration
         if (! Schema::hasTable('konversi_satuan')) {
             Schema::create('konversi_satuan', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('id_satuan')->length(10)->unsigned();;
+                $table->integer('id_satuan')->length(10);
                 $table->double('nilai_satuan', 15, 2);
-                $table->integer('id_konversi')->length(10)->unsigned();;
+                $table->integer('id_konversi')->length(10);
                 $table->double('nilai_konversi', 15,2);
 
-                $table->foreign('id_satuan')->references('id')->on('satuan');
-                $table->foreign('id_konversi')->references('id')->on('satuan');
             });
         }
 
         if (! Schema::hasTable('persediaan_barang')) {
             Schema::create('persediaan_barang', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('id_barang')->length(10)->unsigned();;
+                $table->integer('id_barang')->length(10);
                 $table->double('jumlah', 10, 2);
-                $table->integer('id_satuan')->length(10)->unsigned();;
+                $table->integer('id_satuan')->length(10);
 
-                $table->foreign('id_barang')->references('id')->on('barang');
-                $table->foreign('id_satuan')->references('id')->on('satuan');
             });
         }
     }
@@ -112,6 +105,12 @@ class CreateMasterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barangs');
+        Schema::dropIfExists('barang');
+        Schema::dropIfExists('data_toko');
+        Schema::dropIfExists('etalase');
+        Schema::dropIfExists('karyawan');
+        Schema::dropIfExists('satuan');
+        Schema::dropIfExists('konversi_satuan');
+        Schema::dropIfExists('persediaan_barang');
     }
 }

@@ -365,6 +365,7 @@ $(function(){
 		});
 	};
 
+
 	$(document).on('submit', 'form#form_tambah_harga_jual', function(e){
 		e.preventDefault();
 		// console.log('Submit Tambah Harga Jual');
@@ -396,6 +397,26 @@ $(function(){
 				$('.modal').modal('hide');
 			},
 		});
+	});
+	
+	$(document).on('click', '.btn-hapus-harga-jual', function(e){
+		e.preventDefault();
+		var id_harga_jual = $(this).attr('id');
+
+		if(confirm('Yakin ingin menghapus data?')){
+			$.ajax({
+				url: 'harga_jual/hapus',
+				type : 'post',
+				data : {id : id_harga_jual},
+				dataType:'json',
+				success : function(data){
+					showMessageSuccess(data);
+					initTabelHargaJual();
+					
+				}
+			});
+		}
+
 	});
 
 	//end menu harga jual
@@ -1012,6 +1033,8 @@ $(function(){
 			});
 		}
 	});
+
+
 
 
 

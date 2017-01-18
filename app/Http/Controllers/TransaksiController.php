@@ -64,12 +64,21 @@ class TransaksiController extends Controller
     		$jenis = $request->input('jenis');
     		$id_satuan = $request->input('id_satuan');
     		if($jenis == 'pokok'){
-    			$data = JenisDonat::all();
-
+    			$jenis = JenisDonat::all();
+				$satuan = Satuan::where('jenis', '=', 'unit_penjualan')->get(); 
+				$data = [
+					'data'=>$jenis,
+					'satuan'=>$satuan
+				];
     			return json_encode($data);
     		}else if($jenis == 'umum'){
-    			$data = new Barang();
-    			$data = $data->where('jenis', 'pelengkap')->get();
+    			$barang = new Barang();
+    			$barang = $barang->where('jenis', 'pelengkap')->get();
+				$satuan = Satuan::where('jenis', '=', 'umum')->get();
+				$data = [
+					'data'=>$barang,
+					'satuan'=>$satuan
+				];
     			return json_encode($data);
     		}else{
     			return json_encode('');
@@ -204,9 +213,7 @@ class TransaksiController extends Controller
 
 	//Menu Pengeluaran
 	public function index_pengeluaran(Request $request)
-    {
-
-		
+    {	
 				
 		$data_jenis = JenisPengeluaran::all();
 

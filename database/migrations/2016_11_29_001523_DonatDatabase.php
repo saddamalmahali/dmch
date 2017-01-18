@@ -26,24 +26,17 @@ class DonatDatabase extends Migration
             Schema::create('varian', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('kode')->length(20);
-                $table->integer('id_jenis')->length(10)->unsigned();
+                $table->integer('id_jenis')->length(10);
 
-                $table->string('rasa');
-
-                
-                $table->foreign('id_jenis')->references('id')->on('jenis_donat');
-              
+                $table->string('rasa');             
             });
         }
 
         if (! Schema::hasTable('komposisi')) {
             Schema::create('komposisi', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('id_varian')->length(10)->unsigned();
-                $table->integer('id_bahan')->length(10)->unsigned();
-
-                $table->foreign('id_varian')->references('id')->on('varian');
-                $table->foreign('id_bahan')->references('id')->on('barang');
+                $table->integer('id_varian')->length(10);
+                $table->integer('id_bahan')->length(10);
               
             });
         }
@@ -57,6 +50,8 @@ class DonatDatabase extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('harga_bahan');
+        Schema::dropIfExists('jenis_donat');
+        Schema::dropIfExists('varian');
+        Schema::dropIfExists('komposisi');
     }
 }

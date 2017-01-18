@@ -15,12 +15,11 @@ class TunjanganJabatan extends Migration
     {
         Schema::create('tunjangan_jabatan', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_jabatan')->length(10)->unsigned();
+            $table->integer('id_jabatan')->length(10);
             $table->string('nama');
             $table->double('jumlah', 10, 2);
             $table->text('keterangan')->nullable();
 
-            $table->foreign('id_jabatan')->references('id')->on('jabatan');
         });
     }
 

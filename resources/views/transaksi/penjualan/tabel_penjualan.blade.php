@@ -20,6 +20,7 @@
 				<td align="center" style="vertical-align: middle;">{{$penjualan->toko->alamat}}</td>
 				<td align="center" style="vertical-align: middle;">{{date('d/m/Y', strtotime($penjualan->tanggal_penjualan))}}</td>
 				<td align="center" style="vertical-align: middle;">
+					<a class="btn btn-info btn-circle btn-penjualan-print" title="Cetak" id="{{$penjualan->id}}" href="{{url('penjualan/print')}}"><i class="fa fa-print"></i></a>					
 					<a class="btn btn-primary btn-circle" title="Lihat Transaksi" data-toggle="modal" data-target="#modalPenjualan" href="{{url('penjualan/lihat').'/'.$penjualan->id}}"><i class="fa fa-search"></i></a>					
 					<a class="btn btn-danger btn-circle btn_penjualan_hapus" title="Hapus Data" id="{{$penjualan->id}}" ><i class="fa fa-trash"></i></a> 
 				</td>

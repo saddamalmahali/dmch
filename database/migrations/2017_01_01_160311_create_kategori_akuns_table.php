@@ -29,6 +29,6 @@ class CreateKategoriAkunsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kategori_akuns');
+        Schema::dropIfExists('kategori_akun');
     }
 }

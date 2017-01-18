@@ -13,7 +13,7 @@ class UpdateTableSatuan extends Migration
      */
     public function up()
     {
-        Schema::table('satuan', function ($table) {
+        Schema::table('satuan', function (Blueprint $table) {
             $table->enum('jenis', ['umum', 'jenis_penjualan']);
             
         });
@@ -26,9 +26,8 @@ class UpdateTableSatuan extends Migration
      */
     public function down()
     {
-        Schema::table('satuan', function ($table) {
+        Schema::table('satuan', function (Blueprint $table) {
             $table->dropColumn('jenis');
-            
         });
          
     }

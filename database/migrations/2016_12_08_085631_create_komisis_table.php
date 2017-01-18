@@ -15,13 +15,11 @@ class CreateKomisisTable extends Migration
     {
         Schema::create('komisi', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_jenis')->length(10)->unsigned();
-            $table->integer('id_satuan')->length(10)->unsigned();
+            $table->integer('id_jenis')->length(10);
+            $table->integer('id_satuan')->length(10);
             $table->double('komisi', 10, 2);
             $table->text('keterangan')->nullable();
 
-            $table->foreign('id_jenis')->references('id')->on('jenis_donat');
-            $table->foreign('id_satuan')->references('id')->on('satuan');
 
         });
     }

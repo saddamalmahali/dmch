@@ -623,15 +623,24 @@ class MasterController extends Controller
 
             if($kategori == 'pokok')
             {
-                $data = JenisDonat::all();
-
+                $satuan = Satuan::where('jenis','=','unit_penjualan')->get();
+                $jenis = JenisDonat::all();
+                $data = [
+                    'satuan'=>$satuan,
+                    'jenis'=>$jenis
+                ];
                 return json_encode($data);
             }
             else if($kategori == 'umum')
             {
                 $barang = new Barang();
+                $satuan = Satuan::where('jenis','=','umum')->get();
                 $barang = $barang->where('jenis', '=', 'pelengkap')->get();
-                return json_encode($barang);
+                $data = [
+                    'satuan'=>$satuan,
+                    'jenis'=>$barang
+                ];
+                return json_encode($data);
             }
         }
     }
@@ -684,6 +693,20 @@ class MasterController extends Controller
             $data_jenis = Barang::all();
         }
         return $this->responseAsRender('master.harga_jual.update_dialog', ['harga_jual'=> $harga_jual, 'data_satuan'=>$data_satuan, 'data_jenis'=>$data_jenis]);
+    }
+
+    public function hapus_harga_jual(Request $request)
+    {
+        $id = $request->input('id');
+        $harga_jual = DaftarHargaPenjualan::find($id);
+        if($harga_jual->delete()){
+            $data = [
+                'message'=>'Berhasil Menghapus Harga Jual'
+            ];
+
+            return json_encode($data);
+        }
+
     }
 
     //end of menu Harga Jual

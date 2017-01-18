@@ -91,6 +91,7 @@ Route::post('harga_jual/get_jenis', 'MasterController@harga_jual_get_jenis');
 Route::post('harga_jual/tambah', 'MasterController@tambah_harga_jual');
 Route::get('harga_jual/edit_dialog/{id}', 'MasterController@update_harga_jual_dialog');
 Route::post('harga_jual/update', 'MasterController@update_harga_jual');
+Route::post('harga_jual/hapus', 'MasterController@hapus_harga_jual');
 
 
 //Menu Komisi

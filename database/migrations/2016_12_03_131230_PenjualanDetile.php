@@ -16,24 +16,16 @@ class PenjualanDetile extends Migration
         if (! Schema::hasTable('penjualan_detile')) {
             Schema::create('penjualan_detile', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('id_penjualan')->length(10)->unsigned();
-                $table->integer('id_barang')->length(10)->unsigned();
+                $table->integer('id_penjualan')->length(10);
+                $table->integer('id_barang')->length(10);
                 $table->integer('banyak');
-                $table->integer('id_satuan')->length(10)->unsigned();
+                $table->integer('id_satuan')->length(10);
                 $table->double('jumlah', 10, 2);
                 $table->text('keterangan');
 
               
             });
 
-            Schema::table('penjualan_detile', function($table){
-               $table->foreign('id_penjualan')->references('id')->on('penjualan');
-            });
-
-
-            Schema::table('penjualan_detile', function($table){
-               $table->foreign('id_satuan')->references('id')->on('satuan');
-            });
         }
     }
 

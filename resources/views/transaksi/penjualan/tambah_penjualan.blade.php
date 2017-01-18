@@ -56,7 +56,6 @@
 
 					</div>
 					<div class="panel-body">
-						<div class="table-responsive">
 							<table class="table table-primary" id="form_dynamic">
 								<thead>
 									<tr>
@@ -71,7 +70,6 @@
 									
 								</tbody>
 							</table>	
-						</div>
 						
 					</div>
 				</div>
@@ -96,7 +94,12 @@ $(function(){
 
 	var clearSelect = function(obj){
 		obj.find('option').remove();
-		obj.append('<option value="">Pilih Barang</option>');
+		obj.append('<option value="" disabled selected>Pilih Barang</option>');
+	}
+
+	var clearSatuan = function(obj){
+		obj.find('option').remove();
+		obj.append('<option value="" disabled selected>Pilih Satuan</option>');
 	}
 
 	var resetInputSatuan = function(obj){
@@ -121,26 +124,38 @@ $(function(){
 		jenis_pilih = obj.val();
 		var id_jenis = obj.attr('id');
 		clearSelect(objBarang);
+		clearSatuan(inputSatuan);
+		
 		objBarang.append('<option>Loading...</option>');
-		console.log(obj.val());
+		console.log('Data Object :'+obj.val());
 		$.ajax({
 			url :"penjualan/get_data_barang",
 			type : 'post',
 			data : {jenis : obj.val()},
 			dataType : 'json',
-			success : function(data){
-				if(data != ''){
+			success : function(data_hasil){
+				if(data_hasil != ''){
 					clearSelect(objBarang);
-					objBarang.attr('disabled', false);
+					clearSatuan(inputSatuan);
 
-					for(var i in data){
-						objBarang.append('<option value="'+data[i].id+'">'+data[i].nama+'</option>')
-					}
+					var data = data_hasil.data;
+					objBarang.attr('disabled', false);
+					$.each(data, function(index, value){
+						objBarang.append('<option value="'+value.id+'">'+value.nama+'</option>');
+					});
+					
+					var satuan = data_hasil.satuan;
+
+					$.each(satuan, function(index, value){
+						inputSatuan.append('<option value="'+value.id+'">'+value.alias+'</option>');
+					});
+
+					objBarang.trigger("chosen:updated");
 				}else{
 					clearSelect(objBarang);
 					objBarang.find('option').remove();
 					objBarang.append('<option value="">Tidak Ada Data</option>');
-					objBarang.attr('disabled', true);
+					//objBarang.attr('disabled', true);
 					resetInputSatuan(inputSatuan);
 					resetInputBanyak(inputBanyak);
 					inputJumlah.val('');
@@ -148,7 +163,8 @@ $(function(){
 				
 
 			}
-		})
+		});
+		
 	};
 
 	var actionChangeBarang = function(obj){
@@ -163,7 +179,7 @@ $(function(){
 		inputBanyak.attr('disabled', false);
 		// console.log(obj.val());
 		if(obj.val() != ''){
-			console.log('disabled false');
+			//console.log('disabled false');
 			inputSatuan.attr('disabled', false);
 
 			inputSatuan.change(function(evt){
@@ -182,7 +198,6 @@ $(function(){
 						data : {jenis_id : jenis_pilih, id_barang : obj.val(), id_satuan : nilai_satuan },
 						dataType : 'json',
 						success : function(data){
-							console.log(data);
 							if(data!=null){
 								var harga = nilai*data.harga;
 
@@ -211,23 +226,24 @@ $(function(){
 
 		$('.btn-tambah-detile').click(function(event){
 			event.preventDefault();
-
+			
 			form_detile.append(
 								"<tr>"+
 									"<td>"+
-										"<select name='detile["+i+"][jenis]' id='"+i+"' class='form-control input_jenis_"+i+"'>"+
+										"<select name='detile["+i+"][jenis]' id='"+i+"' class='form-control input_jenis_"+i+" chosen-select' style='width:350px;' tabindex='2'>"+
 										"<option value=''>Pilih</option>"+
 										"<option value='pokok'>Pokok</option>"+
 										"<option value='umum'>Umum</option>"
 										+"</select>"
 									+"</td>"+	
 									"<td>"+
-										"<select data-placeholder='Pilih Barang' id='input_barang_"+i+"' name='detile["+i+"][input_barang]' class='form-control input_barang_"+i+"' disabled>"+
+										"<select data-placeholder='Pilih Barang' id='"+i+"' name='detile["+i+"][input_barang]' class='form-control input_barang_"+i+" chosen-select' style='width:350px;' tabindex='2' >"+
 
 										"</select>"
 									+"</td>"+
 									"<td>"+
 									"<select name='detile["+i+"][id_satuan]' id='"+i+"' class='form-control input_id_satuan_"+i+"' disabled >"+
+									"<option value='' disabled selected>Pilih Satuan</option>"+
 									@forelse($data_satuan as $satuan)
 									"<option value='{{$satuan->id}}'>{{$satuan->alias}}</option>"+
 									@empty
@@ -239,14 +255,15 @@ $(function(){
 									"<td><input type='number' class='form-control input_jumlah_"+i+"' name='detile["+i+"][jumlah]' readonly></input></td>"+	
 								"</tr>"
 							);
-			
+			$("select.input_barang_"+i+"").chosen({width : '100%'});
+			$("select.input_jenis_"+i+"").chosen({width : '100%'});
 			$(document).on('change','select.input_jenis_'+i, function(e){
 				// e.preventDefault();
 				loadDataInputBarang($(this));
 				
 			});
 
-			$("#input_barang_"+i+"").chosen({disable_search_threshold: 10});
+			
 
 			$(document).on('change', ".input_barang_"+i+"", function(e){
 				// e.preventDefault();
